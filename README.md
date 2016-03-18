@@ -1,2 +1,2 @@
-# Health Tracker
-Health tracker app
+# Nutrition Tracker
+A single page app that tracks the user's calorie intake.
