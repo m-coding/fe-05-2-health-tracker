@@ -1,7 +1,7 @@
 
 /*! style.css - Nutrition Tracker Stylesheet */
 
-/* START SCREEN
+/* START
 ----------------------------------*/
 #start-screen {
     text-align: center;
@@ -9,4 +9,17 @@
 
 #start-screen h1 {
     color: #b8dec0;
+}
+
+/* SEARCH
+----------------------------------*/
+
+#app {
+    display: none;
+}
+
+/* BOOTSTRAP
+----------------------------------*/
+.center-block {
+    float: none !important;
 }
