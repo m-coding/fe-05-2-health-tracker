@@ -1,5 +1,12 @@
 
 /*! style.css - Nutrition Tracker Stylesheet */
 
-/* FONT HEADING
+/* START SCREEN
 ----------------------------------*/
+#start-screen {
+    text-align: center;
+}
+
+#start-screen h1 {
+    color: #b8dec0;
+}
