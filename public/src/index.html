@@ -15,10 +15,12 @@
   <div class="container">
     <!-- Start -->
     <section id="start-screen" class="row">
+        <div class="col-md-4 center-block">
         <h1>Nutrition</h1>
         <img src="images/list.png" alt="list">
         <h1>Tracker</h1>
         <button type="button" class="btn btn-success">Start App</button>
+        </div>
     </section>
 
     <!-- App -->
@@ -32,11 +34,15 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="search">search panel</div>
+          <div role="tabpanel" class="tab-pane active" id="search">
+            search panel <br>
+            <input type="text" class="form-control" placeholder="What did you eat?">
+            <div id="search-results"></div>
+          </div>
           <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
         </div>
 
-      </div><!-- /col-md-6 -->
+      </div><!-- /col-md-4 -->
     </section>
 
 </div>
