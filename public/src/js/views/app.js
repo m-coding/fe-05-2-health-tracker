@@ -85,6 +85,7 @@ app.AppView = Backbone.View.extend({
         var i = 0;
         var length = results.length;
         var food = '';
+        var last = false;
 
         // Clear out old results
         this.$searchResults.html('');
@@ -99,6 +100,8 @@ app.AppView = Backbone.View.extend({
             servingSize = food.fields.nf_serving_size_qty;
             servingUnit = food.fields.nf_serving_size_unit;
 
+            if(i === length - 1) last = true;
+
             this.$searchResults.append(this.itemTemplate({
                 name: name,
                 calories: calories,
@@ -107,7 +110,7 @@ app.AppView = Backbone.View.extend({
                 protein: protein,
                 servingSize: servingSize,
                 servingUnit: servingUnit,
-                attribution: 'NUTRITIONIX'
+                last: last
             }));
         } // for
 

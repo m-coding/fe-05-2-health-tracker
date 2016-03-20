@@ -7,7 +7,8 @@ body {
 
 /* START
 ----------------------------------*/
-#start-screen {
+#start-screen,
+.logo {
     text-align: center;
 }
 

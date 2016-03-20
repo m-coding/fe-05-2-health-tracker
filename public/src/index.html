@@ -52,8 +52,13 @@
     <div class="item">
       <h4>{{name}}</h4>
       <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
-      <h6>Serving: {{servingSize}} {{servingUnit}} – {{attribution}}</h6>
+      <h6>Serving: {{servingSize}} {{servingUnit}}</h6>
     </div>
+    {{#if last}}
+    <div class="logo">
+      <a href="http://www.nutritionix.com/api" target="_blank"><img src="images/nutritionix.png" alt="Powered By Nutritionix"></a>
+    </div>
+    {{/if}}
   </script>
 
   <!-- scripts -->
