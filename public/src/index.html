@@ -35,8 +35,8 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="search">
-            search panel <br>
-            <input type="text" class="form-control" placeholder="What did you eat?">
+            <h3>Food Search</h3>
+            <input id="search-food" type="text" class="form-control" placeholder="What did you eat?">
             <div id="search-results"></div>
           </div>
           <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
@@ -45,7 +45,18 @@
       </div><!-- /col-md-4 -->
     </section>
 
-</div>
+</div><!-- /container -->
+
+  <!-- templates -->
+  <script type="text/x-handlebars-template" id="item-template">
+    <div class="item">
+      <h4>{{name}}</h4>
+      <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
+      <h6>Serving: {{servingSize}} {{servingUnit}} – {{attribution}}</h6>
+    </div>
+  </script>
+
+  <!-- scripts -->
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
   <!-- build:js js/lib/lib.min.js -->
   <script src="js/lib/bootstrap.min.js"></script>
