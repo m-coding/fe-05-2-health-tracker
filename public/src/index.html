@@ -35,9 +35,16 @@
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="search">
-            <h3>Food Search</h3>
-            <input id="search-food" type="text" class="form-control" placeholder="What did you eat?">
+            <div id="search-top">
+              <h3>Food Search</h3>
+              <input id="search-food" type="text" class="form-control" placeholder="What did you eat?">
+            </div>
             <div id="search-results"></div>
+            <div id="recipe-top">
+              <h3>Recipe Suggestions</h3>
+              <span id="recipe-close" class="glyphicon glyphicon-remove-circle"></span>
+            </div>
+            <div id="recipe-results"></div>
           </div>
           <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
         </div>
@@ -49,6 +56,11 @@
 
   <!-- templates -->
   <script type="text/x-handlebars-template" id="item-template">
+    {{#if first}}
+    <h4 id="recipe-open">
+      <span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Recipe Suggestions</span>
+    </h4>
+    {{/if}}
     <div class="item">
       <h4>{{name}}</h4>
       <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
@@ -57,6 +69,28 @@
     {{#if last}}
     <div class="logo">
       <a href="http://www.nutritionix.com/api" target="_blank"><img src="images/nutritionix.png" alt="Powered By Nutritionix"></a>
+    </div>
+    {{/if}}
+  </script>
+
+  <script type="text/x-handlebars-template" id="recipe-template">
+    <div class="recipe-item">
+      <h4>{{recipeTitle}}</h4>
+      <div class="r-container">
+        <div class="r-image">
+          <img class="thumb" src="{{recipeImage}}" alt="{{recipeTitle}}">
+        </div>
+        <div class="r-text">
+          <img class="icon" src="{{siteIcon}}" alt="{{siteTitle}}">
+          <a href="{{siteLink}}" target="_blank">{{siteTitle}}</a>
+          <h6>{{numCalories}} Calories Per Serving</h6>
+          <h6>{{numIngredients}} Ingredients</h6>
+        </div>
+      </div>
+    </div>
+    {{#if last}}
+    <div class="logo">
+      <a href="https://developer.edamam.com" target="_blank"><img src="images/edamam.png" alt="Powered By Edamam"></a>
     </div>
     {{/if}}
   </script>
