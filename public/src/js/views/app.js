@@ -20,6 +20,7 @@ app.AppView = Backbone.View.extend({
     },
 
     initialize: function() {
+        // Setup DOM references.
         this.startButton = this.$('.btn-success')[0];
         this.query = $('#search-food').val();
         this.$startScreen = this.$('#start-screen');
@@ -33,6 +34,11 @@ app.AppView = Backbone.View.extend({
         this.$nutritionTop = $('#nutrition-top');
         this.$nutritionMenu = $('#nutrition-button-menu');
         this.$nutritionResults = $('#nutrition-results');
+        this.gchart = null;
+        this.gformat = null;
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
     },
 
     render: function() {
@@ -46,12 +52,10 @@ app.AppView = Backbone.View.extend({
 
     showColumn: function() {
         this.$nutrition.removeClass('hideColumn');
-
     }, // showColumn
 
     hideColumn: function() {
         this.$nutrition.addClass('hideColumn');
-
     }, // hideColumn
 
     searchFood: function() {
@@ -292,8 +296,8 @@ app.AppView = Backbone.View.extend({
         })
         .done(function(data){
 
-            // Display calorie breakdown chart
-            this.displayChart();
+            // Display pie chart
+            this.displayChart(data);
 
             // Display nutrition label
             this.displayNutrition(data);
@@ -306,7 +310,36 @@ app.AppView = Backbone.View.extend({
         });
     }, // getNutrition
 
-    displayChart: function() {
+    displayChart: function(amt) {
+        var data = google.visualization.arrayToDataTable([
+                ['Nutrient', 'Amount'],
+                ['Fat', amt.nf_total_fat],
+                ['Carbs', amt.nf_total_carbohydrate],
+                ['Protein', amt.nf_protein]
+            ]);
+
+        var options = {
+            width: 280,
+            height: 140,
+            backgroundColor: '#b8dec0'
+        };
+
+        if(!this.gformat)
+            this.gformat = new google.visualization.NumberFormat({suffix: 'g'});
+
+        // Clear chart.
+        if(this.gchart) this.gchart.clearChart();
+
+        // Instantiate chart.
+        this.gchart = new google.visualization.PieChart(
+                document.getElementById('gchart')
+            );
+
+        // Apply formatter to second column.
+        this.gformat.format(data, 1);
+
+        // Draw chart.
+        this.gchart.draw(data, options);
 
     }, // displayChart
 

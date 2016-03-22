@@ -26,7 +26,6 @@ body {
 
 /* APP
 ----------------------------------*/
-
 .highlight h4 {
     font-weight: bold;
 }
@@ -178,9 +177,9 @@ body {
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-        -ms-flex-wrap: nowrap;
-            flex-wrap: nowrap;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;

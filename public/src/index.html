@@ -59,7 +59,7 @@
         <div id="nutrition-button-menu"></div>
         <div id="nutrition-results">
           <!-- Chart -->
-          <figure></figure>
+          <figure id="gchart"></figure>
           <!-- Nutrition label -->
           <figcaption></figcaption>
         </div><!-- /#nutrition-results -->
@@ -142,6 +142,7 @@
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- build:js js/lib/lib.min.js -->
   <script src="js/lib/bootstrap.min.js"></script>
   <script src="js/lib/underscore-min.js"></script>
@@ -149,7 +150,6 @@
   <script src="js/lib/backbone.localStorage-min.js"></script>
   <script src="js/lib/handlebars.min-latest.js"></script>
   <script src="js/lib/nutritionLabel-min.js"></script>
-  <script async defer src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- endbuild -->
   <!-- build:js js/app.min.js -->
   <script src="js/models/food.js"></script>
