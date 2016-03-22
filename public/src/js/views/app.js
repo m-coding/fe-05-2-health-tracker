@@ -29,6 +29,7 @@ app.AppView = Backbone.View.extend({
         this.$searchFood = $('#search-food');
         this.$recipeTop = $('#recipe-top');
         this.$recipeResults = $('#recipe-results');
+        this.$nutrition = $('#nutrition');
         this.$nutritionTop = $('#nutrition-top');
         this.$nutritionMenu = $('#nutrition-button-menu');
         this.$nutritionResults = $('#nutrition-results');
@@ -42,6 +43,16 @@ app.AppView = Backbone.View.extend({
         this.$startScreen.hide();
         this.$app.show();
     },
+
+    showColumn: function() {
+        this.$nutrition.removeClass('hideColumn');
+
+    }, // showColumn
+
+    hideColumn: function() {
+        this.$nutrition.addClass('hideColumn');
+
+    }, // hideColumn
 
     searchFood: function() {
         /**
@@ -228,9 +239,17 @@ app.AppView = Backbone.View.extend({
     }, // closeRecipes
 
     openNutrition: function(e) {
+        // Close if already open
+        this.closeNutrition();
+
         var elem = $(e.target);
         var id   = elem.data('item');
         elem.closest('.item').css('background-color', '#b8dec0').addClass('highlight');
+
+        // Show second column
+        this.showColumn();
+
+        // Display preload animation
 
         // Get nutrition data from item id
         this.getNutrition(id);
@@ -240,9 +259,20 @@ app.AppView = Backbone.View.extend({
     }, // openNutrition
 
     closeNutrition: function() {
+        // Remove highlight from selected item
         $('.highlight').removeAttr('style').removeClass('highlight');
-        this.$nutritionResults.html('');
-        // this.$nutritionResults.hide();
+
+        // Clear button menu
+        this.$nutritionMenu.html('');
+
+        // Clear chart
+        this.$nutritionResults.find('figure').html('');
+
+        // Clear nutrition label
+        this.$nutritionResults.find('figcaption').html('');
+
+        // Hide second column
+        this.hideColumn();
 
     }, // closeNutrition
 

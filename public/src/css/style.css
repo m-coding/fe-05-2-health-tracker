@@ -27,6 +27,15 @@ body {
 /* APP
 ----------------------------------*/
 
+.highlight h4 {
+    font-weight: bold;
+}
+
+.hideColumn {
+    visibility: hidden;
+    width: 0;
+}
+
 #app {
     display: none;
     margin-top: 14px;
@@ -68,14 +77,11 @@ body {
 }
 
 .item:hover {
-    /*background-color:#FFE000;*/
     background-color:#b8dec0;
 }
 
-.highlight h4 {
-    font-weight: bold;
-}
-
+/* recipe results
+----------------------------------*/
 .r-container {
     display:-webkit-flex;
     display:-ms-flexbox;
@@ -133,16 +139,14 @@ body {
     background-color: #5cb85c;
 }
 
-#recipe-close,
-#nutrition-close {
+#recipe-close {
     position: absolute;
     font-size: 32px;
     right: 7px;
     top: 0px;
 }
 
-#recipe-close:hover,
-#nutrition-close:hover {
+#recipe-close:hover {
     cursor: pointer;
     color: #d00;
 }
@@ -157,6 +161,8 @@ body {
     position: relative;
 }
 
+/* nutrition results
+----------------------------------*/
 #nutrition-top h3 {
     text-align: center;
 }
