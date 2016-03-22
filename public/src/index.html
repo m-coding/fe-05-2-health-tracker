@@ -9,6 +9,7 @@
   <!-- build:css css/styles.min.css -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/nutritionLabel.css" rel="stylesheet">
   <!-- endbuild -->
 </head>
 <body>
@@ -24,14 +25,13 @@
     </section>
 
     <!-- App -->
-    <section id="app" class="row">
-      <div class="col-md-4 center-block">
+    <section id="app" class="row row-centered no-gutter">
+      <div class="col-md-4 col-centered">
         <!-- Nav  tabs -->
         <ul id="app-tabs" class="nav nav-tabs">
           <li role="presentation" class="active"><a href="#search">Search</a></li>
           <li role="presentation"><a href="#tracker">Tracker</a></li>
         </ul>
-
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="search">
@@ -48,9 +48,21 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
         </div>
+      </div><!-- /col-md-4 -->
 
+      <!-- Nutrition info -->
+      <div id="nutrition" class="col-md-4 col-centered vtop">
+        <div id="nutrition-top">
+          <h3>Nutrition</h3>
+          <span id="nutrition-close" class="glyphicon glyphicon-remove-circle"></span>
+        </div>
+        <div id="nutrition-results">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
       </div><!-- /col-md-4 -->
     </section>
+
+    <section id="nutrition"
 
 </div><!-- /container -->
 
@@ -62,7 +74,7 @@
     </h4>
     {{/if}}
     <div class="item">
-      <h4>{{name}}</h4>
+      <h4><a class="item-nutrition" href="{{id}}" data-item="{{id}}">{{name}}</a></h4>
       <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
       <h6>Serving: {{servingSize}} {{servingUnit}}</h6>
     </div>
@@ -103,13 +115,14 @@
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone.localStorage-min.js"></script>
   <script src="js/lib/handlebars.min-latest.js"></script>
+  <script src="js/lib/nutritionLabel-min.js"></script>
   <!-- endbuild -->
   <!-- build:js js/app.min.js -->
-  <script src="js/models/todo.js"></script>
-  <script src="js/collections/todos.js"></script>
-  <script src="js/views/todos.js"></script>
+  <script src="js/models/food.js"></script>
+  <script src="js/collections/foodList.js"></script>
+  <!-- script src="js/views/todos.js"></script -->
   <script src="js/views/app.js"></script>
-  <script src="js/routers/router.js"></script>
+  <!-- script src="js/routers/router.js"></script -->
   <script src="js/app.js"></script>
   <!-- endbuild -->
 </body>
