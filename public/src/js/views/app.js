@@ -8,11 +8,15 @@ app.AppView = Backbone.View.extend({
 
     recipeTemplate: Handlebars.compile( $('#recipe-template').html() ),
 
+    buttonsTemplate: Handlebars.compile( $('#buttons-template').html() ),
+
     events: {
         'click .btn-success': 'toggleStart',
         'keyup #search-food': 'searchFood',
         'click #recipe-open': 'openRecipes',
-        'click #recipe-close': 'closeRecipes'
+        'click #recipe-close': 'closeRecipes',
+        'click .item-nutrition': 'openNutrition',
+        'click #nutrition-close': 'closeNutrition'
     },
 
     initialize: function() {
@@ -25,6 +29,9 @@ app.AppView = Backbone.View.extend({
         this.$searchFood = $('#search-food');
         this.$recipeTop = $('#recipe-top');
         this.$recipeResults = $('#recipe-results');
+        this.$nutritionTop = $('#nutrition-top');
+        this.$nutritionMenu = $('#nutrition-button-menu');
+        this.$nutritionResults = $('#nutrition-results');
     },
 
     render: function() {
@@ -42,7 +49,6 @@ app.AppView = Backbone.View.extend({
          */
 
         var query = this.$searchFood.val();
-        console.log('query: ' + query);
 
         // Nutritionix API v.1.1 Fields:
         // https://docs.google.com/spreadsheets/d/1jZSa039OfpQOiRzaS980nPKCvVe2TRKRPZk7ZbaH7kE/edit#gid=0
@@ -59,26 +65,31 @@ app.AppView = Backbone.View.extend({
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: 'https://api.nutritionix.com/v1_1/search/' + query,
-            dataType: 'json',
-            data: parameters,
-        })
-        .done(function(data){
+        if (query.length > 0) {
+            $.ajax({
+                context: this,
+                type: 'GET',
+                url: 'https://api.nutritionix.com/v1_1/search/' + query,
+                dataType: 'json',
+                data: parameters,
+            })
+            .done(function(data){
 
-            this.displayResults(query, data.hits);
+                this.displayResults(query, data.hits);
 
-        })
-        .fail(function(err){
+            })
+            .fail(function(err){
 
-            console.log('NUTRITIONIX REQUEST FAILED');
+                console.log('NUTRITIONIX REQUEST FAILED');
 
-        });
+            });
+        } else { // query.length > 0
+            this.$searchResults.html('');
+        }
     }, // searchFood
 
     displayResults: function(q, results) {
+        var id = '';
         var name = '';
         var calories = '';
         var fat = '';
@@ -98,6 +109,7 @@ app.AppView = Backbone.View.extend({
         for(i; i < length; i++) {
             if(i === 0) first = true; else first = false;
             food = results[i];
+            id = food._id;
             name = food.fields.item_name;
             calories = food.fields.nf_calories;
             fat = food.fields.nf_total_fat;
@@ -110,6 +122,7 @@ app.AppView = Backbone.View.extend({
             this.$searchResults.append(this.itemTemplate({
                 first: first,
                 food: q,
+                id: id,
                 name: name,
                 calories: calories,
                 fat: fat,
@@ -130,7 +143,6 @@ app.AppView = Backbone.View.extend({
             'q': q,
             'app_id': '109142f6',
             'app_key': '21467cc06c5f05e55b19271dcc457914',
-            'appKey': '82289438a16ec7b92cdcf5ad054159c4',
             'to': '5' // return 5 results
         };
 
@@ -138,7 +150,7 @@ app.AppView = Backbone.View.extend({
             context: this,
             type: 'GET',
             url: 'https://api.edamam.com/search',
-            dataType: 'jsonp',
+            dataType: 'jsonp', // cross origin workaround
             data: parameters,
         })
         .done(function(data){
@@ -213,6 +225,98 @@ app.AppView = Backbone.View.extend({
         this.$recipeResults.hide();
         this.$searchResults.show();
 
-    } // closeRecipes
+    }, // closeRecipes
+
+    openNutrition: function(e) {
+        var elem = $(e.target);
+        var id   = elem.data('item');
+        elem.closest('.item').css('background-color', '#b8dec0').addClass('highlight');
+
+        // Get nutrition data from item id
+        this.getNutrition(id);
+
+        return false;
+
+    }, // openNutrition
+
+    closeNutrition: function() {
+        $('.highlight').removeAttr('style').removeClass('highlight');
+        this.$nutritionResults.html('');
+        // this.$nutritionResults.hide();
+
+    }, // closeNutrition
+
+    getNutrition: function(itemID) {
+        var parameters = {
+            'id': itemID,
+            'appId': '53242d79',
+            'appKey': '82289438a16ec7b92cdcf5ad054159c4'
+        };
+
+        $.ajax({
+            context: this,
+            type: 'GET',
+            url: 'https://api.nutritionix.com/v1_1/item/',
+            dataType: 'json',
+            data: parameters,
+        })
+        .done(function(data){
+
+            // Display calorie breakdown chart
+            this.displayChart();
+
+            // Display nutrition label
+            this.displayNutrition(data);
+
+        })
+        .fail(function(err){
+
+            console.log('NUTRITIONIX REQUEST FAILED');
+
+        });
+    }, // getNutrition
+
+    displayChart: function() {
+
+    }, // displayChart
+
+    displayNutrition: function(data) {
+        // Reference Example #2
+        // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo-mini.html
+        var label = {
+            'width': 280,
+            'itemName' : data.item_name,
+
+            'showPolyFat' : false,
+            'showMonoFat' : false,
+            'showIngredients': false,
+
+            'valueCalories' : data.nf_calories,
+            'valueFatCalories' : data.nf_calories_from_fat,
+            'valueTotalFat' : data.nf_total_fat,
+            'valueSatFat' : data.nf_saturated_fat,
+            'valueTransFat' : data.nf_trans_fatty_acid,
+            'valueCholesterol' : data.nf_cholesterol,
+            'valueSodium' : data.nf_sodium,
+            'valueTotalCarb' : data.nf_total_carbohydrate,
+            'valueFibers' : data.nf_dietary_fiber,
+            'valueSugars' : data.nf_sugars,
+            'valueProteins' : data.nf_protein,
+            'valueVitaminA' : data.nf_vitamin_a_dv,
+            'valueVitaminC' : data.nf_vitamin_c_dv,
+            'valueCalcium' : data.nf_calcium_dv,
+            'valueIron' : data.nf_iron_dv
+        };
+
+        var tracking = false;
+
+        this.$nutritionMenu.append(this.buttonsTemplate({
+            tracking: tracking
+        }));
+
+        // Activate Nutrition Label jQuery Plugin by Nutritionix
+        this.$nutritionResults.find('figcaption').nutritionLabel(label);
+
+    } // displayNutrition
 
 });

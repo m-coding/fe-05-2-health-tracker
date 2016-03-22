@@ -14,7 +14,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Start -->
+    <!-- App start -->
     <section id="start-screen" class="row">
         <div class="col-md-4 center-block">
         <h1>Nutrition</h1>
@@ -24,14 +24,16 @@
         </div>
     </section>
 
-    <!-- App -->
-    <section id="app" class="row row-centered no-gutter">
+    <!-- App main -->
+    <section id="app" class="row row-centered no-gutter equalheights">
+      <!-- Column 1 -->
       <div class="col-md-4 col-centered">
         <!-- Nav  tabs -->
         <ul id="app-tabs" class="nav nav-tabs">
           <li role="presentation" class="active"><a href="#search">Search</a></li>
           <li role="presentation"><a href="#tracker">Tracker</a></li>
         </ul>
+
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="search">
@@ -47,26 +49,25 @@
             <div id="recipe-results"></div>
           </div>
           <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
-        </div>
-      </div><!-- /col-md-4 -->
+        </div><!-- /.tab-content -->
+      </div><!-- /.col-md-4 -->
 
-      <!-- Nutrition info -->
+
+      <!-- Column 2 -->
       <div id="nutrition" class="col-md-4 col-centered vtop">
-        <div id="nutrition-top">
-          <h3>Nutrition</h3>
-          <span id="nutrition-close" class="glyphicon glyphicon-remove-circle"></span>
-        </div>
+        <!-- Nutrition info -->
+        <div id="nutrition-button-menu"></div>
         <div id="nutrition-results">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-      </div><!-- /col-md-4 -->
+          <!-- Chart -->
+          <figure></figure>
+          <!-- Nutrition label -->
+          <figcaption></figcaption>
+        </div><!-- /#nutrition-results -->
+      </div><!-- /.col-md-4 -->
     </section>
+</div><!-- /.container -->
 
-    <section id="nutrition"
-
-</div><!-- /container -->
-
-  <!-- templates -->
+  <!-- Templates -->
   <script type="text/x-handlebars-template" id="item-template">
     {{#if first}}
     <h4 id="recipe-open">
@@ -79,9 +80,9 @@
       <h6>Serving: {{servingSize}} {{servingUnit}}</h6>
     </div>
     {{#if last}}
-    <div class="logo">
+    <footer class="logo">
       <a href="http://www.nutritionix.com/api" target="_blank"><img src="images/nutritionix.png" alt="Powered By Nutritionix"></a>
-    </div>
+    </footer>
     {{/if}}
   </script>
 
@@ -101,13 +102,45 @@
       </div>
     </div>
     {{#if last}}
-    <div class="logo">
+    <footer class="logo">
       <a href="https://developer.edamam.com" target="_blank"><img src="images/edamam.png" alt="Powered By Edamam"></a>
-    </div>
+    </footer>
     {{/if}}
   </script>
 
-  <!-- scripts -->
+  <script type="text/x-handlebars-template" id="buttons-template">
+    <div class="buttons">
+      {{#if tracking}}
+        <p><button type="button" class="btn btn-warning btn-xs btn-block">
+        <i class="glyphicon glyphicon-ok-circle"></i> Tracking
+        </button></p>
+        <button type="button" class="btn btn-primary btn-sm">
+        <i class="glyphicon glyphicon-arrow-left"></i> Back
+        </button>
+        <button type="button" class="btn btn-info btn-sm">
+        <i class="glyphicon glyphicon-pencil"></i> Edit
+        </button>
+        <button type="button" class="btn btn-danger btn-sm">
+        <i class="glyphicon glyphicon-remove"></i> Remove
+        </button>
+      {{else}}
+        <p><button type="button" class="btn btn-default btn-xs btn-block">
+        <i class="glyphicon glyphicon-ban-circle"></i> Not Tracking
+        </button></p>
+        <button type="button" class="btn btn-primary btn-sm">
+        <i class="glyphicon glyphicon-arrow-left"></i> Back
+        </button>
+        <button type="button" class="btn btn-success btn-sm">
+        <i class="glyphicon glyphicon-plus"></i> Add
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" disabled="disabled">
+        <i class="glyphicon glyphicon-remove"></i> Remove
+        </button>
+      {{/if}}
+    </div>
+  </script>
+
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
   <!-- build:js js/lib/lib.min.js -->
   <script src="js/lib/bootstrap.min.js"></script>
