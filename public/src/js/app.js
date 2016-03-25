@@ -1,16 +1,16 @@
-var app = app || {};
+/**! Nutrition Tracker App
+ * @namespace {object} nt */
 
-$(function() {
+// Namespace everything in an `nt` object to prevent polluting the global namespace.
+var nt = {
+    Models: {},
+    Collections: {},
+    Views: {},
+    Router: {}
+};
 
-    // Create the app
-    new app.AppView();
-    new app.RecipeView();
-    new app.NutritionView();
-
-    // Enable bootstrap tabs
-    $('#app-tabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
-
+// Instantiate the Router when the DOM is ready.
+$(document).ready(function() {
+    nt.Router.Instance = new nt.Router();
+    Backbone.history.start();
 });
