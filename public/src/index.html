@@ -36,6 +36,7 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
+          <!-- Search -->
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
               <h3>Food Search</h3>
@@ -47,8 +48,16 @@
               <span id="recipe-close" class="glyphicon glyphicon-remove-circle"></span>
             </div>
             <div id="recipe-results"></div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="tracker">tracker panel</div>
+          </div><!-- /#search -->
+
+          <!-- Tracker -->
+          <div role="tabpanel" class="tab-pane" id="tracker">
+            <div id="tracker-top">
+              <h3>Nutrition Tracker</h3>
+              <h5>Todays Date</h5>
+            </div>
+            <div id="tracker-results"></div>
+          </div><!-- /#tracker -->
         </div><!-- /.tab-content -->
       </div><!-- /.col-md-4 -->
 
@@ -140,6 +149,27 @@
     </div>
   </script>
 
+  <script type="text/x-handlebars-template" id="tracked-template">
+    <div class="tracked-item">
+      <table>
+        <tr>
+          <th>Food</th>
+          <th>Fat</th>
+          <th>Carbs</th>
+          <th>Protein</th>
+          <th>Calories</th>
+        </tr>
+        <tr>
+          <td>{{name}}</td>
+          <td>{{fat}}</td>
+          <td>{{carbs}}</td>
+          <td>{{protein}}</td>
+          <td>{{calories}}</td>
+        </tr>
+      </table>
+    </div>
+  </script>
+
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -151,15 +181,22 @@
   <script src="js/lib/handlebars.min-latest.js"></script>
   <script src="js/lib/nutritionLabel-min.js"></script>
   <!-- endbuild -->
-  <!-- build:js js/app.min.js -->
-  <script src="js/models/food.js"></script>
-  <script src="js/collections/foodList.js"></script>
-  <!-- script src="js/views/todos.js"></script -->
-  <script src="js/views/app.js"></script>
-  <script src="js/views/recipe.js"></script>
-  <script src="js/views/nutrition.js"></script>
-  <!-- script src="js/routers/router.js"></script -->
+  <!-- build:js js/nutritionTracker.min.js -->
   <script src="js/app.js"></script>
+  <script src="js/models/food.js"></script>
+  <script src="js/models/recipe.js"></script>
+  <script src="js/models/nutrition.js"></script>
+  <script src="js/collections/foodSearch.js"></script>
+  <script src="js/collections/foodRecipes.js"></script>
+  <script src="js/collections/foodTracker.js"></script>
+  <script src="js/views/startView.js"></script>
+  <script src="js/views/tabView.js"></script>
+  <script src="js/views/searchView.js"></script>
+  <script src="js/views/recipeView.js"></script>
+  <script src="js/views/nutritionView.js"></script>
+  <script src="js/views/trackerView.js"></script>
+  <script src="js/views/foodView.js"></script>
+  <script src="js/router.js"></script>
   <!-- endbuild -->
 </body>
 </html>
