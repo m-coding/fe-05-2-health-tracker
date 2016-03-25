@@ -1,11 +1,14 @@
-var app = app || {};
+/** Model for each food item tracked
+ * @namespace nt.Models
+ * @class nt.Models.Food
+ * @memberof! <global>
+ * @extends Backbone.Model */
+nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
 
-// Model for each food item tracked
-app.Food = Backbone.Model.extend({
-
-    // Default attributes
+    /** Default attributes */
     defaults: {
         sortOrder: 0,
+        itemId: '',
         name: '',
         fat: 0,
         carbs: 0,
@@ -13,8 +16,7 @@ app.Food = Backbone.Model.extend({
         calories: 0,
         servingSize: 0,
         servingUnit: '',
-        trackDate: '',
-        source: ''
+        trackDate: ''
     }
 
 });
