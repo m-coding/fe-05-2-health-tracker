@@ -1,7 +1,10 @@
 /** Nutrition Tracker Router
  * @namespace nt.Router
- * @class Router
+ * @class nt.Router
+ * @memberof! <global>
  * @extends Backbone.Router */
+
+// The # tells JSDoc that the items lent to nt.Router belong to an instance of the class.
 nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
     routes:{
     },
