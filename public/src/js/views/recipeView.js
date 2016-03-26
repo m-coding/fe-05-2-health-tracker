@@ -5,6 +5,8 @@
  * @extends Backbone.View */
 nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
+    el: '#search',
+
     recipeTemplate: Handlebars.compile( $('#recipe-template').html() ),
 
     events: {
