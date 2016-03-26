@@ -7,6 +7,7 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
 
     /** Default attributes */
     defaults: {
+        id: '',
         recipeImage: '',
         recipeTitle: '',
         numCalories: '',
@@ -20,7 +21,9 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
     /** Override parse and return response attributes */
     parse: function(data) {
         var prefix = 'http://www.edamam.com/http/';
+        var index  = data.recipe.uri.indexOf('_') + 1;
         var recipe = {};
+            recipe.id             = data.recipe.uri.slice(index);
             recipe.recipeImage    = data.recipe.image;
             recipe.recipeTitle    = data.recipe.label;
             recipe.numCalories    = parseInt(data.recipe.calories / data.recipe.yield, 10);
