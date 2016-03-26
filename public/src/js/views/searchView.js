@@ -5,8 +5,6 @@
  * @extends Backbone.View */
 nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
-    el: '.container',
-
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
 
     events: {
@@ -43,8 +41,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
             // Populate item template with the food's attributes
             this.$searchResults.append(this.itemTemplate(model.attributes));
-
-            console.dir(model);
         }, this);
 
         return this;

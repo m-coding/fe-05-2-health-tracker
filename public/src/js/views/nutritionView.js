@@ -5,8 +5,6 @@
  * @extends Backbone.View */
 nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
-    el: '.container',
-
     buttonsTemplate: Handlebars.compile( $('#buttons-template').html() ),
 
     events: {
@@ -156,9 +154,6 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         this.$nutritionMenu.append(this.buttonsTemplate({
             tracking: tracking
         }));
-
-        console.log("this.model");
-        console.dir(this.model);
 
         // Activate Nutrition Label jQuery Plugin by Nutritionix
         this.$nutritionResults.find('figcaption').nutritionLabel(this.model.toJSON());
