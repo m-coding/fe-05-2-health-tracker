@@ -15,12 +15,32 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
     },
 
     initialize: function() {
+        _.bindAll(this, 'recipeSuccess', 'recipeError');
+
         // Setup DOM references.
         this.$searchTop = $('#search-top');
         this.$searchResults = $('#search-results');
         this.$recipeTop = $('#recipe-top');
         this.$recipeResults = $('#recipe-results');
     },
+
+    /** Render results */
+    render: function() {
+        var firstModel = this.collection.first().get('id');
+        var lastModel = this.collection.last().get('id');
+
+
+        return this;
+    },
+
+    recipeSuccess: function(collection, response) {
+        this.render();
+    }, // recipeSuccess
+
+    recipeError: function(collection, errorResponse) {
+        console.log('nt.Collections.recipes.fetch ERROR: ' + errorResponse);
+        console.log('EDAMAM REQUEST FAILED');
+    }, // recipeError
 
     getRecipes: function(q) {
         // Edamam API https://developer.edamam.com/recipe-docs
