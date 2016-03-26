@@ -15,6 +15,9 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     /** Setup `this` context, DOM references, and listeners */
     initialize: function() {
+        var d = new Date();
+        this.today = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
+
         _.bindAll(this, 'searchSuccess', 'searchError');
 
         this.$searchTop = $('#search-top');
@@ -35,8 +38,13 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             if(model.id === firstModel) model.set({first:true});
             if(model.id === lastModel) model.set({last:true});
 
+            // Set today's date
+            model.set({trackDate: this.today});
+
             // Populate item template with the food's attributes
             this.$searchResults.append(this.itemTemplate(model.attributes));
+
+            console.dir(model);
         }, this);
 
         return this;
@@ -95,8 +103,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     addFood: function(e) {
         e.preventDefault();
 
-        var d = new Date();
-
         var attributes = {
             sortOrder: app.TrackedFoods.nextOrder(),
             itemId: 'itemTest0',
@@ -107,7 +113,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             calories: 44,
             servingSize: 1,
             servingUnit: 'cup',
-            trackDate: new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10)
+            trackDate: this.today
         };
 
         var food = new app.Food(attributes);
