@@ -26,9 +26,18 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
     /** Render results */
     render: function() {
-        var firstModel = this.collection.first().get('id');
         var lastModel = this.collection.last().get('id');
 
+        // Clear out old results
+        this.$recipeResults.html('');
+
+        this.collection.each(function(model) {
+            // Set attribute for last model
+            if(model.id === lastModel) model.set({last:true});
+
+            // Populate recipe template with the recipe attributes
+            this.$recipeResults.append(this.recipeTemplate(model.attributes));
+        }, this);
 
         return this;
     },
@@ -53,26 +62,18 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
         // TODO: add preload animation
 
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: 'https://api.edamam.com/search',
-            dataType: 'jsonp', // cross origin workaround
-            data: parameters,
-        })
-        .done(function(data){
+        // Clear out all the models in the collection
+        this.collection.reset();
 
-            this.displayRecipes(data.hits);
-
-        })
-        .fail(function(err){
-
-            // TODO: add error handling
-            console.log('EDAMAM REQUEST FAILED');
-
+        // Make GET request to Edamam
+        this.collection.fetch({
+            data: $.param(parameters),
+            success: this.recipeSuccess,
+            error: this.recipeError
         });
 
         // TODO: hide preload animation
+
     }, // getRecipes
 
     displayRecipes: function(results) {
