@@ -14,7 +14,6 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
         siteIcon: '',
         siteTitle: '',
         siteLink: '',
-        first: false,
         last: false
     },
 
