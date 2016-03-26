@@ -76,47 +76,6 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
     }, // getRecipes
 
-    displayRecipes: function(results) {
-        var img = '';
-        var label = '';
-        var calories = 0;
-        var ingredients = 0;
-        var sourceIcon = '';
-        var source = '';
-        var url = '';
-        var i = 0;
-        var length = results.length;
-        var hit = '';
-        var first = false;
-        var last = false;
-        var prefix = 'http://www.edamam.com/http/';
-
-        for(i; i < length; i++) {
-            if(i === 0) first = true; else first = false;
-            hit = results[i];
-            img = hit.recipe.image;
-            label = hit.recipe.label;
-            calories = parseInt(hit.recipe.calories / hit.recipe.yield, 10);
-            ingredients = hit.recipe.ingredientLines.length;
-            sourceIcon = hit.recipe.sourceIcon.replace('http://', prefix);
-            source = hit.recipe.source;
-            url = hit.recipe.shareAs;
-            if(i === length - 1) last = true; else last = false;
-
-            this.$recipeResults.append(this.recipeTemplate({
-                first: first,
-                recipeImage: img,
-                recipeTitle: label,
-                numCalories: calories,
-                numIngredients: ingredients,
-                siteIcon: sourceIcon,
-                siteTitle: source,
-                siteLink: url,
-                last: last
-            }));
-        } // for
-    }, // displayRecipes
-
     openRecipes: function() {
         var food = $('#search-food').val();
 
