@@ -15,6 +15,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     },
 
     initialize: function() {
+        // Setup `this` context
+        _.bindAll(this, 'itemSuccess', 'itemError');
+
         // Setup DOM references.
         this.$nutrition = $('#nutrition');
         this.$nutritionTop = $('#nutrition-top');
@@ -27,6 +30,14 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         google.charts.load('current', {'packages':['corechart']});
     },
 
+    render: function() {
+        // Display pie chart
+        this.displayChart();
+
+        // Display nutrition label
+        this.displayNutrition();
+    }, // render
+
     showColumn: function() {
         this.$nutrition.removeClass('hideColumn');
     }, // showColumn
@@ -36,6 +47,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // hideColumn
 
     openNutrition: function(e) {
+        e.preventDefault();
+
         // Close if already open
         this.closeNutrition();
 
@@ -52,8 +65,6 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Get nutrition data from item id
         this.getNutrition(id);
-
-        return false;
 
     }, // openNutrition
 
@@ -75,6 +86,15 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // closeNutrition
 
+    itemSuccess: function(model, response) {
+        this.render();
+    }, // itemSuccess
+
+    itemError: function(model, errorResponse) {
+        console.log('nt.Models.nutrition ERROR: ' + errorResponse);
+        console.log('NUTRITIONIX REQUEST FAILED');
+    }, // itemError
+
     getNutrition: function(itemID) {
         var parameters = {
             'id': itemID,
@@ -82,35 +102,24 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        $.ajax({
-            context: this,
-            type: 'GET',
-            url: 'https://api.nutritionix.com/v1_1/item/',
-            dataType: 'json',
-            data: parameters,
-        })
-        .done(function(data){
+        // Clear the model
+        this.model.clear();
 
-            // Display pie chart
-            this.displayChart(data);
-
-            // Display nutrition label
-            this.displayNutrition(data);
-
-        })
-        .fail(function(err){
-
-            console.log('NUTRITIONIX REQUEST FAILED');
-
+        // Make GET request to Nutritionix
+        this.model.fetch({
+            data: $.param(parameters),
+            success: this.itemSuccess,
+            error: this.itemError
         });
+
     }, // getNutrition
 
-    displayChart: function(amt) {
+    displayChart: function() {
         var data = google.visualization.arrayToDataTable([
                 ['Nutrient', 'Amount'],
-                ['Fat', amt.nf_total_fat],
-                ['Carbs', amt.nf_total_carbohydrate],
-                ['Protein', amt.nf_protein]
+                ['Fat', this.model.attributes.valueTotalFat],
+                ['Carbs', this.model.attributes.valueTotalCarb],
+                ['Protein', this.model.attributes.valueProteins]
             ]);
 
         var options = {
@@ -138,33 +147,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // displayChart
 
-    displayNutrition: function(data) {
+    displayNutrition: function() {
         // Reference Example #2
         // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo-mini.html
-        var label = {
-            'width': 280,
-            'itemName' : data.item_name,
-
-            'showPolyFat' : false,
-            'showMonoFat' : false,
-            'showIngredients': false,
-
-            'valueCalories' : data.nf_calories,
-            'valueFatCalories' : data.nf_calories_from_fat,
-            'valueTotalFat' : data.nf_total_fat,
-            'valueSatFat' : data.nf_saturated_fat,
-            'valueTransFat' : data.nf_trans_fatty_acid,
-            'valueCholesterol' : data.nf_cholesterol,
-            'valueSodium' : data.nf_sodium,
-            'valueTotalCarb' : data.nf_total_carbohydrate,
-            'valueFibers' : data.nf_dietary_fiber,
-            'valueSugars' : data.nf_sugars,
-            'valueProteins' : data.nf_protein,
-            'valueVitaminA' : data.nf_vitamin_a_dv,
-            'valueVitaminC' : data.nf_vitamin_c_dv,
-            'valueCalcium' : data.nf_calcium_dv,
-            'valueIron' : data.nf_iron_dv
-        };
 
         var tracking = false;
 
@@ -172,8 +157,11 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             tracking: tracking
         }));
 
+        console.log("this.model");
+        console.dir(this.model);
+
         // Activate Nutrition Label jQuery Plugin by Nutritionix
-        this.$nutritionResults.find('figcaption').nutritionLabel(label);
+        this.$nutritionResults.find('figcaption').nutritionLabel(this.model.toJSON());
 
     } // displayNutrition
 
