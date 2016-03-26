@@ -119,7 +119,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
         if (query.length > 0) {
             // Set the terms to be searched
-            this.collection.url(query);
+            this.collection.searchPhrase = query;
 
             // Make GET request to Nutritionix
             this.collection.fetch({
@@ -127,7 +127,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
                 success: this.searchSuccess,
                 error: this.searchError
             });
-        }
+        } else
+            this.$searchResults.html('');
 
     }, // searchFood
 

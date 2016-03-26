@@ -8,9 +8,11 @@ nt.Collections.FoodSearch = Backbone.Collection.extend(/** @lends nt.Collections
     /** Reference to this collection's model. */
     model: nt.Models.Food,
 
+    searchPhrase: '',
+
     /** Nutritionix API /search will return an array of matching foods */
-    url: function(searchPhrase) {
-        return 'https://api.nutritionix.com/v1_1/search/' + searchPhrase;
+    url: function() {
+        return 'https://api.nutritionix.com/v1_1/search/' + this.searchPhrase;
     },
 
     /** Override parse to return only "hits" from the response */
