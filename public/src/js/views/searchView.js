@@ -5,6 +5,8 @@
  * @extends Backbone.View */
 nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
+    el: '#search',
+
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
 
     events: {
