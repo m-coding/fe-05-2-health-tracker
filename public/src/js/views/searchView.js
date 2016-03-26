@@ -102,7 +102,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
         var query = this.$searchFood.val();
 
-        // Nutritionix API v.1.1 Fields:
+        // Nutritionix API v.1.1 Field Reference
         // https://docs.google.com/spreadsheets/d/1jZSa039OfpQOiRzaS980nPKCvVe2TRKRPZk7ZbaH7kE/edit#gid=0
         var parameters = {
             'results': '0:10', // 10 items
@@ -117,10 +117,12 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        // Make GET request to Nutritionix using fetch
         if (query.length > 0) {
-            nt.Collections.results.searchPhrase = query;
-            nt.Collections.results.fetch({
+            // Set the terms to be searched
+            this.collection.url(query);
+
+            // Make GET request to Nutritionix
+            this.collection.fetch({
                 data: $.param(parameters),
                 success: this.searchSuccess,
                 error: this.searchError
