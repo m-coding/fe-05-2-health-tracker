@@ -6,6 +6,7 @@
 
 // The # tells JSDoc that the items lent to nt.Router belong to an instance of the class.
 nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
+
     routes:{
         'search/:query': 'search'
     },
@@ -30,4 +31,5 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
         nt.Views.tracker       = new nt.Views.Tracker({collection: nt.Collections.tracker});
       //nt.Views.food          = new nt.Views.FoodView();
     }
+
 });
