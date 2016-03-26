@@ -1,9 +1,9 @@
 /** Start screen
  * @namespace nt.Views
- * @class nt.Views.StartView
+ * @class nt.Views.Start
  * @memberof! <global>
  * @extends Backbone.View */
-nt.Views.StartView = Backbone.View.extend(/** @lends nt.Views.StartView# */{
+nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
 
     /** element */
     el: '#start-screen',
@@ -15,7 +15,7 @@ nt.Views.StartView = Backbone.View.extend(/** @lends nt.Views.StartView# */{
 
     /** Removes the start screen
      * @function  removeStart
-     * @memberof  nt.Views.StartView */
+     * @memberof  nt.Views.Start */
     removeStart: function() {
         this.remove();
         $('#app').show();
