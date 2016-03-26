@@ -116,11 +116,11 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     displayChart: function() {
         var data = google.visualization.arrayToDataTable([
-                ['Nutrient', 'Amount'],
-                ['Fat', this.model.attributes.valueTotalFat],
-                ['Carbs', this.model.attributes.valueTotalCarb],
-                ['Protein', this.model.attributes.valueProteins]
-            ]);
+            ['Nutrient', 'Value'],
+            ['Fat', this.model.attributes.valueTotalFat],
+            ['Carbs', this.model.attributes.valueTotalCarb],
+            ['Protein', this.model.attributes.valueProteins]
+        ]);
 
         var options = {
             width: 280,
