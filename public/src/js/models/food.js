@@ -7,8 +7,8 @@ nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
 
     /** Default attributes */
     defaults: {
-        sortOrder: 0,
         id: '',
+        sortOrder: 0,
         name: '',
         fat: 0,
         carbs: 0,
@@ -24,10 +24,9 @@ nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
     /** Override parse and return response attributes */
     parse: function(response) {
         // reference: https://github.com/jashkenas/backbone/issues/1451#issuecomment-6547963
-        console.log('food.js parse()');
-        console.log(typeof response.fields != "undefined");
-        //  Only parse response if data from API
+
         if (typeof response.fields != 'undefined') {
+        //  Only parse response if data from API
         var food = {};
             food.id          = response._id;
             food.name        = response.fields.item_name;
