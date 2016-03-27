@@ -7,6 +7,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     el: '#search',
 
+    prevQuery: '',
+
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
 
     events: {
@@ -30,14 +32,13 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         var firstModel = this.collection.first().get('id');
         var lastModel = this.collection.last().get('id');
 
+        this.collection.get(firstModel).set({ first: true });
+        this.collection.get(lastModel).set({ last: true });
+
         // Clear out old results
         this.$searchResults.html('');
 
         this.collection.each(function(model) {
-            // Set attribute for the first and last models
-            if(model.id === firstModel) model.set({first:true});
-            if(model.id === lastModel) model.set({last:true});
-
             // Set today's date
             model.set({trackDate: this.today});
 
@@ -57,10 +58,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         console.log('NUTRITIONIX REQUEST FAILED');
     },
 
-    searchFood: function() {
-        /**
-         * nutritionix api
-         */
+    searchFood: function(e) {
+        if(e.which === 13) return false; // prevent ENTER key submit
 
         var query = this.$searchFood.val();
 
@@ -79,7 +78,12 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        if (query.length > 0) {
+        console.log('**************');
+        console.log(query);
+        console.log(this.prevQuery);
+        console.log(query !== this.prevQuery);
+        console.log('++++++++++++++');
+        if (query.length > 0 && query !== this.prevQuery) {
             // Clear out all the models in the collection
             this.collection.reset();
 
@@ -94,6 +98,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             });
         } else
             this.$searchResults.html('');
+
+        this.prevQuery = query;
 
     }, // searchFood
 
