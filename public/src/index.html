@@ -36,7 +36,7 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <!-- Search -->
+          <!-- Search pane -->
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
               <h3>Food Search</h3>
@@ -50,7 +50,7 @@
             <div id="recipe-results"></div>
           </div><!-- /#search -->
 
-          <!-- Tracker -->
+          <!-- Tracker pane -->
           <div role="tabpanel" class="tab-pane" id="tracker">
             <div id="tracker-top">
               <h3>Nutrition Tracker</h3>
@@ -150,24 +150,22 @@
   </script>
 
   <script type="text/x-handlebars-template" id="tracked-template">
-    <div class="tracked-item">
-      <table>
-        <tr>
-          <th>Food</th>
-          <th>Fat</th>
-          <th>Carbs</th>
-          <th>Protein</th>
-          <th>Calories</th>
-        </tr>
-        <tr>
-          <td>{{name}}</td>
-          <td>{{fat}}</td>
-          <td>{{carbs}}</td>
-          <td>{{protein}}</td>
-          <td>{{calories}}</td>
-        </tr>
-      </table>
-    </div>
+    <table class="tracked-item">
+      <tr>
+        <th>Food</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Calories</th>
+      </tr>
+      <tr>
+        <td class="tracked-attr">{{name}}</td>
+        <td class="tracked-attr">{{fat}}</td>
+        <td class="tracked-attr">{{carbs}}</td>
+        <td class="tracked-attr">{{protein}}</td>
+        <td class="tracked-attr">{{calories}}</td>
+      </tr>
+    </table>
   </script>
 
   <!-- Scripts -->
@@ -187,15 +185,15 @@
   <script src="js/models/recipe.js"></script>
   <script src="js/models/nutrition.js"></script>
   <script src="js/collections/foodSearch.js"></script>
-  <script src="js/collections/foodRecipes.js"></script>
+  <script src="js/collections/recipeSearch.js"></script>
   <script src="js/collections/foodTracker.js"></script>
   <script src="js/views/startView.js"></script>
   <script src="js/views/tabView.js"></script>
-  <script src="js/views/searchView.js"></script>
-  <script src="js/views/recipeView.js"></script>
+  <script src="js/views/foodSearchView.js"></script>
+  <script src="js/views/recipeSearchView.js"></script>
   <script src="js/views/nutritionView.js"></script>
-  <script src="js/views/trackerView.js"></script>
-  <script src="js/views/foodView.js"></script>
+  <script src="js/views/foodTrackerView.js"></script>
+  <script src="js/views/foodTrackerEditorView.js"></script>
   <script src="js/router.js"></script>
   <!-- endbuild -->
 </body>

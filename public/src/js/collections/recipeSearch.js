@@ -1,9 +1,9 @@
-/** Collection of foods searched
+/** Collection of recipes
  * @namespace  nt.Collections
- * @class nt.Collections.FoodSearch
+ * @class nt.Collections.RecipeSearch
  * @memberof! <global>
  * @extends Backbone.Collection */
-nt.Collections.FoodRecipes = Backbone.Collection.extend(/** @lends nt.Collections.FoodSearch# */{
+nt.Collections.RecipeSearch = Backbone.Collection.extend(/** @lends nt.Collections.RecipeSearch# */{
 
     /** Reference to this collection's model. */
     model: nt.Models.Recipe,
