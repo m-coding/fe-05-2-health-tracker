@@ -66,12 +66,14 @@ body {
 }
 
 .item:nth-child(even),
-.recipe-item:nth-child(even) {
+.recipe-item:nth-child(even),
+.tracked-attr:nth-child(even) {
     background-color: #eee;
 }
 
 .item:nth-child(odd),
-.recipe-item:nth-child(odd) {
+.recipe-item:nth-child(odd),
+.tracked-attr:nth-child(odd) {
     background-color: #ddd;
 }
 
@@ -193,6 +195,28 @@ body {
 
 #nutrition {
     background-color:#b8dec0;
+}
+
+/* tracker
+----------------------------------*/
+.tracked-item th {
+    background-color: #aaa;
+}
+
+/* tracker editor
+----------------------------------*/
+.edit-item {
+    position: absolute;
+    top: 0;
+    padding: 6px;
+    width: 100%;
+    height: 100%;
+    background-color:#b8dec0;
+    z-index: 1000;
+}
+
+.edit-item button {
+    /*text-align: center;*/
 }
 
 /* BOOTSTRAP
