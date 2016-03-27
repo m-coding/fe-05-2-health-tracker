@@ -8,6 +8,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
     /** Default attributes */
     defaults: {
         width: 280,
+        id: '',
         itemName : '',
 
         showPolyFat: false,
@@ -37,6 +38,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
     /** Override parse and return response attributes */
     parse: function(data) {
         var label = {};
+            label.id               = data.item_id;
             label.itemName         = data.item_name;
             label.valueCalories    = data.nf_calories;
             label.valueFatCalories = data.nf_calories_from_fat;
