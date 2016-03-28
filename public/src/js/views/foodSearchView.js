@@ -17,9 +17,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     /** Setup `this` context, DOM references, and listeners */
     initialize: function() {
-        var d = new Date();
-        this.today = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
-
         _.bindAll(this, 'searchSuccess', 'searchError');
 
         this.$searchTop = $('#search-top');
@@ -78,11 +75,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        console.log('**************');
-        console.log(query);
-        console.log(this.prevQuery);
-        console.log(query !== this.prevQuery);
-        console.log('++++++++++++++');
         if (query.length > 0 && query !== this.prevQuery) {
             // Clear out all the models in the collection
             this.collection.reset();
@@ -101,28 +93,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
         this.prevQuery = query;
 
-    }, // searchFood
-
-    /** Add food */
-    addFood: function(e) {
-        e.preventDefault();
-
-        var attributes = {
-            sortOrder: app.TrackedFoods.nextOrder(),
-            itemId: 'itemTest0',
-            name: 'nameTesting123',
-            fat: 11,
-            carbs: 22,
-            protein: 33,
-            calories: 44,
-            servingSize: 1,
-            servingUnit: 'cup',
-            trackDate: this.today
-        };
-
-        var food = new app.Food(attributes);
-        app.TrackedFoods.add(food);
-
-    } // addFood
+    } // searchFood
 
 });
