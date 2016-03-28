@@ -11,7 +11,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     events: {
         'click .item-nutrition': 'openNutrition',
-        'click #nutrition-close': 'closeNutrition'
+        'click #nutrition-close': 'closeNutrition',
+        'click #nutrition-add': 'addFood',
+        'click #nutrition-remove': 'RemoveFood'
     },
 
     initialize: function() {
@@ -128,6 +130,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             backgroundColor: '#b8dec0'
         };
 
+        // Add 'g' for grams unit to the values
         if(!this.gformat)
             this.gformat = new google.visualization.NumberFormat({suffix: 'g'});
 
@@ -139,7 +142,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
                 document.getElementById('gchart')
             );
 
-        // Apply formatter to second column (add 'g' for grams unit).
+        // Apply formatter to second column
         this.gformat.format(data, 1);
 
         // Draw chart.
@@ -149,7 +152,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     displayNutrition: function() {
         // Reference Example #2
-        // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo-mini.html
+        // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html
 
         var tracking = false;
 
@@ -160,6 +163,20 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Activate Nutrition Label jQuery Plugin by Nutritionix
         this.$nutritionResults.find('figcaption').nutritionLabel(this.model.toJSON());
 
-    } // displayNutrition
+    }, // displayNutrition
+
+    addFood: function() {
+        console.log('Nutrition View addFood()');
+        // Create an editor view with the nutrition data model
+        var editorView = new nt.Views.Editor({model: this.model});
+
+        // Render the editor view and append its element to the nutrition view
+        this.$nutrition.append( editorView.render().el );
+    },
+
+    removeFood: function() {
+
+    }
+
 
 });

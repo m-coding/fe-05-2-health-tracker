@@ -9,7 +9,7 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
     model: nt.Models.Food,
 
     /** Save all of the food items in localStorage */
-    localStorage: new Backbone.LocalStorage('nutrition-test1'),
+    localStorage: new Backbone.LocalStorage('nutrition-test2'),
 
     // This generates the next order number for new items.
     nextOrder: function() {

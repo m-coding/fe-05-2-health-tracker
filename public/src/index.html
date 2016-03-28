@@ -159,11 +159,11 @@
         <th>Calories</th>
       </tr>
       <tr>
-        <td class="tracked-attr">{{name}}</td>
-        <td class="tracked-attr">{{fat}}</td>
-        <td class="tracked-attr">{{carbs}}</td>
-        <td class="tracked-attr">{{protein}}</td>
-        <td class="tracked-attr">{{calories}}</td>
+        <td class="tracked-attr">{{itemName}}</td>
+        <td class="tracked-attr">{{valueTotalFat}}</td>
+        <td class="tracked-attr">{{valueTotalCarb}}</td>
+        <td class="tracked-attr">{{valueProteins}}</td>
+        <td class="tracked-attr">{{valueCalories}}</td>
       </tr>
     </table>
   </script>
@@ -176,23 +176,23 @@
       </div>
       <div class="form-group">
         <label for="foodFat">Fat</label>
-        <input type="text" class="form-control" id="foodFat" value="{{fat}}">
+        <input type="text" class="form-control" id="foodFat" value="{{valueTotalFat}}">
       </div>
       <div class="form-group">
         <label for="foodCarbs">Carbs</label>
-        <input type="text" class="form-control" id="foodCarbs" value="{{carbs}}">
+        <input type="text" class="form-control" id="foodCarbs" value="{{valueTotalCarb}}">
       </div>
       <div class="form-group">
         <label for="foodProtein">Protein</label>
-        <input type="text" class="form-control" id="foodProtein" value="{{protein}}">
+        <input type="text" class="form-control" id="foodProtein" value="{{valueProteins}}">
       </div>
       <div class="form-group">
         <label for="foodCalories">Calories</label>
-        <input type="text" class="form-control" id="foodCalories" value="{{calories}}">
+        <input type="text" class="form-control" id="foodCalories" value="{{valueCalories}}">
       </div>
       <div class="form-group">
         <label for="foodServingSize">Serving Size</label>
-        <input type="text" class="form-control" id="foodServingSize" value="{{servingSize}}">
+        <input type="text" class="form-control" id="foodServingSize" value="{{valueServingSize}}">
       </div>
       <div class="form-group">
         <label for="foodTrackDate">Track Date</label>
