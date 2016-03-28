@@ -61,7 +61,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     searchFood: function(e) {
         if(e.which === 13) return false; // prevent ENTER key submit
 
-        var query = this.$searchFood.val();
+        var query = this.$searchFood.val().trim();
 
         // Nutritionix API v.1.1 Field Reference
         // https://docs.google.com/spreadsheets/d/1jZSa039OfpQOiRzaS980nPKCvVe2TRKRPZk7ZbaH7kE/edit#gid=0
