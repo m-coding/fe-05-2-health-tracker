@@ -72,7 +72,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
 
             return label;
         } else
-            return response;
+            return data;
     }
 
 });
