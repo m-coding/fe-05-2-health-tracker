@@ -26,22 +26,12 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     /** Render results */
     render: function() {
-        var firstModel = this.collection.first().get('id');
-        var lastModel = this.collection.last().get('id');
-
-        this.collection.get(firstModel).set({ first: true });
-        this.collection.get(lastModel).set({ last: true });
-
         // Clear out old results
         this.$searchResults.html('');
 
-        this.collection.each(function(model) {
-            // Set today's date
-            model.set({trackDate: this.today});
-
-            // Populate item template with the food's attributes
-            this.$searchResults.append(this.itemTemplate(model.attributes));
-        }, this);
+        // Populate item template with the food's attributes
+        // credit: http://stackoverflow.com/questions/21653956
+        this.$searchResults.append( this.itemTemplate({items: this.collection.toJSON()}) );
 
         return this;
     },

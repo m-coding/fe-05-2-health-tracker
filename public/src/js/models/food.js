@@ -15,10 +15,7 @@ nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
         protein: 0,
         calories: 0,
         servingSize: 0,
-        servingUnit: '',
-        trackDate: '',
-        first: false,
-        last: false
+        servingUnit: ''
     },
 
     /** Override parse and return response attributes */

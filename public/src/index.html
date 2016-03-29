@@ -78,21 +78,19 @@
 
   <!-- Templates -->
   <script type="text/x-handlebars-template" id="item-template">
-    {{#if first}}
     <h4 id="recipe-open">
       <span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Recipe Suggestions</span>
     </h4>
-    {{/if}}
+    {{#each items}}
     <div class="item">
       <h4><a class="item-nutrition" href="{{id}}" data-item="{{id}}">{{name}}</a></h4>
       <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
       <h6>Serving: {{servingSize}} {{servingUnit}}</h6>
     </div>
-    {{#if last}}
+    {{/each}}
     <footer class="logo">
       <a href="http://www.nutritionix.com/api" target="_blank"><img src="images/nutritionix.png" alt="Powered By Nutritionix"></a>
     </footer>
-    {{/if}}
   </script>
 
   <script type="text/x-handlebars-template" id="recipe-template">
