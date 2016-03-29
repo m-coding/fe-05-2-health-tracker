@@ -158,13 +158,15 @@
         <th>Protein</th>
         <th>Calories</th>
       </tr>
-      <tr>
-        <td class="tracked-attr">{{itemName}}</td>
-        <td class="tracked-attr">{{valueTotalFat}}</td>
-        <td class="tracked-attr">{{valueTotalCarb}}</td>
-        <td class="tracked-attr">{{valueProteins}}</td>
-        <td class="tracked-attr">{{valueCalories}}</td>
+      {{#each models}}
+      <tr class="tracked-row">
+        <td class="tracked-attr">{{attributes.itemName}}</td>
+        <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
+        <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
+        <td class="tracked-attr">{{attributes.valueProteins}}</td>
+        <td class="tracked-attr">{{attributes.valueCalories}}</td>
       </tr>
+      {{/each}}
     </table>
   </script>
 

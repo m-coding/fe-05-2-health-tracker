@@ -37,8 +37,6 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
     newAttributes: function() {
         return {
             sortOrder: nt.Collections.tracker.nextOrder(),
-            first: false,
-            last: false,
             trackDate: this.$inputDate.val()
         };
     },
