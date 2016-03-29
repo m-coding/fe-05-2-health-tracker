@@ -14,8 +14,7 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
         numIngredients: '',
         siteIcon: '',
         siteTitle: '',
-        siteLink: '',
-        last: false
+        siteLink: ''
     },
 
     /** Override parse and return response attributes */

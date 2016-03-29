@@ -94,6 +94,7 @@
   </script>
 
   <script type="text/x-handlebars-template" id="recipe-template">
+    {{#each recipes}}
     <div class="recipe-item">
       <h4>{{recipeTitle}}</h4>
       <div class="r-container">
@@ -108,11 +109,11 @@
         </div>
       </div>
     </div>
-    {{#if last}}
+    {{/each}}
     <footer class="logo">
       <a href="https://developer.edamam.com" target="_blank"><img src="images/edamam.png" alt="Powered By Edamam"></a>
     </footer>
-    {{/if}}
+
   </script>
 
   <script type="text/x-handlebars-template" id="buttons-template">

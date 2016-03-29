@@ -26,18 +26,11 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
     /** Render results */
     render: function() {
-        var lastModel = this.collection.last().get('id');
-
         // Clear out old results
         this.$recipeResults.html('');
 
-        this.collection.each(function(model) {
-            // Set attribute for last model
-            if(model.id === lastModel) model.set({last:true});
-
-            // Populate recipe template with the recipe attributes
-            this.$recipeResults.append(this.recipeTemplate(model.attributes));
-        }, this);
+        // Populate recipe template with the recipe attributes
+        this.$recipeResults.append( this.recipeTemplate({recipes: this.collection.toJSON()}) );
 
         return this;
     },
