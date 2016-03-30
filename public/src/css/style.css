@@ -200,6 +200,7 @@ body {
 /* tracker
 ----------------------------------*/
 .tracked-item th {
+    color:#eee;
     background-color: #aaa;
 }
 
