@@ -40,7 +40,8 @@ body {
     margin-top: 14px;
 }
 
-#search-top {
+#search-top,
+#tracker-top {
     padding: 0 6px 0 6px;
 }
 
@@ -197,11 +198,47 @@ body {
     background-color:#b8dec0;
 }
 
-/* tracker
+/* tracker table
 ----------------------------------*/
+.tracked-item {
+    border-collapse: collapse;
+    width: 100%;
+}
+
 .tracked-item th {
     color:#eee;
+    font-size: 13px;
     background-color: #aaa;
+    border-top: 1px solid #333;
+    border-bottom: 2px solid #333;
+    padding: 6px;
+}
+
+.tracked-item th .glyphicon-remove {
+    color: #eee;
+}
+
+.tracked-item .glyphicon-remove {
+    color: #dd0000;
+    font-size: 16px;
+}
+
+.tracked-row {
+    border-bottom: 1px solid #000;
+}
+
+.tracked-row:hover {
+    background-color:#b8dec0;
+}
+
+.tracked-attr {
+    font-size: 12px;
+    text-align: center;
+    padding: 6px;
+}
+
+.tracked-name {
+    text-align: left;
 }
 
 /* tracker editor

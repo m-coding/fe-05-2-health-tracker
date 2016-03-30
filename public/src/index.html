@@ -113,7 +113,6 @@
     <footer class="logo">
       <a href="https://developer.edamam.com" target="_blank"><img src="images/edamam.png" alt="Powered By Edamam"></a>
     </footer>
-
   </script>
 
   <script type="text/x-handlebars-template" id="buttons-template">
@@ -153,17 +152,19 @@
       <tr>
         <th>Food</th>
         <th>Fat</th>
-        <th>Carbs</th>
-        <th>Protein</th>
-        <th>Calories</th>
+        <th title="Carbohydrates">Carbs</th>
+        <th title="Protein">Prot</th>
+        <th title="Calories">Cals</th>
+        <th><i class="glyphicon glyphicon-remove"></i></th>
       </tr>
       {{#each models}}
       <tr class="tracked-row">
-        <td class="tracked-attr">{{attributes.itemName}}</td>
+        <td class="tracked-attr tracked-name"><a href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
         <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
         <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
         <td class="tracked-attr">{{attributes.valueProteins}}</td>
         <td class="tracked-attr">{{attributes.valueCalories}}</td>
+        <td class="tracked-attr"><a href="#delete" data-id="{{attributes.id}}" title="Delete"><i class="glyphicon glyphicon-remove"></i></a></td>
       </tr>
       {{/each}}
     </table>
