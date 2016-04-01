@@ -7,28 +7,35 @@
 // The # tells JSDoc that the items lent to nt.Router belong to an instance of the class.
 nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
 
-    routes:{
-        'search/:query': 'search'
-    },
-
-    search: function(query) {
-        console.log('Food search containing the word: ' + query);
-    },
-
-    /** Instantiate Models, Collections, and Views
-     * @function initialize
+    /** Routes for this app
+     * @property {object} routes
      * @memberof nt.Router */
-    initialize: function() {
-        nt.Models.nutrition    = new nt.Models.Nutrition();
-        nt.Collections.results = new nt.Collections.FoodSearch();
-        nt.Collections.recipes = new nt.Collections.RecipeSearch();
-        nt.Collections.tracker = new nt.Collections.NutritionTracker();
-        nt.Views.tabs          = new nt.Views.TabNav();
-        nt.Views.start         = new nt.Views.Start();
-        nt.Views.search        = new nt.Views.Search({collection: nt.Collections.results});
-        nt.Views.recipe        = new nt.Views.Recipe({collection: nt.Collections.recipes});
-        nt.Views.nutrition     = new nt.Views.Nutrition({model: nt.Models.nutrition});
-        nt.Views.tracker       = new nt.Views.Tracker({collection: nt.Collections.tracker});
+    routes:{
+        '': 'start',
+        'search/:query': 'search',
+        'tracker/:id': 'tracker'
+    },
+
+    /** Update url and call route function
+     * @function goto
+     * @memberof nt.Router */
+    goto: function(url) {
+        console.log('ROUTER: goto -> ' + url);
+        nt.Router.Instance.navigate(url, { trigger: true });
+    },
+
+    /** Search screen
+     * @function search
+     * @memberof nt.Router */
+    search: function(query) {
+        console.log('ROUTER: Food search containing the word: ' + query);
+    },
+
+    /** Tracker screen
+     * @function tracker
+     * @memberof nt.Router */
+    tracker: function(id) {
+        console.log('ROUTER: Tracker item selected with id: ' + id);
     }
 
 });
