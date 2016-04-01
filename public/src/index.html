@@ -40,7 +40,9 @@
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
               <h3>Food Search</h3>
-              <input id="search-food" type="text" class="form-control" placeholder="What did you eat?">
+              <form id="suggest" autocomplete="off">
+                <input id="search-food" type="search" class="form-control" placeholder="What did you eat?">
+              </form>
             </div>
             <div id="search-results"></div>
             <div id="recipe-top">
@@ -212,17 +214,20 @@
   <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone.localStorage-min.js"></script>
+  <script src="js/lib/backbone.typeahead.min.js"></script>
   <script src="js/lib/handlebars.min-latest.js"></script>
   <script src="js/lib/nutritionLabel-min.js"></script>
   <!-- endbuild -->
   <!-- build:js js/nutritionTracker.min.js -->
-  <script src="js/app.js"></script>
+  <script src="js/namespace.js"></script>
   <script src="js/models/food.js"></script>
   <script src="js/models/recipe.js"></script>
   <script src="js/models/nutrition.js"></script>
+  <script src="js/models/autocomplete.js"></script>
   <script src="js/collections/foodSearch.js"></script>
   <script src="js/collections/recipeSearch.js"></script>
   <script src="js/collections/nutritionTracker.js"></script>
+  <script src="js/collections/autocompleteSearch.js"></script>
   <script src="js/views/startView.js"></script>
   <script src="js/views/tabView.js"></script>
   <script src="js/views/foodSearchView.js"></script>
@@ -230,7 +235,9 @@
   <script src="js/views/nutritionView.js"></script>
   <script src="js/views/nutritionTrackerView.js"></script>
   <script src="js/views/nutritionEditorView.js"></script>
+  <script src="js/views/autocompleteSearchView.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
   <!-- endbuild -->
 </body>
 </html>
