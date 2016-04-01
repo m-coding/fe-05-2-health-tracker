@@ -7,6 +7,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     el: '#search',
 
+    //router: nt.Router,
+
     prevQuery: '',
 
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
@@ -31,7 +33,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
         // Populate item template with the food's attributes
         // credit: http://stackoverflow.com/questions/21653956
-        this.$searchResults.append( this.itemTemplate({items: this.collection.toJSON()}) );
+        this.$searchResults.append( this.itemTemplate({ items: this.collection.toJSON() }) );
 
         return this;
     },
@@ -82,6 +84,9 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             this.$searchResults.html('');
 
         this.prevQuery = query;
+
+        // Update url
+        nt.Router.Instance.goto('search/' + query);
 
     } // searchFood
 
