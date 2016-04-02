@@ -11,10 +11,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
 
-    events: {
-        //'submit #search-suggest': 'searchFood'
-    },
-
     /** Setup `this` context, DOM references, and listeners */
     initialize: function() {
         _.bindAll(this, 'searchSuccess', 'searchError');
@@ -27,8 +23,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
         // Run the search if the user selects an option from the autocomplete list
         this.listenTo(nt.Plugin.Instance, 'selected', this.searchFood);
-        // Run the search if the enter key is pressed
-        // this.listenTo(nt.Plugin.Instance, 'enterkey', this.searchFood);
 
         // Show/Hide preloader message
         this.listenTo(nt.Collections.suggest, 'fetch', this.showPreloader);
