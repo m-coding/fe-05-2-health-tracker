@@ -63,10 +63,15 @@ body {
     /*position: absolute;*/
 }
 
-.dropdown-menu .typeahead-preload {
+.dropdown-menu .typeahead-preload,
+.dropdown-menu .typeahead-error {
     font-size: 90%;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.dropdown-menu .typeahead-error {
+    color: #dd0000;
 }
 
 .item:first-child,

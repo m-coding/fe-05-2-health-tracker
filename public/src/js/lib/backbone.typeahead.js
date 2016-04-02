@@ -169,6 +169,7 @@
             this.rerender(this.results);
         }
 
+        // Hide if the search box is empty
         if(val.length === 0) this.hide();
 
     }, 400),

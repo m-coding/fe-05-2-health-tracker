@@ -25,7 +25,7 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(/** @lends nt.Col
             if(window.console) console.log(errMsg);
             $('#search-suggest .dropdown-menu')
                 .show()
-                .prepend('<li class="typeahead-item"><a>' + errMsg + '</a></li>');
+                .prepend('<li class="typeahead-error"><a>' + errMsg + '</a></li>');
         }
         collection.reset();
     },
