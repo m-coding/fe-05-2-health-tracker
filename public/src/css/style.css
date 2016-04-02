@@ -38,6 +38,7 @@ body {
 #app {
     display: none;
     margin-top: 14px;
+    overflow: visible;
 }
 
 #search-top,
@@ -45,8 +46,29 @@ body {
     padding: 0 6px 0 6px;
 }
 
+#search-top {
+    /*overflow: visible;*/
+}
+
 /* search results
 ----------------------------------*/
+#search-suggest {
+    display: block;
+    position: relative;
+}
+
+.dropdown-menu {
+    z-index: 999;
+    overflow: visible;
+    /*position: absolute;*/
+}
+
+.dropdown-menu .typeahead-preload {
+    font-size: 90%;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .item:first-child,
 .recipe-item:first-child {
     margin-top: 15px;
