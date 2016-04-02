@@ -151,13 +151,14 @@
 
         if(val.length === 0) this.hide();
 
+        // If an ajax request is still in progress, then abort it
         if(this.fetchXhr &&
            this.fetchXhr.readyState > 0 &&
            this.fetchXhr.readyState < 4) {
-            console.log('!!!! Aborting fetchXhr !!!!');
-            this.fetchXhr.abort();
+           this.fetchXhr.abort();
         }
 
+        // Make a new ajax request if url and api is setup
         if (val.length > 0 && this.collection.url && this.collection.api) {
             this.collection.api.q = val;
             this.fetchXhr = this.collection.fetch({
@@ -169,10 +170,9 @@
             this.results = this.search(val).slice(0, this.options.limit);
             this.rerender(this.results);
         }
-    }, 300),
+    }, 400),
     // @private callback
     _onFetchComplete: function (result) {
-        console.log('onFetchComplete');
         this.results = this.collection.toArray();
         this.rerender(this.results);
     },
@@ -187,15 +187,11 @@
       this.selectModel(this.results[index]);
     },
     selectModel: function(model) {
-      console.log('selectModel()');
-      console.log('model:', model);
-
       var key = this.options.key;
 
       // Run only if there is model available
       if(model) {
         var value = model.get(key);
-        console.log('value:', value);
 
         // Update the input field with the key attribute of the select model
         this.$input.val(value);
@@ -230,8 +226,6 @@
           // TODO shown needs to be returned to its original function (as an
           // indicator of whether the menu is currently displayed or not)
           if (!this.shown) {return;}
-          console.log(">>> ENTER <<<");
-          this.trigger('enterkey', this.collection);
           this.select();
           break;
         case 27: // escape
