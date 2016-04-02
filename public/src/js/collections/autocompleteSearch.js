@@ -11,11 +11,26 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(/** @lends nt.Col
     /** Nutritionix v2 API "as you type" suggestions */
     url: 'https://apibeta.nutritionix.com/v2/autocomplete',
 
-    /** Override parse to return only "hits" from the response */
-    parse: function(response) {
-        console.log("Collection AutocompleteSearch response:");
-        console.dir(response);
-        return response;
+    /** Parameters to pass for fetch requests */
+    api: {
+        q: '',
+        appId: '53242d79',
+        appKey: '82289438a16ec7b92cdcf5ad054159c4'
+    },
+
+    /** Displays ajax error in the autocomplete drop menu */
+    apiError: function(collection, response) {
+        var errMsg = response.status + ' ' + response.statusText + ' : ' + 'Error with autocomplete server request';
+        if(window.console) console.log(errMsg);
+        $('#search-suggest .dropdown-menu')
+            .show()
+            .append('<li class="typeahead-item"><a>' + errMsg + '</a></li>');
+    },
+
+    /** Have the collection emit a 'fetch' event */
+    fetch: function() {
+        this.trigger( 'fetch', this );
+        return Backbone.Model.prototype.fetch.apply( this, arguments );
     }
 
 });
