@@ -149,8 +149,6 @@
     searchInput: _.debounce(function () { // Add throttle to limit ajax requests
         var val = this.$input.val();
 
-        if(val.length === 0) this.hide();
-
         // If an ajax request is still in progress, then abort it
         if(this.fetchXhr &&
            this.fetchXhr.readyState > 0 &&
@@ -170,6 +168,9 @@
             this.results = this.search(val).slice(0, this.options.limit);
             this.rerender(this.results);
         }
+
+        if(val.length === 0) this.hide();
+
     }, 400),
     // @private callback
     _onFetchComplete: function (result) {
