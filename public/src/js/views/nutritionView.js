@@ -125,36 +125,46 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // getNutrition
 
     displayChart: function() {
+        var fat = this.model.attributes.valueTotalFat;
+        var carbs = this.model.attributes.valueTotalCarb;
+        var protein = this.model.attributes.valueProteins;
+
         var data = google.visualization.arrayToDataTable([
             ['Nutrient', 'Value'],
-            ['Fat', this.model.attributes.valueTotalFat],
-            ['Carbs', this.model.attributes.valueTotalCarb],
-            ['Protein', this.model.attributes.valueProteins]
+            ['Fat', fat],
+            ['Carbs', carbs],
+            ['Protein', protein]
         ]);
 
         var options = {
             width: 280,
             height: 140,
-            backgroundColor: '#b8dec0'
+            backgroundColor: '#b8dec0',
+            sliceVisibilityThreshold: 0
         };
 
-        // Add 'g' for grams unit to the values
-        if(!this.gformat)
-            this.gformat = new google.visualization.NumberFormat({suffix: 'g'});
+        var notZero = (parseFloat(fat + carbs + protein) !== 0);
 
-        // Clear chart.
-        if(this.gchart) this.gchart.clearChart();
+        // Don't draw a chart if all the values are zero
+        if(notZero) {
+            // Add 'g' for grams unit to the values
+            if(!this.gformat)
+                this.gformat = new google.visualization.NumberFormat({suffix: 'g'});
 
-        // Instantiate chart.
-        this.gchart = new google.visualization.PieChart(
-                document.getElementById('gchart')
-            );
+            // Clear chart.
+            if(this.gchart) this.gchart.clearChart();
 
-        // Apply formatter to second column
-        this.gformat.format(data, 1);
+            // Instantiate chart.
+            this.gchart = new google.visualization.PieChart(
+                    document.getElementById('gchart')
+                );
 
-        // Draw chart.
-        this.gchart.draw(data, options);
+            // Apply formatter to second column
+            this.gformat.format(data, 1);
+
+            // Draw chart.
+            this.gchart.draw(data, options);
+        }
 
     }, // displayChart
 
