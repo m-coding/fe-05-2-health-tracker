@@ -159,12 +159,12 @@
       </tr>
       {{#each models}}
       <tr class="tracked-row">
-        <td class="tracked-attr tracked-name"><a href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
+        <td class="tracked-attr tracked-name"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
         <td class="tracked-attr">{{attributes.valueCalories}}</td>
         <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
         <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
         <td class="tracked-attr">{{attributes.valueProteins}}</td>
-        <td class="tracked-attr"><a href="#delete" data-id="{{attributes.id}}" title="Delete"><i class="glyphicon glyphicon-remove"></i></a></td>
+        <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
       </tr>
       {{/each}}
     </table>

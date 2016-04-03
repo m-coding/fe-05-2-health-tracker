@@ -74,6 +74,9 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         // Save it to localStorage
         this.food.save();
 
+        // Tell the Nutrition View the food was saved
+        this.model.trigger('foodsaved');
+
         console.log('nt.Collections.tracker:');
         console.dir(nt.Collections.tracker);
 

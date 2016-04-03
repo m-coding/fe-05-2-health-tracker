@@ -13,7 +13,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         'click .item-nutrition': 'openNutrition',
         'click #nutrition-close': 'closeNutrition',
         'click #nutrition-add': 'addFood',
-        'click #nutrition-remove': 'RemoveFood'
+        'click #nutrition-remove': 'removeFood'
     },
 
     initialize: function() {
@@ -35,6 +35,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Close the Nutrition view when another search is run
         this.listenTo(nt.Plugin.Instance, 'selected', this.closeNutrition);
+        this.listenTo(this.model, 'foodsaved', this.showTracking);
     },
 
     render: function() {
@@ -92,9 +93,6 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     closeNutrition: function() {
         // Remove highlight from selected item
         $('.highlight').removeAttr('style').removeClass('highlight');
-
-        // Clear button menu
-        this.$nutritionMenu.html('');
 
         // Clear chart and nutrition label
         this.$nutritionResults.find('figure').html('');
@@ -195,8 +193,13 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     displayMenu: function() {
         var isTracked = false;
 
+        // Clear button menu container
+        this.$nutritionMenu.html('');
+
+        // Set tracking flag
         if(this.trackedItem) isTracked = true;
 
+        // Add the button menu html
         this.$nutritionMenu.append(this.buttonsTemplate({
             tracking: isTracked
         }));
@@ -212,8 +215,16 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     },
 
     removeFood: function() {
+        console.log('removeFood()');
+        this.trackedItem.destroy();
+        this.trackedItem = null;
+        this.displayMenu();
+    },
 
+    showTracking: function() {
+        console.log('showTracking()');
+        this.trackedItem = true;
+        this.displayMenu();
     }
-
 
 });

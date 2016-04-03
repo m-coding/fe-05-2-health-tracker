@@ -244,6 +244,7 @@ body {
 }
 
 .tracked-item .glyphicon-remove {
+    cursor: pointer;
     color: #dd0000;
     font-size: 16px;
 }
