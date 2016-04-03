@@ -24,3 +24,6 @@ A single page app that tracks the user's calorie intake.
 * Nutritionix
 * Edamam
 * Google Charts
+
+#### Fonts
+* Archivo
