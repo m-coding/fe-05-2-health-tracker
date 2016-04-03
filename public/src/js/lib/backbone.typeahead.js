@@ -227,8 +227,6 @@
         case 13: // Enter
           // TODO shown needs to be returned to its original function (as an
           // indicator of whether the menu is currently displayed or not)
-          console.log('>>> ENTER <<<');
-          console.log('this.shown: ', this.shown);
           if (this.$input.val().length === 0) {return;}
           this.select();
           break;
