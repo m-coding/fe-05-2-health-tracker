@@ -15,6 +15,11 @@ A single page app that tracks the user's calorie intake.
 ## Notes
 #### Dependencies
 * Bootstrap Theme: https://bootswatch.com/spacelab/
+* Underscore
+* Backbone
+* Backbone.localStorage
+* Backbone.Typeahead
+* Handlebars
 
 #### CSS
 * Boostrap
