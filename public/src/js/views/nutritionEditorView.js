@@ -13,6 +13,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     events: {
         'click #foodSave': 'saveFood',
+        'click #foodClose': 'close'
     },
 
     initialize: function() {
