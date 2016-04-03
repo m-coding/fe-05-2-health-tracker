@@ -19,3 +19,8 @@ A single page app that tracks the user's calorie intake.
 #### CSS
 * Boostrap
 * Nutrionix Label
+
+#### API
+* Nutritionix
+* Edamam
+* Google Charts
