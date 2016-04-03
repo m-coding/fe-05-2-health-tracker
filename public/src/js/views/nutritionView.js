@@ -61,6 +61,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         var elem = $(e.target);
         var id   = elem.data('item');
 
+        // Check if this item is already being tracked
+        var trackedItem = nt.Collections.tracker.get(id);
+
         // Highlight selected item
         elem.closest('.item').css('background-color', '#b8dec0').addClass('highlight');
 
@@ -69,8 +72,16 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // TODO: Display preload animation
 
-        // Get nutrition data from item id
-        this.getNutrition(id);
+        if(trackedItem) {
+            // Copy the data from the tracker
+            this.model.set( trackedItem.toJSON() );
+
+            // Display the item
+            this.itemSuccess();
+        } else {
+            // Get nutrition data from API using the item id
+            this.getNutrition(id);
+        }
 
     }, // openNutrition
 
