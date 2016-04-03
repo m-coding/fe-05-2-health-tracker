@@ -35,3 +35,7 @@ A single page app that tracks the user's calorie intake.
 
 #### Plugins
 * eqHeights
+
+# Change Log
+* [All commits](https://github.com/m-coding/fe-05-2-nutrition-tracker/commits/master)
+* [All releases](https://github.com/m-coding/fe-05-2-nutrition-tracker/releases)
