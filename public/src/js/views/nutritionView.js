@@ -31,6 +31,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Load the Visualization API and the corechart package.
         google.charts.load('current', {'packages':['corechart']});
+
+        // Close the Nutrition view when another search is run
+        this.listenTo(nt.Plugin.Instance, 'selected', this.closeNutrition);
     },
 
     render: function() {
@@ -78,11 +81,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Clear button menu
         this.$nutritionMenu.html('');
 
-        // Clear chart
+        // Clear chart and nutrition label
         this.$nutritionResults.find('figure').html('');
-
-        // Clear nutrition label
-        this.$nutritionResults.find('figcaption').html('');
 
         // Hide second column
         this.hideColumn();
@@ -98,8 +98,11 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // itemSuccess
 
     itemError: function(model, errorResponse) {
-        console.log('nt.Models.nutrition ERROR: ' + errorResponse);
-        console.log('NUTRITIONIX REQUEST FAILED');
+        var status = errorResponse.status;
+        var statusText = errorResponse.statusText;
+        var msg = '<div class="alert alert-danger">Nutritionix item request failed: <br>' +
+                   status + ' : ' + statusText + '</div>';
+        this.$nutritionMenu.html(msg);
     }, // itemError
 
     getNutrition: function(itemID) {

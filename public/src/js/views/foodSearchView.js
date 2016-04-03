@@ -41,6 +41,12 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         return this;
     }, // render
 
+    renderNoResults: function() {
+        var val = this.$searchFood.val();
+        var msg = '<div class="alert alert-info">Could not find any foods containing: ' + val + '</div>';
+        this.$searchResults.html(msg);
+    }, // renderNoResults
+
     showPreloader: function() {
         var msg = 'Loading...';
         var html = '<li class="typeahead-preload"><a>' + msg + '</a></li>';
@@ -53,12 +59,18 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     }, // hidePreloader
 
     searchSuccess: function(collection, response) {
-        this.render();
+        if(response.total_hits === 0)
+            this.renderNoResults();
+        else
+            this.render();
     }, // searchSuccess
 
     searchError: function(collection, errorResponse) {
-        console.log('nt.Collections.results.fetch ERROR: ' + errorResponse);
-        console.log('NUTRITIONIX REQUEST FAILED');
+        var status = errorResponse.status;
+        var statusText = errorResponse.statusText;
+        var msg = '<div class="alert alert-danger">Nutritionix search request failed with error: <br>' +
+                   status + ' : ' + statusText + '</div>';
+        this.$searchResults.html(msg);
     }, // searchError
 
     searchFood: function(e) {

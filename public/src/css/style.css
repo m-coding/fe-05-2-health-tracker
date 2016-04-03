@@ -321,3 +321,7 @@ body {
   padding-right: 0;
   padding-left: 0;
 }
+
+.alert {
+    margin: 6px;
+}
