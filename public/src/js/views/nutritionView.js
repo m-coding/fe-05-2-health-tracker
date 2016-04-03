@@ -26,6 +26,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         this.$nutritionMenu = $('#nutrition-button-menu');
         this.$nutritionResults = $('#nutrition-results');
         this.$nLabel = $('#nlabel');
+        this.trackedItem = null;
         this.gchart = null;
         this.gformat = null;
 
