@@ -41,6 +41,7 @@ body {
 }
 
 #search-top,
+#recipe-top,
 #tracker-top {
     padding: 0 6px 0 6px;
 }
@@ -162,14 +163,16 @@ body {
     background-color: #5cb85c;
 }
 
-#recipe-close {
+#recipe-close,
+#foodClose {
     position: absolute;
     font-size: 32px;
     right: 7px;
     top: 0px;
 }
 
-#recipe-close:hover {
+#recipe-close:hover,
+#foodClose:hover {
     cursor: pointer;
     color: #d00;
 }
@@ -180,7 +183,8 @@ body {
 }
 
 #recipe-top,
-#nutrition-top {
+#nutrition-top,
+#editor-top {
     position: relative;
 }
 
@@ -272,6 +276,26 @@ body {
     height: 100%;
     background-color:#b8dec0;
     z-index: 1000;
+}
+
+.calories-addon {
+    background-color: #fcf8e3;
+}
+
+.fat-addon {
+    background-color: #d9edf7;
+}
+
+.carbs-addon {
+    background-color: #f2dede;
+}
+
+.protein-addon {
+    background-color: #fcefe3;
+}
+
+.serving-addon {
+    background-color: #e4d8f0;
 }
 
 /* BOOTSTRAP
