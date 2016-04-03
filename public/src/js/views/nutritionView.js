@@ -25,6 +25,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         this.$nutritionTop = $('#nutrition-top');
         this.$nutritionMenu = $('#nutrition-button-menu');
         this.$nutritionResults = $('#nutrition-results');
+        this.$nLabel = $('#nlabel');
         this.gchart = null;
         this.gformat = null;
 
@@ -89,7 +90,11 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // closeNutrition
 
     itemSuccess: function(model, response) {
+        // Render the nutrition info
         this.render();
+
+        // Make the Search and Nutrition columns equal heights
+        $('.row').eqHeights({child:'.eqHeights'});
     }, // itemSuccess
 
     itemError: function(model, errorResponse) {
@@ -161,7 +166,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         }));
 
         // Activate Nutrition Label jQuery Plugin by Nutritionix
-        this.$nutritionResults.find('figcaption').nutritionLabel(this.model.toJSON());
+        this.$nLabel.nutritionLabel(this.model.toJSON());
 
     }, // displayNutrition
 

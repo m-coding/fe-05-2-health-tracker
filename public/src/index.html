@@ -25,9 +25,9 @@
     </section>
 
     <!-- App main -->
-    <section id="app" class="row row-centered no-gutter equalheights">
+    <section id="app" class="row row-centered no-gutter">
       <!-- Column 1 -->
-      <div class="col-md-4 col-centered">
+      <div class="col-md-4 col-centered eqHeights">
         <!-- Nav  tabs -->
         <ul id="app-tabs" class="nav nav-tabs">
           <li role="presentation" class="active"><a href="#search">Search</a></li>
@@ -63,14 +63,14 @@
 
 
       <!-- Column 2 -->
-      <div id="nutrition" class="col-md-4 col-centered vtop hideColumn">
+      <div id="nutrition" class="col-md-4 col-centered vtop hideColumn eqHeights">
         <!-- Nutrition info -->
         <div id="nutrition-button-menu"></div>
         <div id="nutrition-results">
           <!-- Chart -->
           <figure id="gchart"></figure>
           <!-- Nutrition label -->
-          <figcaption></figcaption>
+          <figure id="nlabel"></figure>
         </div><!-- /#nutrition-results -->
       </div><!-- /.col-md-4 -->
     </section>
@@ -213,6 +213,7 @@
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone.localStorage-min.js"></script>
   <script src="js/lib/backbone.typeahead.js"></script>
+  <script src="js/lib/eqHeights.js"></script>
   <script src="js/lib/handlebars.min-latest.js"></script>
   <script src="js/lib/nutritionLabel-min.js"></script>
   <!-- endbuild -->

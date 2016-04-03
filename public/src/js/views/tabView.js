@@ -12,6 +12,7 @@ nt.Views.TabNav = Backbone.View.extend(/** @lends nt.Views.TabNav# */{
         $('#app-tabs a').click(function (e) {
             e.preventDefault();
             $(this).tab('show');
+            $('.row').eqHeights({child:'.eqHeights'});
         });
     }
 
