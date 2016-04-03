@@ -125,9 +125,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // getNutrition
 
     displayChart: function() {
-        var fat = this.model.attributes.valueTotalFat;
-        var carbs = this.model.attributes.valueTotalCarb;
-        var protein = this.model.attributes.valueProteins;
+        var fat = this.model.get('valueTotalFat');
+        var carbs = this.model.get('valueTotalCarb');
+        var protein = this.model.get('valueProteins');
 
         var data = google.visualization.arrayToDataTable([
             ['Nutrient', 'Value'],
