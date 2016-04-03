@@ -37,6 +37,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     },
 
     render: function() {
+        // Display button menu
+        this.displayMenu();
+
         // Display pie chart
         this.displayChart();
 
@@ -62,7 +65,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         var id   = elem.data('item');
 
         // Check if this item is already being tracked
-        var trackedItem = nt.Collections.tracker.get(id);
+        this.trackedItem = nt.Collections.tracker.get(id);
 
         // Highlight selected item
         elem.closest('.item').css('background-color', '#b8dec0').addClass('highlight');
@@ -72,9 +75,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // TODO: Display preload animation
 
-        if(trackedItem) {
+        if(this.trackedItem) {
             // Copy the data from the tracker
-            this.model.set( trackedItem.toJSON() );
+            this.model.set( this.trackedItem.toJSON() );
 
             // Display the item
             this.itemSuccess();
@@ -183,16 +186,20 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Reference Example #2
         // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html
 
-        var tracking = false;
-
-        this.$nutritionMenu.append(this.buttonsTemplate({
-            tracking: tracking
-        }));
-
         // Activate Nutrition Label jQuery Plugin by Nutritionix
         this.$nLabel.nutritionLabel(this.model.toJSON());
 
     }, // displayNutrition
+
+    displayMenu: function() {
+        var isTracked = false;
+
+        if(this.trackedItem) isTracked = true;
+
+        this.$nutritionMenu.append(this.buttonsTemplate({
+            tracking: isTracked
+        }));
+    }, // displayMenu
 
     addFood: function() {
         console.log('Nutrition View addFood()');
