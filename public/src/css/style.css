@@ -42,7 +42,8 @@ body {
 
 #search-top,
 #recipe-top,
-#tracker-top {
+#tracker-top,
+#tracker-results p {
     padding: 0 6px 0 6px;
 }
 
