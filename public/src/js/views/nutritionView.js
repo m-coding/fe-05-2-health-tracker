@@ -109,6 +109,9 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Hide second column
         this.hideColumn();
 
+        // Restore hidden icons
+        $('.tracked-delete').show();
+
     }, // closeNutrition
 
     itemSuccess: function(model, response) {

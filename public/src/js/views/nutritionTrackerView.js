@@ -12,7 +12,8 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
     emptyMessage: '<p>No foods are being tracked.</p><p>Do a search and add something!</p>',
 
     events: {
-        'click .tracked-delete': 'deleteFood'
+        'click .tracked-delete': 'deleteFood',
+        'click .tracked-edit': 'openFood'
     },
 
     initialize: function() {
@@ -44,6 +45,20 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         food.destroy();
 
     }, // deleteFood
+
+    openFood: function(e) {
+        var row = $(e.target).closest('.tracked-row');
+
+        // Open nutrition view
+        nt.Views.nutrition.openNutrition(e);
+
+        // Hightlight row
+        row.css('background-color', '#b8dec0').addClass('highlight');
+
+        // Hide delete icon
+        row.find('td:last .tracked-delete').hide();
+
+    }, // openFood
 
     temp: function(eventName) {
         console.log('eventName: ', eventName);
