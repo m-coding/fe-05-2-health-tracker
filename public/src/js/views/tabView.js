@@ -5,7 +5,7 @@
  * @extends Backbone.View */
 nt.Views.TabNav = Backbone.View.extend(/** @lends nt.Views.TabNav# */{
 
-    /** Enable bootstrap tabs
+    /** Enable bootstrap tabs and equalize column heights
      * @function  initialize
      * @memberof  nt.Views.TabNav */
     initialize: function() {
@@ -14,6 +14,7 @@ nt.Views.TabNav = Backbone.View.extend(/** @lends nt.Views.TabNav# */{
             $(this).tab('show');
             $('.row').eqHeights({child:'.eqHeights'});
         });
-    }
+
+    } // initialize
 
 });
