@@ -39,7 +39,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Update the Nutrition view tracking status when a food is saved
         this.listenTo(this.model, 'foodsaved', this.showTracking);
-    },
+
+    }, // initialize
 
     render: function() {
         // Display button menu
@@ -50,6 +51,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Display nutrition label
         this.displayNutrition();
+
     }, // render
 
     showColumn: function() {
@@ -61,16 +63,13 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
     }, // hideColumn
 
     openNutrition: function(e) {
+        var elem = $(e.target);
+        var id   = elem.data('item');
+
         e.preventDefault();
 
         // Close if already open
         this.closeNutrition();
-
-        var elem = $(e.target);
-        var id   = elem.data('item');
-
-        // Check if this item is already being tracked
-        this.trackedItem = nt.Collections.tracker.get(id);
 
         // Highlight selected item
         elem.closest('.item').css('background-color', '#b8dec0').addClass('highlight');
@@ -78,7 +77,14 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Show second column
         this.showColumn();
 
-        // TODO: Display preload animation
+        // Get item data from localStorage or from the API
+        this.checkItem(id);
+
+    }, // openNutrition
+
+    checkItem: function(itemId) {
+        // Check if this item is already being tracked
+        this.trackedItem = nt.Collections.tracker.get(itemId);
 
         if(this.trackedItem) {
             // Copy the data from the tracker
@@ -88,10 +94,10 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             this.itemSuccess();
         } else {
             // Get nutrition data from API using the item id
-            this.getNutrition(id);
+            this.getNutrition(itemId);
         }
 
-    }, // openNutrition
+    }, // checkItem
 
     closeNutrition: function() {
         // Remove highlight from selected item
@@ -111,6 +117,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Make the Search and Nutrition columns equal heights
         $('.row').eqHeights({child:'.eqHeights'});
+
     }, // itemSuccess
 
     itemError: function(model, errorResponse) {
@@ -119,6 +126,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         var msg = '<div class="alert alert-danger">Nutritionix item request failed: <br>' +
                    status + ' : ' + statusText + '</div>';
         this.$nutritionMenu.html(msg);
+
     }, // itemError
 
     getNutrition: function(itemID) {
@@ -127,6 +135,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             'appId': '53242d79',
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
+
+        // TODO: Display preload animation
 
         // Clear the model
         this.model.clear();
@@ -206,33 +216,37 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         this.$nutritionMenu.append(this.buttonsTemplate({
             tracking: isTracked
         }));
+
     }, // displayMenu
 
     addFood: function() {
-        console.log('Nutrition View addFood()');
         // Create an editor view with the nutrition data model
         var editorView = new nt.Views.Editor({model: this.model});
 
         // Render the editor view and append its element to the nutrition view
         this.$nutrition.append( editorView.render().el );
-    },
+
+    }, // addFood
 
     removeFood: function() {
-        console.log('removeFood()');
-        this.trackedItem.destroy();
+        var id = this.model.get('id');
+        var food = nt.Collections.tracker.get(id);
+        food.destroy();
         this.trackedItem = null;
         this.displayMenu();
-    },
+
+    }, // removeFood
 
     showTracking: function() {
-        console.log('showTracking()');
         this.trackedItem = true;
         this.displayMenu();
-    },
+
+    }, // showTracking
 
     openTrackerView: function() {
         this.closeNutrition();
         $('#tab2').trigger('click');
-    }
+
+    } // openTrackerView
 
 });
