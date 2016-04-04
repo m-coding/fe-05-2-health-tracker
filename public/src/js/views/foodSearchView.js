@@ -44,6 +44,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     }, // render
 
+    /** Show or hide the autocomplete help text */
     toggleHelp: function() {
         this.$help.toggle();
     }, // toggleHelp
