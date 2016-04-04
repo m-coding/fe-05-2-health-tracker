@@ -15,11 +15,12 @@ nt.Collections.RecipeSearch = Backbone.Collection.extend(/** @lends nt.Collectio
     sync: function(method, collection, options) {
         options.dataType = 'jsonp'; // cross origin workaround
         return Backbone.sync(method, collection, options);
-    },
+
+    }, // sync
 
     /** Override parse to return only "hits" from the response */
     parse: function(response) {
         return response.hits;
-    }
+    } // parse
 
 });
