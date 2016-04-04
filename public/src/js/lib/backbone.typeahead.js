@@ -86,6 +86,8 @@
       // Backbone 1.1 no longer binds options to this by default
       this.options = options;
 
+      this.$preload = $('#typeahead-preload');
+
       // TODO Listen to changes on the collection
     },
     // Models were emptied by the preInitialization function
@@ -102,6 +104,7 @@
       this.mousedover = false; // Is the mouse over the typeahead (incl. menu)?
     },
     template: '<input type="text" class="form-control" placeholder="Search" /><ul class="dropdown-menu"></ul>',
+    preload: '<li id="typeahead-preload"><a>Loading...</a></li>',
     nativeEvents: {
       'keyup': 'keyup',
       'keypress': 'keypress',
@@ -149,12 +152,8 @@
     searchInput: _.debounce(function () { // Add throttle to limit ajax requests
         var val = this.$input.val();
 
-        // If an ajax request is still in progress, then abort it
-        if(this.fetchXhr &&
-           this.fetchXhr.readyState > 0 &&
-           this.fetchXhr.readyState < 4) {
-           this.fetchXhr.abort();
-        }
+        // Display preloader message
+        if(this.$preload.length === 0) this.$menu.prepend(this.preload);
 
         // Make a new ajax request if url and api is setup
         if (val.length > 0 && this.collection.url && this.collection.api) {

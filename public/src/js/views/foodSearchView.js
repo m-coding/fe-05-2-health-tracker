@@ -18,15 +18,12 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         this.$searchTop = $('#search-top');
         this.$searchResults = $('#search-results');
         this.$searchFood = $('#search-food');
-        this.$preload = $('.typeahead-preload');
+        this.$preload = $('#typeahead-preload');
         this.$dropmenu = $('#search-suggest .dropdown-menu');
 
         // Run the search if the user selects an option from the autocomplete list
         this.listenTo(nt.Plugin.Instance, 'selected', this.searchFood);
 
-        // Show/Hide preloader message
-        this.listenTo(nt.Collections.suggest, 'fetch', this.showPreloader);
-        this.listenTo(nt.Collections.suggest, 'sync', this.hidePreloader);
     }, // initialize
 
     /** Render results */
@@ -39,40 +36,37 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         this.$searchResults.append( this.itemTemplate({ items: this.collection.toJSON() }) );
 
         return this;
+
     }, // render
 
+    /** Display message if no results */
     renderNoResults: function() {
         var val = this.$searchFood.val();
         var msg = '<div class="alert alert-info">Could not find any foods containing: ' + val + '</div>';
         this.$searchResults.html(msg);
+
     }, // renderNoResults
 
-    showPreloader: function() {
-        var msg = 'Loading...';
-        var html = '<li class="typeahead-preload"><a>' + msg + '</a></li>';
-        this.$preload.remove();
-        this.$dropmenu.show().prepend(html);
-    }, // showPreloader
-
-    hidePreloader: function() {
-        this.$preload.remove();
-    }, // hidePreloader
-
+    /** AJAX success callback */
     searchSuccess: function(collection, response) {
         if(response.total_hits === 0)
             this.renderNoResults();
         else
             this.render();
+
     }, // searchSuccess
 
+    /** AJAX error callback */
     searchError: function(collection, errorResponse) {
         var status = errorResponse.status;
         var statusText = errorResponse.statusText;
         var msg = '<div class="alert alert-danger">Nutritionix search request failed with error: <br>' +
                    status + ' : ' + statusText + '</div>';
         this.$searchResults.html(msg);
+
     }, // searchError
 
+    /** Get food from Nutritionix */
     searchFood: function(e) {
         var query = this.$searchFood.val().trim();
 
