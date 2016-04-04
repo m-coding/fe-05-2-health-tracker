@@ -16,10 +16,10 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         'click .tracked-edit': 'openFood'
     },
 
+    /** Setup DOM ref, listener, and fetch collection from localStorage */
     initialize: function() {
         this.$trackerResults = $('#tracker-results');
         this.listenTo(this.collection, 'update', this.render);
-        this.listenTo(this.collection, 'all', this.temp);
         this.collection.fetch();
 
     }, // initialize
@@ -39,6 +39,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     }, // render
 
+    /** Delete food model using id */
     deleteFood: function(e) {
         var id = $(e.target).data('id');
         var food = this.collection.get(id);
@@ -46,22 +47,19 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     }, // deleteFood
 
+    /** Open nutrition view and style row in the tracker table */
     openFood: function(e) {
         var row = $(e.target).closest('.tracked-row');
 
         // Open nutrition view
         nt.Views.nutrition.openNutrition(e);
 
-        // Hightlight row
+        // Highlight row
         row.css('background-color', '#b8dec0').addClass('highlight');
 
         // Hide delete icon
         row.find('td:last .tracked-delete').hide();
 
-    }, // openFood
-
-    temp: function(eventName) {
-        console.log('eventName: ', eventName);
-    }
+    } // openFood
 
 });
