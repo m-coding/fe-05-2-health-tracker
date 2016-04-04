@@ -13,14 +13,15 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         'click .item-nutrition': 'openNutrition',
         'click #nutrition-close': 'closeNutrition',
         'click #nutrition-add': 'addFood',
-        'click #nutrition-remove': 'removeFood'
+        'click #nutrition-remove': 'removeFood',
+        'click #nutrition-track': 'openTrackerView'
     },
 
     initialize: function() {
         // Setup `this` context
         _.bindAll(this, 'itemSuccess', 'itemError');
 
-        // Setup DOM references.
+        // Setup DOM references and variables
         this.$nutrition = $('#nutrition');
         this.$nutritionTop = $('#nutrition-top');
         this.$nutritionMenu = $('#nutrition-button-menu');
@@ -35,6 +36,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
         // Close the Nutrition view when another search is run
         this.listenTo(nt.Plugin.Instance, 'selected', this.closeNutrition);
+
+        // Update the Nutrition view tracking status when a food is saved
         this.listenTo(this.model, 'foodsaved', this.showTracking);
     },
 
@@ -225,6 +228,11 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         console.log('showTracking()');
         this.trackedItem = true;
         this.displayMenu();
+    },
+
+    openTrackerView: function() {
+        this.closeNutrition();
+        $('#tab2').trigger('click');
     }
 
 });
