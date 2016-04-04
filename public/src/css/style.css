@@ -351,3 +351,45 @@ body {
 .alert {
     margin: 6px;
 }
+
+/* SPINNER ANIMATION
+----------------------------------*/
+.spinnerContainer {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8em;
+}
+
+.spinner {
+    font-size: 30px;
+    height: 2em;
+    width: 2em;
+    position: relative;
+    margin: 10px auto 10px auto;
+    -webkit-animation: rotation 0.7s infinite linear;
+    animation: rotation 0.7s infinite linear;
+    border: 0.5em solid rgba(0,0,0,0.2);
+    border-top-color: rgba(0,0,0,0.8);
+    border-radius: 100%;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
