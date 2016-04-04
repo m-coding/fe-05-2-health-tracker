@@ -16,6 +16,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         'click #foodClose': 'close'
     },
 
+    /** Setup input refs and create a new food model with today's date */
     initialize: function() {
         var d = new Date();
         this.today = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
@@ -42,6 +43,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     }, // newAttributes
 
+    /** Create a new nutrition model and set the date */
     createFood: function() {
         // Create a new nutrition Model
         this.food = new nt.Models.Nutrition();
@@ -54,6 +56,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     }, // createFood
 
+    /** Save the model to the collection and close the view */
     saveFood: function(e) {
         e.preventDefault();
 
@@ -76,10 +79,9 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     }, // saveFood
 
+    /** Destroy this view */
     close: function() {
-        // Destroy this view
         this.remove();
-
     } // close
 
 });
