@@ -17,22 +17,21 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
     },
 
     initialize: function() {
-        console.log('init Editor View');
         var d = new Date();
         this.today = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
         this.$inputDate = $('#foodTrackDate');
         this.createFood();
-    },
+
+    }, // initialize
 
     /** Render results */
     render: function() {
-        console.log("Editor View render()");
-
         // Populate nutrition inputs
-        this.$el.html(this.editorTemplate(this.food.attributes));
+        this.$el.html(this.editorTemplate( this.food.toJSON() ));
 
         return this;
-    },
+
+    }, // render
 
     /** Generate new attributes for a food item */
     newAttributes: function() {
@@ -40,11 +39,10 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
             sortOrder: nt.Collections.tracker.nextOrder(),
             trackDate: this.$inputDate.val()
         };
-    },
+
+    }, // newAttributes
 
     createFood: function() {
-        console.log("Editor View createFood()");
-
         // Create a new nutrition Model
         this.food = new nt.Models.Nutrition();
 
@@ -54,16 +52,12 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         // Add today's date
         this.food.set({ trackDate: this.today });
 
-        console.log('this.food:');
-        console.dir(this.food);
-    },
+    }, // createFood
 
     saveFood: function(e) {
         e.preventDefault();
-        console.log("Editor View saveFood()");
 
         var newAttr = this.newAttributes();
-        console.dir(newAttr);
 
         // Set additional attributes
         this.food.set( newAttr );
@@ -77,17 +71,15 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         // Tell the Nutrition View the food was saved
         this.model.trigger('foodsaved');
 
-        console.log('nt.Collections.tracker:');
-        console.dir(nt.Collections.tracker);
-
         // Close this view
         this.close();
-    },
+
+    }, // saveFood
 
     close: function() {
-        console.log("Editor View close()");
         // Destroy this view
         this.remove();
-    }
+
+    } // close
 
 });
