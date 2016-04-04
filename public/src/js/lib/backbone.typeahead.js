@@ -1,5 +1,6 @@
 /*!
  * Backbone.Typeahead by Aaron O. Ellis - https://github.com/aodin/Backbone.Typeahead
+ * with my customizations - https://github.com/m-coding/Backbone.Typeahead
  */
 (function(Backbone, _, $) {
   'use strict';
@@ -158,10 +159,10 @@
         // Make a new ajax request if url and api is setup
         if (val.length > 0 && this.collection.url && this.collection.api) {
             this.collection.api.q = val;
-            this.fetchXhr = this.collection.fetch({
-                                data: $.param(this.collection.api),
-                                error: this.collection.apiError
-                            }).done(this._onFetchComplete.bind(this));
+            this.collection.fetch({
+                data: $.param(this.collection.api),
+                error: this.collection.apiError
+            }).done(this._onFetchComplete.bind(this));
         }
         else {
             this.results = this.search(val).slice(0, this.options.limit);
