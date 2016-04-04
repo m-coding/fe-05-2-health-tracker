@@ -7,5 +7,6 @@ var nt = {
     Collections: {},
     Views: {},
     Router: {},
-    Plugin: {}
+    Plugin: {},
+    preloader: '<div class="spinnerContainer">Loading <div class="spinner"></div> Please Wait'
 };
