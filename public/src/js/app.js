@@ -8,9 +8,7 @@ $(document).ready(function() {
     nt.Collections.tracker = new nt.Collections.NutritionTracker();
 
     // Instantiate the autocomplete plugin
-    nt.Plugin.Typeahead = Backbone.Typeahead.extend({
-        template: '<input id="search-food" type="search" class="form-control" placeholder="What did you eat?"><ul class="dropdown-menu"></ul>'
-    });
+    nt.Plugin.Typeahead = Backbone.Typeahead.extend({ template: $('#search-template').html() });
     nt.Plugin.Instance = new nt.Plugin.Typeahead({ collection: nt.Collections.suggest, key: 'text' });
     nt.Plugin.Instance.setElement('#search-suggest').render();
 
