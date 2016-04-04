@@ -1,14 +1,77 @@
 
 /*! style.css - Nutrition Tracker Stylesheet */
 
+/* APP
+----------------------------------*/
 body {
     background-color: #eee;
 }
 
+.highlight h4 {
+    font-weight: bold;
+}
+
+.hideColumn {
+    visibility: hidden;
+    width: 0;
+}
+
+.spinnerContainer {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8em;
+}
+
+.spinner {
+    font-size: 30px;
+    height: 2em;
+    width: 2em;
+    position: relative;
+    margin: 10px auto 10px auto;
+    -webkit-animation: rotation 0.7s infinite linear;
+    animation: rotation 0.7s infinite linear;
+    border: 0.5em solid rgba(0,0,0,0.2);
+    border-top-color: rgba(0,0,0,0.8);
+    border-radius: 100%;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+#app {
+    display: none;
+    margin-top: 14px;
+}
+
+#search-top,
+#recipe-top,
+#tracker-top,
+#tracker-results p {
+    padding: 0 6px 0 6px;
+}
+
 /* START
 ----------------------------------*/
-#start-screen,
-.logo {
+.logo,
+#start-screen {
     text-align: center;
 }
 
@@ -24,38 +87,10 @@ body {
     color: #aaa;
 }
 
-/* APP
+/* SEARCH
 ----------------------------------*/
-.highlight h4 {
-    font-weight: bold;
-}
-
-.hideColumn {
-    visibility: hidden;
-    width: 0;
-}
-
-#app {
-    display: none;
-    margin-top: 14px;
-}
-
-#search-top,
-#recipe-top,
-#tracker-top,
-#tracker-results p {
-    padding: 0 6px 0 6px;
-}
-
-/* search results
-----------------------------------*/
-#search-suggest {
-    display: block;
-    position: relative;
-}
-
 .dropdown-menu {
-    z-index: 999;
+    z-index: 888;
     overflow: visible;
 }
 
@@ -67,7 +102,7 @@ body {
 }
 
 .dropdown-menu .typeahead-error {
-    color: #dd0000;
+    color: #d00;
 }
 
 .item:first-child,
@@ -105,7 +140,23 @@ body {
     background-color:#b8dec0;
 }
 
-/* recipe results
+#search-top .glyphicon-question-sign {
+    font-size: 16px;
+}
+
+#search-help-text {
+    display: none;
+    position: absolute;
+    left: 0;
+    z-index: 999;
+}
+
+#search-suggest {
+    display: block;
+    position: relative;
+}
+
+/* RECIPE
 ----------------------------------*/
 .r-container {
     display:-webkit-flex;
@@ -147,14 +198,6 @@ body {
     height: 16px;
 }
 
-.nutritionLabel {
-    background-color: #fff;
-}
-
-.buttons {
-    text-align: center;
-}
-
 #recipe-open {
     text-align: center;
 }
@@ -172,12 +215,6 @@ body {
     top: 0px;
 }
 
-#recipe-close:hover,
-#foodClose:hover {
-    cursor: pointer;
-    color: #d00;
-}
-
 #recipe-top,
 #recipe-results {
     display: none;
@@ -189,8 +226,16 @@ body {
     position: relative;
 }
 
-/* nutrition results
+/* NUTRITION
 ----------------------------------*/
+.buttons {
+    text-align: center;
+}
+
+.nutritionLabel {
+    background-color: #fff;
+}
+
 #nutrition-top h3 {
     text-align: center;
 }
@@ -224,7 +269,7 @@ body {
     background-color:#b8dec0;
 }
 
-/* tracker table
+/* TRACKER
 ----------------------------------*/
 .tracked-item {
     border-collapse: collapse;
@@ -268,7 +313,7 @@ body {
     text-align: left;
 }
 
-/* tracker editor
+/* EDITOR
 ----------------------------------*/
 .edit-item {
     position: absolute;
@@ -324,6 +369,7 @@ body {
 .row-centered {
     text-align:center;
 }
+
 .col-centered {
     display:inline-block;
     float:none;
@@ -352,44 +398,7 @@ body {
     margin: 6px;
 }
 
-/* SPINNER ANIMATION
-----------------------------------*/
-.spinnerContainer {
-    text-align: center;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8em;
-}
-
-.spinner {
-    font-size: 30px;
-    height: 2em;
-    width: 2em;
-    position: relative;
-    margin: 10px auto 10px auto;
-    -webkit-animation: rotation 0.7s infinite linear;
-    animation: rotation 0.7s infinite linear;
-    border: 0.5em solid rgba(0,0,0,0.2);
-    border-top-color: rgba(0,0,0,0.8);
-    border-radius: 100%;
-}
-
-@-webkit-keyframes rotation {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(359deg);
-  }
-}
-
-@keyframes rotation {
-  from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(359deg);
-            transform: rotate(359deg);
-  }
+.glyphicon-remove-circle:hover {
+    cursor: pointer;
+    color: #d00;
 }
