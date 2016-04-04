@@ -17,11 +17,10 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         'click #nutrition-track': 'openTrackerView'
     },
 
+    /** Setup `this` context, DOM refs, variables, listeners and load google chart api */
     initialize: function() {
-        // Setup `this` context
         _.bindAll(this, 'itemSuccess', 'itemError');
 
-        // Setup DOM references and variables
         this.$nutrition = $('#nutrition');
         this.$nutritionTop = $('#nutrition-top');
         this.$nutritionMenu = $('#nutrition-button-menu');
@@ -42,6 +41,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // initialize
 
+    /** Display the button menu, pie chart, and nutrition label */
     render: function() {
         // Display button menu
         this.displayMenu();
@@ -54,14 +54,17 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // render
 
+    /** Display the nutrition view */
     showColumn: function() {
         this.$nutrition.removeClass('hideColumn');
     }, // showColumn
 
+    /** Hide the nutrition view */
     hideColumn: function() {
         this.$nutrition.addClass('hideColumn');
     }, // hideColumn
 
+    /** Get the food item id and highlight it in the search view */
     openNutrition: function(e) {
         var elem = $(e.target);
         var id   = elem.data('item');
@@ -82,6 +85,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // openNutrition
 
+    /** Check if the item selected is already in the tracker */
     checkItem: function(itemId) {
         // Check if this item is already being tracked
         this.trackedItem = nt.Collections.tracker.get(itemId);
@@ -99,6 +103,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // checkItem
 
+    /** Remove highlight, clear nutrition view, and hide the view */
     closeNutrition: function() {
         // Remove highlight from selected item
         $('.highlight').removeAttr('style').removeClass('highlight');
@@ -114,6 +119,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // closeNutrition
 
+    /** AJAX success callback */
     itemSuccess: function(model, response) {
         // Render the nutrition info
         this.render();
@@ -123,6 +129,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // itemSuccess
 
+    /** AJAX error callback */
     itemError: function(model, errorResponse) {
         var status = errorResponse.status;
         var statusText = errorResponse.statusText;
@@ -132,6 +139,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // itemError
 
+    /** Get food item details from Nutritionix */
     getNutrition: function(itemID) {
         var parameters = {
             'id': itemID,
@@ -139,7 +147,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
-        // TODO: Display preload animation
+        // Display loading animation
+        this.$nutritionMenu.html(nt.preloader);
 
         // Clear the model
         this.model.clear();
@@ -153,6 +162,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // getNutrition
 
+    /** Display pie chart using fat, carbs, and protein values */
     displayChart: function() {
         var fat = this.model.get('valueTotalFat');
         var carbs = this.model.get('valueTotalCarb');
@@ -197,6 +207,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // displayChart
 
+    /** Use label plugin to format and display nutritional values */
     displayNutrition: function() {
         // Reference Example #2
         // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html
@@ -206,6 +217,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // displayNutrition
 
+    /** Display if food item is being tracked and button options */
     displayMenu: function() {
         var isTracked = false;
 
@@ -222,6 +234,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // displayMenu
 
+    /** Open editor view for food */
     addFood: function() {
         // Create an editor view with the nutrition data model
         var editorView = new nt.Views.Editor({model: this.model});
@@ -231,6 +244,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // addFood
 
+    /** Destroy food model from the tracker collection using the id */
     removeFood: function() {
         var id = this.model.get('id');
         var food = nt.Collections.tracker.get(id);
@@ -240,12 +254,14 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // removeFood
 
+    /** When the 'foodsaved' event occurs, update the tracker status to reflect change */
     showTracking: function() {
         this.trackedItem = true;
         this.displayMenu();
 
     }, // showTracking
 
+    /** If the item is being tracked, clicking the tracker status will open the tracker view */
     openTrackerView: function() {
         this.closeNutrition();
         $('#tab2').trigger('click');
