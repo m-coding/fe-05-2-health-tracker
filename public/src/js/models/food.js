@@ -20,10 +20,10 @@ nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
 
     /** Override parse and return response attributes */
     parse: function(response) {
-        // reference: https://github.com/jashkenas/backbone/issues/1451#issuecomment-6547963
+    // reference: https://github.com/jashkenas/backbone/issues/1451#issuecomment-6547963
 
-        if (typeof response.fields != 'undefined') {
         //  Only parse response if data from API
+        if (typeof response.fields != 'undefined') {
         var food = {};
             food.id          = response._id;
             food.name        = response.fields.item_name;
@@ -38,6 +38,6 @@ nt.Models.Food = Backbone.Model.extend(/** @lends nt.Models.Food# */{
         } else
             return response;
 
-    }
+    } // parse
 
 });
