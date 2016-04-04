@@ -19,10 +19,16 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
 
     /** Override parse and return response attributes */
     parse: function(data) {
-        var prefix = 'http://www.edamam.com/http/';
+        // Get unique id from the recipe url
         var index  = data.recipe.uri.indexOf('_') + 1;
+
+        // Use Edamam server for icon source
+        var prefix = 'http://www.edamam.com/http/';
+
+        // Default icon if missing
         var icon = 'images/icon.png';
 
+        // Check if icon available
         if(data.recipe.sourceIcon)
             icon = data.recipe.sourceIcon.replace('http://', prefix);
 
@@ -36,5 +42,7 @@ nt.Models.Recipe = Backbone.Model.extend(/** @lends nt.Models.Recipe# */{
             recipe.siteTitle      = data.recipe.source;
             recipe.siteLink       = data.recipe.shareAs;
         return recipe;
-    }
+
+    } // parse
+
 });
