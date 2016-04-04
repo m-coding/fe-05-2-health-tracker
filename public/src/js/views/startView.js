@@ -20,6 +20,7 @@ nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
         this.remove();
         nt.Router.Instance.navigate('search');
         $('#app').show();
-    }
+
+    } // removeStart
 
 });
