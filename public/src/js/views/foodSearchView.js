@@ -11,6 +11,11 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     itemTemplate: Handlebars.compile( $('#item-template').html() ),
 
+    events: {
+        'click #search-help': 'toggleHelp',
+        'click #search-help-text .close': 'toggleHelp'
+    },
+
     /** Setup `this` context, DOM references, and listeners */
     initialize: function() {
         _.bindAll(this, 'searchSuccess', 'searchError');
@@ -18,7 +23,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         this.$searchTop = $('#search-top');
         this.$searchResults = $('#search-results');
         this.$searchFood = $('#search-food');
-        this.$preload = $('#typeahead-preload');
+        this.$help = $('#search-help-text');
         this.$dropmenu = $('#search-suggest .dropdown-menu');
 
         // Run the search if the user selects an option from the autocomplete list
@@ -38,6 +43,10 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         return this;
 
     }, // render
+
+    toggleHelp: function() {
+        this.$help.toggle();
+    }, // toggleHelp
 
     /** Display message if no results */
     renderNoResults: function() {
