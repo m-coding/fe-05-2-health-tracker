@@ -43,8 +43,8 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
     /** Override parse and return response attributes */
     parse: function(data) {
 
-        if (data.hasOwnProperty('item_id')) {
         //  Only parse response if data from API
+        if (data.hasOwnProperty('item_id')) {
         var label = {};
             label.width                = 280;
             label.id                   = data.item_id;
@@ -73,6 +73,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
             return label;
         } else
             return data;
-    }
+
+    } // parse
 
 });
