@@ -1,0 +1,26 @@
+{
+  "name": "fe-05-2-nutrition-tracker",
+  "version": "0.1.0",
+  "author": "m-coding",
+  "license": "ISC",
+  "description": "A single page app that tracks your calorie intake and nutrition information for foods you eat.",
+  "homepage": "https://github.com/m-coding/fe-05-2-nutrition-tracker#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m-coding/fe-05-2-nutrition-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/m-coding/fe-05-2-nutrition-tracker/issues"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-if": "^2.0.0",
+    "gulp-ignore": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.0.8"
+  }
+}
