@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>nutrition.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="app.html">
+                  app.js
+                </a>
+              
+                
+                <a class="source" href="autocompleteSearch.html">
+                  autocompleteSearch.js
+                </a>
+              
+                
+                <a class="source" href="foodSearch.html">
+                  foodSearch.js
+                </a>
+              
+                
+                <a class="source" href="nutritionTracker.html">
+                  nutritionTracker.js
+                </a>
+              
+                
+                <a class="source" href="recipeSearch.html">
+                  recipeSearch.js
+                </a>
+              
+                
+                <a class="source" href="autocomplete.html">
+                  autocomplete.js
+                </a>
+              
+                
+                <a class="source" href="food.html">
+                  food.js
+                </a>
+              
+                
+                <a class="source" href="nutrition.html">
+                  nutrition.js
+                </a>
+              
+                
+                <a class="source" href="recipe.html">
+                  recipe.js
+                </a>
+              
+                
+                <a class="source" href="namespace.html">
+                  namespace.js
+                </a>
+              
+                
+                <a class="source" href="router.html">
+                  router.js
+                </a>
+              
+                
+                <a class="source" href="foodSearchView.html">
+                  foodSearchView.js
+                </a>
+              
+                
+                <a class="source" href="nutritionEditorView.html">
+                  nutritionEditorView.js
+                </a>
+              
+                
+                <a class="source" href="nutritionTrackerView.html">
+                  nutritionTrackerView.js
+                </a>
+              
+                
+                <a class="source" href="nutritionView.html">
+                  nutritionView.js
+                </a>
+              
+                
+                <a class="source" href="recipeSearchView.html">
+                  recipeSearchView.js
+                </a>
+              
+                
+                <a class="source" href="startView.html">
+                  startView.js
+                </a>
+              
+                
+                <a class="source" href="tabView.html">
+                  tabView.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>nutrition.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/** Model for nutrition label data
+ * @namespace nt.Models
+ * @class nt.Models.Nutrition
+ * @memberof! &lt;global&gt;
+ * @extends Backbone.Model */</span>
+nt.Models.Nutrition = Backbone.Model.extend(<span class="hljs-comment">/** @lends nt.Models.Nutrition# */</span>{
+
+    <span class="hljs-comment">/** Default attributes */</span>
+    defaults: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> {
+            width: <span class="hljs-number">280</span>,
+            id: <span class="hljs-string">''</span>,
+            itemName: <span class="hljs-string">''</span>,
+
+            showPolyFat: <span class="hljs-literal">false</span>,
+            showMonoFat: <span class="hljs-literal">false</span>,
+            showIngredients: <span class="hljs-literal">false</span>,
+
+            valueServingSize: <span class="hljs-number">0</span>,
+            valueServingSizeUnit: <span class="hljs-string">''</span>,
+
+            valueCalories: <span class="hljs-number">0</span>,
+            valueFatCalories: <span class="hljs-number">0</span>,
+            valueTotalFat: <span class="hljs-number">0</span>,
+            valueSatFat: <span class="hljs-number">0</span>,
+            valueTransFat: <span class="hljs-number">0</span>,
+            valueCholesterol: <span class="hljs-number">0</span>,
+            valueSodium: <span class="hljs-number">0</span>,
+            valueTotalCarb: <span class="hljs-number">0</span>,
+            valueFibers: <span class="hljs-number">0</span>,
+            valueSugars: <span class="hljs-number">0</span>,
+            valueProteins: <span class="hljs-number">0</span>,
+            valueVitaminA: <span class="hljs-number">0</span>,
+            valueVitaminC: <span class="hljs-number">0</span>,
+            valueCalcium: <span class="hljs-number">0</span>,
+            valueIron: <span class="hljs-number">0</span>
+        };
+    },
+
+    <span class="hljs-comment">/** Nutritionix API /item will return an object with all nutrition data */</span>
+    url: <span class="hljs-string">'https://api.nutritionix.com/v1_1/item/'</span>,
+
+    <span class="hljs-comment">/** Override parse and return response attributes */</span>
+    parse: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p> Only parse response if data from API</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (data.hasOwnProperty(<span class="hljs-string">'item_id'</span>)) {
+        <span class="hljs-keyword">var</span> label = {};
+            label.width                = <span class="hljs-number">280</span>;
+            label.id                   = data.item_id;
+            label.itemName             = data.item_name;
+            label.showPolyFat          = <span class="hljs-literal">false</span>;
+            label.showMonoFat          = <span class="hljs-literal">false</span>;
+            label.showIngredients      = <span class="hljs-literal">false</span>;
+            label.valueServingSize     = data.nf_serving_size_qty;
+            label.valueServingSizeUnit = data.nf_serving_size_unit;
+            label.valueCalories        = data.nf_calories;
+            label.valueFatCalories     = data.nf_calories_from_fat;
+            label.valueTotalFat        = data.nf_total_fat;
+            label.valueSatFat          = data.nf_saturated_fat;
+            label.valueTransFat        = data.nf_trans_fatty_acid;
+            label.valueCholesterol     = data.nf_cholesterol;
+            label.valueSodium          = data.nf_sodium;
+            label.valueTotalCarb       = data.nf_total_carbohydrate;
+            label.valueFibers          = data.nf_dietary_fiber;
+            label.valueSugars          = data.nf_sugars;
+            label.valueProteins        = data.nf_protein;
+            label.valueVitaminA        = data.nf_vitamin_a_dv;
+            label.valueVitaminC        = data.nf_vitamin_c_dv;
+            label.valueCalcium         = data.nf_calcium_dv;
+            label.valueIron            = data.nf_iron_dv;
+
+            <span class="hljs-keyword">return</span> label;
+        } <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> data;
+
+    } <span class="hljs-comment">// parse</span>
+
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
