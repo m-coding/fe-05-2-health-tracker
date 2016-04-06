@@ -35,10 +35,12 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
     }, // start
 
     /** Update url and display search view
-     * @function start
+     * @function startSearch
      * @memberof nt.Router */
     startSearch: function() {
         nt.Views.start.hideStart();
+        nt.Views.search.$searchFood.val('');
+        nt.Views.search.$searchResults.html('');
     }, // startSearch
 
     /** Update url with search query and submit search
@@ -47,6 +49,8 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
     search: function(query) {
         console.log('ROUTER: Food search containing the word: ' + query);
         nt.Views.start.hideStart();
+        nt.Views.search.$searchFood.val(query);
+        nt.Views.search.searchFood();
 
     }, // search
 
