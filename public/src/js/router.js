@@ -11,11 +11,10 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
      * @property {object} routes
      * @memberof nt.Router */
     routes:{
-        '': 'start',
         'start': 'start',
         'search': 'startSearch',
         'search/:query': 'search',
-        'tracker/:id': 'tracker'
+        'tracker/:date': 'tracker'
     },
 
     /** Update url and call route function
@@ -43,7 +42,7 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
         nt.Views.search.$searchResults.html('');
     }, // startSearch
 
-    /** Update url with search query and submit search
+    /** Update url with search query and run search
      * @function search
      * @memberof nt.Router */
     search: function(query) {
@@ -57,8 +56,8 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
     /** Tracker screen
      * @function tracker
      * @memberof nt.Router */
-    tracker: function(id) {
-        console.log('ROUTER: Tracker item selected with id: ' + id);
+    tracker: function(date) {
+        console.log('ROUTER: Tracker display for date: ' + date);
     } // tracker
 
 });
