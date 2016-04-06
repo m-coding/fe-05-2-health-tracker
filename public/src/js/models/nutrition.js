@@ -82,11 +82,15 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
         if(attrs.hasOwnProperty('trackDate')) {
             if (attrs.trackDate === '') {
                 return 'Date cannot be blank.';
-
-            } else if (this.validateDate(attrs.trackDate)) {
-                return 'Date must be in YYYY-MM-DD format.';
-
             }
+
+            // Use momentjs to validate date format
+            // http://momentjs.com/docs/#/parsing/string-format/
+            var valid = moment(attrs.trackDate, 'YYYY-MM-DD').isValid();
+            if(!valid) {
+                return 'Date must be in YYYY-MM-DD format.';
+            }
+
         } // trackDate
 
         // Make sure the name isn't blank
@@ -95,52 +99,6 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
 
         } // itemName
 
-    }, // validate
-
-    // Credit: http://stackoverflow.com/questions/24989065/trying-to-validate-yyyy-mm-dd
-
-    /** Validate a date in YYYY-MM-DD format
-     * @param {string} - The date to test.
-     * @return {boolean} - True for valid, false for invalid. */
-    validateDate: function(str) {
-        console.log('validateDate() str: ', str);
-        // check the format first
-        if(!/(\d{4})-(\d{2})-(\d{2})/.test(str)) {
-            return false;
-        }
-        var parts = str.split(/\D/) // split on non-digits
-            .map(function(val) { return parseInt(val, 10); }); // convert strings to ints
-        console.log('parts[0]: ' + parts[0] + ' parts[1]: ' + parts[1] + ' parts[2]: ' + parts[2]);
-        if(parts[0] < 1000 || parts[0] > 2999) { // invalid year
-            return false;
-        }
-        if(parts[1] > 12 || parts[1] === 0) { // invalid month
-            return false;
-        }
-        if(parts[2] > 31 || parts[2] === 0) { // invalid day
-            return false;
-        }
-        switch(parts[1]) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if(parts[2] > 30) { // invalid day
-                    return false;
-                }
-                break;
-            case 2: // February...
-                return (parts[2] < 29 || parts[2] == 29 && this.isLeapYear(parts[0]));
-                break;
-        }
-        return true;
-    }, // validateDate
-
-    /** Check whether a given year is a leap year
-     * @param {integer} - y The integer
-     * @return {boolean} - True for yes, false for no */
-    isLeapYear: function(y) {
-        return (0 === y % 4 && (0 === y % 400 || 0 !== y % 100));
-    } // isLeapYear
+    } // validate
 
 });
