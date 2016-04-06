@@ -17,7 +17,6 @@ nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
      * @function  showStart
      * @memberof  nt.Views.Start */
     showStart: function() {
-        console.log('showStart()');
         this.$el.show();
         $('#app').hide();
 
@@ -27,7 +26,6 @@ nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
      * @function  hideStart
      * @memberof  nt.Views.Start */
     hideStart: function() {
-        console.log('hideStart()');
         this.$el.hide();
         $('#app').show();
 
@@ -37,7 +35,6 @@ nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
      * @function  startSearch
      * @memberof  nt.Views.Start */
     startSearch: function() {
-        console.log('startSearch()');
         nt.Router.Instance.goto('search');
     } // startSearch
 
