@@ -96,6 +96,9 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             'appKey': '82289438a16ec7b92cdcf5ad054159c4'
         };
 
+        // Display preloader
+        this.$searchResults.html(nt.preloader);
+
         if (query.length > 0 && query !== this.prevQuery) {
             // Clear out all the models in the collection
             this.collection.reset();
