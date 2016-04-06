@@ -13,7 +13,8 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     events: {
         'click #search-help': 'toggleHelp',
-        'click #search-help-text .close': 'toggleHelp'
+        'click #search-help-text .close': 'toggleHelp',
+        'submit #search-suggest': 'noSubmit'
     },
 
     /** Setup `this` context, DOM references, and listeners */
@@ -114,11 +115,13 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         this.prevQuery = query;
 
         // Update url
-        nt.Router.Instance.goto('search/' + query);
+        nt.Router.Instance.navigate('search/' + query);
 
-        // Prevent form submission
-        return false;
+    }, // searchFood
 
-    } // searchFood
+    /** Prevent form submission */
+    noSubmit: function(e) {
+        e.preventDefault();
+    } // noSubmit
 
 });
