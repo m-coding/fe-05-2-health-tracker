@@ -240,7 +240,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         var editorView = new nt.Views.Editor({model: this.model});
 
         // Render the editor view and append its element to the nutrition view
-        this.$nutrition.append( editorView.render().el );
+        this.$nutrition.append( editorView.render().renderDatePicker().el );
 
     }, // addFood
 

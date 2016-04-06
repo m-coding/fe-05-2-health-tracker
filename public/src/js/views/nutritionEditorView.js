@@ -18,8 +18,6 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     /** Setup input refs and create a new food model with today's date */
     initialize: function() {
-        var d = new Date();
-        this.today = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toJSON().slice(0, 10);
         this.$inputDate = $('#foodTrackDate');
         this.createFood();
 
@@ -30,9 +28,22 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         // Populate nutrition inputs
         this.$el.html(this.editorTemplate( this.food.toJSON() ));
 
+        // Enable chaining
         return this;
 
     }, // render
+
+    /** Activate the date picker plugin */
+    renderDatePicker: function() {
+        this.$el.find('#dateTimePicker').datetimepicker({
+            format: 'YYYY-MM-DD',
+            defaultDate: 'now',
+            widgetPositioning: { horizontal: 'right' }
+        });
+
+        return this;
+
+    }, // renderDatePicker
 
     /** Generate new attributes for a food item */
     newAttributes: function() {
@@ -52,7 +63,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         this.food.set( this.model.toJSON() );
 
         // Add today's date
-        this.food.set({ trackDate: this.today });
+        this.food.set({ trackDate: this.$inputDate.val() });
 
     }, // createFood
 
@@ -81,6 +92,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     /** Destroy this view */
     close: function() {
+        $('#dateTimePicker').data('DateTimePicker').destroy();
         this.remove();
     } // close
 

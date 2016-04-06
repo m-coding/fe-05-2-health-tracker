@@ -9,6 +9,7 @@
   <!-- build:css css/styles.min.css -->
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
   <link href="css/nutritionLabel.css" rel="stylesheet">
   <!-- endbuild -->
 </head>
@@ -196,9 +197,10 @@
     </div>
     <br>
     <form>
-      <div class="input-group">
+      <div class="input-group date" id="dateTimePicker">
         <span class="input-group-addon">Track Date</span>
         <input type="text" class="form-control" id="foodTrackDate" value="{{trackDate}}">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
       </div>
       <br>
       <div class="input-group">
@@ -239,7 +241,9 @@
   <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- build:js js/lib/lib.min.js -->
+  <script src="js/lib/moment.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/bootstrap-datetimepicker.min.js"></script>
   <script src="js/lib/underscore-min.js"></script>
   <script src="js/lib/backbone-min.js"></script>
   <script src="js/lib/backbone.localStorage-min.js"></script>
