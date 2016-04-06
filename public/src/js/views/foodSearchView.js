@@ -78,7 +78,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     }, // searchError
 
     /** Get food from Nutritionix */
-    searchFood: function(e) {
+    searchFood: function() {
         var query = this.$searchFood.val().trim();
 
         // Nutritionix API v.1.1 Field Reference
