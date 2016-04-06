@@ -23,6 +23,6 @@ $(document).ready(function() {
     // Instantiate the Router
     nt.Router.Instance = new nt.Router();
     Backbone.history.start();
-    nt.Router.Instance.navigate('start');
+    nt.Router.Instance.goto('start');
 });
 

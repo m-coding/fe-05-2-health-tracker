@@ -10,17 +10,35 @@ nt.Views.Start = Backbone.View.extend(/** @lends nt.Views.Start# */{
 
     /** events hash */
     events: {
-        'click .btn-success': 'removeStart'
+        'click .btn-success': 'startSearch'
     },
 
-    /** Removes the start screen
-     * @function  removeStart
+    /** Shows the start screen
+     * @function  showStart
      * @memberof  nt.Views.Start */
-    removeStart: function() {
-        this.remove();
-        nt.Router.Instance.navigate('search');
+    showStart: function() {
+        console.log('showStart()');
+        this.$el.show();
+        $('#app').hide();
+
+    }, // showStart
+
+    /** Hides the start screen
+     * @function  hideStart
+     * @memberof  nt.Views.Start */
+    hideStart: function() {
+        console.log('hideStart()');
+        this.$el.hide();
         $('#app').show();
 
-    } // removeStart
+    }, // hideStart
+
+    /** Updates the url and hides the start screen
+     * @function  startSearch
+     * @memberof  nt.Views.Start */
+    startSearch: function() {
+        console.log('startSearch()');
+        nt.Router.Instance.goto('search');
+    } // startSearch
 
 });
