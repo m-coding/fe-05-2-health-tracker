@@ -38,7 +38,9 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         if(!this.collection.length)
             this.$trackerResults.html( this.emptyMessage );
          else
-            this.$trackerResults.append( this.trackedTemplate(this.collection) );
+            this.$trackerResults.append( this.trackedTemplate(
+                this.collection.getModelsByDate()
+            ));
 
         return this;
 
@@ -50,6 +52,15 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
             format: 'MMMM D, YYYY',
             defaultDate: 'now',
             allowInputToggle: true
+        });
+
+        var self = this;
+        $('#dtPicker').on('dp.change', function(e) {
+            // Grab the current date from the date picker and set the tracker date option
+            nt.Option.trackerDate = $(this).data('DateTimePicker').date().format('YYYY-MM-DD');
+
+            // Re-render the view to display only models with the date selected
+            self.render();
         });
 
     }, // initDatePicker
