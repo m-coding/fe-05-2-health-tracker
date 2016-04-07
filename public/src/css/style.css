@@ -402,3 +402,7 @@ body {
     cursor: pointer;
     color: #d00;
 }
+
+.glyphicon-calendar {
+    color: #337ab7;
+}
