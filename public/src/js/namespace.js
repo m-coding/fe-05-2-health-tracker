@@ -8,5 +8,6 @@ var nt = {
     Views: {},
     Router: {},
     Plugin: {},
+    Option: {},
     preloader: '<div class="spinnerContainer">Loading <div class="spinner"></div> Please Wait'
 };
