@@ -313,12 +313,26 @@ body {
     text-align: left;
 }
 
-#tracker-date-picker {
-    color: #fff;
-}
-
 #tracker-top h5 {
     text-align: center;
+}
+
+#dtBack,
+#dtForward {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#dtBack {
+    margin-right: 15px;
+}
+
+#dtForward {
+    margin-left: 15px;
+}
+
+#dtPicker {
+    color: #fff;
 }
 
 /* EDITOR

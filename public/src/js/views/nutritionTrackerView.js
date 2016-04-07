@@ -13,14 +13,18 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     events: {
         'click .tracked-delete': 'deleteFood',
-        'click .tracked-edit': 'openFood'
+        'click .tracked-edit': 'openFood',
+        'click #dtBack': 'dateBack',
+        'click #dtForward': 'dateForward'
     },
 
     /** Setup DOM ref, listener, and fetch collection from localStorage */
     initialize: function() {
         this.$trackerResults = $('#tracker-results');
+        this.$dtp = $('#dtPicker');
         this.listenTo(this.collection, 'update', this.render);
         this.collection.fetch();
+        this.duration = moment.duration({'days' : 1});
         this.initDatePicker();
 
     }, // initialize
@@ -42,13 +46,29 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     /** Activate the date picker plugin */
     initDatePicker: function() {
-        $('#tracker-date-picker').datetimepicker({
+        this.$dtp.datetimepicker({
             format: 'MMMM D, YYYY',
             defaultDate: 'now',
             allowInputToggle: true
         });
 
     }, // initDatePicker
+
+    /** Add a day to the current date */
+    dateBack: function() {
+        var currDate = this.$dtp.data('DateTimePicker').date();
+        var backDate = currDate.subtract(this.duration);
+        this.$dtp.data('DateTimePicker').date(backDate);
+
+    }, // dateBack
+
+    /** Subtract a day from the current date */
+    dateForward: function() {
+        var currDate = this.$dtp.data('DateTimePicker').date();
+        var forwardDate = currDate.add(this.duration);
+        this.$dtp.data('DateTimePicker').date(forwardDate);
+
+    }, // dateForward
 
     /** Delete food model using id */
     deleteFood: function(e) {
