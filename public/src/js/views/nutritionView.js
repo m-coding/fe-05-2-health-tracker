@@ -36,8 +36,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Close the Nutrition view when another search is run
         this.listenTo(nt.Plugin.Instance, 'selected', this.closeNutrition);
 
-        // Update the Nutrition view tracking status when a food is saved
-        this.listenTo(this.model, 'foodsaved', this.showTracking);
+        // Update the Nutrition view model and tracking status when a food is saved
+        this.listenTo(this.model, 'foodsaved', this.updateView);
 
     }, // initialize
 
@@ -254,12 +254,15 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     }, // removeFood
 
-    /** When the 'foodsaved' event occurs, update the tracker status to reflect change */
-    showTracking: function() {
+    /** When the 'foodsaved' event occurs, update the view's model and tracker status */
+    updateView: function() {
+        var itemId = this.model.get('id');
+        var foodAttributes = nt.Collections.tracker.get(itemId).toJSON();
+        this.model.set(foodAttributes);
         this.trackedItem = true;
         this.displayMenu();
 
-    }, // showTracking
+    }, // updateView
 
     /** If the item is being tracked, clicking the tracker status will open the tracker view */
     openTrackerView: function() {
