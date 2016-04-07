@@ -57,8 +57,8 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         // Highlight row
         row.css('background-color', '#b8dec0').addClass('highlight');
 
-        // Hide delete icon
-        row.find('td:last .tracked-delete').hide();
+        // Hide the tracker delete icons
+        $('.tracked-delete').hide();
 
     } // openFood
 
