@@ -16,14 +16,12 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         'click #foodClose': 'close'
     },
 
-    /** Setup input refs and create a new food model with today's date */
+    /** Create a new food model this view will display */
     initialize: function() {
-        this.$inputDate = $('#foodTrackDate');
         this.createFood();
-
     }, // initialize
 
-    /** Render results */
+    /** Render food */
     render: function() {
         // Populate nutrition inputs
         this.$el.html(this.editorTemplate( this.food.toJSON() ));
@@ -35,9 +33,10 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     /** Activate the date picker plugin */
     renderDatePicker: function() {
+        // Use this.$el since template html is inserted in the DOM later
         this.$el.find('#dateTimePicker').datetimepicker({
             format: 'YYYY-MM-DD',
-            defaultDate: 'now',
+            allowInputToggle: true,
             widgetPositioning: { horizontal: 'right' }
         });
 
@@ -45,16 +44,29 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     }, // renderDatePicker
 
+    /** Display validation error */
+    renderError: function(message) {
+        var error = '<p class="bs-callout bs-callout-danger alert-danger"><i class="glyphicon glyphicon-exclamation-sign"></i> ' + message + '</p>';
+        this.$el.find('#editor-top').append(error);
+
+    }, // renderError
+
+    /** Remove error message */
+    removeError: function() {
+        this.$el.find('.bs-callout').remove();
+    }, // removeError
+
     /** Generate new attributes for a food item */
     newAttributes: function() {
         return {
             sortOrder: nt.Collections.tracker.nextOrder(),
-            trackDate: this.$inputDate.val()
+            trackDate:  this.$el.find('#foodTrackDate').val().trim(),
+            itemName: this.$el.find('#foodName').val().trim()
         };
 
     }, // newAttributes
 
-    /** Create a new nutrition model and set the date */
+    /** Create a new model for the Tracker and copy the nutritionView's data to it */
     createFood: function() {
         // Create a new nutrition Model
         this.food = new nt.Models.Nutrition();
@@ -62,31 +74,33 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         // Add nutrition data
         this.food.set( this.model.toJSON() );
 
-        // Add today's date
-        this.food.set({ trackDate: this.$inputDate.val() });
-
     }, // createFood
 
     /** Save the model to the collection and close the view */
     saveFood: function(e) {
         e.preventDefault();
 
+        this.removeError();
+
         var newAttr = this.newAttributes();
 
         // Set additional attributes
-        this.food.set( newAttr );
+        this.food.set( newAttr, {validate: true} );
 
-        // Add food to tracker Collection
-        nt.Collections.tracker.add(this.food);
+        var notValid = this.food.validationError;
 
-        // Save it to localStorage
-        this.food.save();
+        if(notValid) {
+            this.renderError(notValid);
+        } else {
+            // Add and save food to tracker Collection
+            nt.Collections.tracker.create(this.food, {merge: true});
 
-        // Tell the Nutrition View the food was saved
-        this.model.trigger('foodsaved');
+            // Tell the Nutrition View the food was saved
+            this.model.trigger('foodsaved');
 
-        // Close this view
-        this.close();
+            // Close this view
+            this.close();
+        }
 
     }, // saveFood
 
