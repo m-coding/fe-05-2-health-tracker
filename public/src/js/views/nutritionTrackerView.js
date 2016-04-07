@@ -21,6 +21,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         this.$trackerResults = $('#tracker-results');
         this.listenTo(this.collection, 'update', this.render);
         this.collection.fetch();
+        this.initDatePicker();
 
     }, // initialize
 
@@ -38,6 +39,16 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         return this;
 
     }, // render
+
+    /** Activate the date picker plugin */
+    initDatePicker: function() {
+        $('#tracker-date-picker').datetimepicker({
+            format: 'MMMM D, YYYY',
+            defaultDate: 'now',
+            allowInputToggle: true
+        });
+
+    }, // initDatePicker
 
     /** Delete food model using id */
     deleteFood: function(e) {

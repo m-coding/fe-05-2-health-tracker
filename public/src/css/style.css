@@ -313,6 +313,14 @@ body {
     text-align: left;
 }
 
+#tracker-date-picker {
+    color: #fff;
+}
+
+#tracker-top h5 {
+    text-align: center;
+}
+
 /* EDITOR
 ----------------------------------*/
 .edit-item {
