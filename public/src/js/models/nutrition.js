@@ -86,7 +86,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
 
             // Use momentjs to validate date format
             // http://momentjs.com/docs/#/parsing/string-format/
-            var valid = moment(attrs.trackDate, 'YYYY-MM-DD').isValid();
+            var valid = moment(attrs.trackDate, 'YYYY-MM-DD', true).isValid();
             if(!valid) {
                 return 'Date must be in YYYY-MM-DD format.';
             }
