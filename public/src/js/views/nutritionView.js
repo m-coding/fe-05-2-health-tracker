@@ -259,6 +259,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         var itemId = this.model.get('id');
         var foodAttributes = nt.Collections.tracker.get(itemId).toJSON();
         this.model.set(foodAttributes);
+        this.displayNutrition();
         this.trackedItem = true;
         this.displayMenu();
 
