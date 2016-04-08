@@ -212,6 +212,10 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Reference Example #2
         // http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html
 
+        // Reset the element and previous event handlers
+        this.$nLabel.html('');
+        this.$nLabel.undelegate();
+
         // Activate Nutrition Label jQuery Plugin by Nutritionix
         this.$nLabel.nutritionLabel(this.model.toJSON());
 
