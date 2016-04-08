@@ -11,25 +11,29 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     emptyMessage: '<p>No foods are being tracked.</p><p>Do a search and add something!</p>',
 
+    emptyDate: '<p>There are no foods being tracked on this date.</p><p>Select another date or add a food.</p>',
+
     events: {
+        'click #dtBack': 'dateBack',
+        'click #dtForward': 'dateForward',
+        'click #dtDisplay': 'dateDisplay',
+        'click .options a': 'setOption',
         'click .tracked-delete': 'deleteFood',
         'click .tracked-edit': 'openFood',
-        'click #dtBack': 'dateBack',
-        'click #dtForward': 'dateForward'
     },
 
     /** Setup DOM ref, listener, and fetch collection from localStorage */
     initialize: function() {
         this.$trackerResults = $('#tracker-results');
         this.$dtp = $('#dtPicker');
-        this.listenTo(this.collection, 'update', this.render);
+        this.listenTo(this.collection, 'update', this.renderCheck);
         this.collection.fetch();
         this.duration = moment.duration({'days' : 1});
         this.initDatePicker();
 
     }, // initialize
 
-    /** Render results */
+    /** Render the tracker collection by date */
     render: function() {
         // Clear previous list
         this.$trackerResults.html('');
@@ -37,20 +41,47 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         // Check if the Collection is empty
         if(!this.collection.length)
             this.$trackerResults.html( this.emptyMessage );
-         else
-            this.$trackerResults.append( this.trackedTemplate(
-                this.collection.getModelsByDate()
-            ));
+         else {
+            var group = this.collection.getModelsByDate();
+
+            // Check if there are models for the date chosen
+            if(!group.length)
+                this.$trackerResults.html( this.emptyDate );
+            else
+                this.$trackerResults.append( this.trackedTemplate( group ));
+        }
 
         return this;
 
     }, // render
 
+    /** Render all */
+    renderAll: function() {
+        this.$trackerResults.html('');
+
+        if(!this.collection.length)
+            this.$trackerResults.html( this.emptyMessage );
+        else
+            this.$trackerResults.append( this.trackedTemplate( this.collection ));
+
+        return this;
+
+    }, // renderAll
+
+    /** Check which render to run */
+    renderCheck: function() {
+        if(nt.Option.displayAll)
+            this.renderAll();
+        else
+            this.render();
+
+    }, // renderCheck
+
     /** Activate the date picker plugin */
     initDatePicker: function() {
         this.$dtp.datetimepicker({
             format: 'MMMM D, YYYY',
-            defaultDate: 'now',
+            defaultDate: nt.Option.trackerDate,
             allowInputToggle: true
         });
 
@@ -80,6 +111,37 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         this.$dtp.data('DateTimePicker').date(forwardDate);
 
     }, // dateForward
+
+    /** Tracker display options */
+    dateDisplay: function() {
+        // Bold the current option
+        if(nt.Option.displayAll) {
+            $('#optAll').addClass('bold');
+            $('#optDate').removeClass('bold');
+        } else {
+            $('#optAll').removeClass('bold');
+            $('#optDate').addClass('bold');
+        }
+
+    }, // dateDisplay
+
+    /** Set tracker display option and re-render view */
+    setOption: function(e) {
+        e.preventDefault();
+
+        var id = $(e.target).attr('id');
+
+        if(id === 'optDate') {
+            $('#tracker-top h5').show();
+            nt.Option.displayAll = false;
+            this.render();
+        } else {
+            $('#tracker-top h5').hide();
+            nt.Option.displayAll = true;
+            this.renderAll();
+        }
+
+    }, // setOption
 
     /** Delete food model using id */
     deleteFood: function(e) {
