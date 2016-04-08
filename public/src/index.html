@@ -14,6 +14,7 @@
   <!-- endbuild -->
 </head>
 <body>
+  <!-- NUTRITION TRACKER -->
   <div class="container">
     <!-- App start -->
     <section id="start-screen" class="row">
@@ -105,9 +106,10 @@
         </div><!-- /#nutrition-results -->
       </div><!-- /.col-md-4 -->
     </main>
-</div><!-- /.container -->
+  </div><!-- /.container -->
 
-  <!-- Templates -->
+  <!-- TEMPLATES -->
+  <!-- search -->
   <script type="text/x-handlebars-template" id="search-template">
   <div class="input-group">
     <input id="search-food" type="search" class="form-control" placeholder="What did you eat?">
@@ -120,6 +122,7 @@
   <ul class="dropdown-menu"></ul>
   </script>
 
+  <!-- item -->
   <script type="text/x-handlebars-template" id="item-template">
     <h4 id="recipe-open">
       <span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Recipe Suggestions</span>
@@ -136,6 +139,7 @@
     </footer>
   </script>
 
+  <!-- recipe -->
   <script type="text/x-handlebars-template" id="recipe-template">
     {{#each recipes}}
     <div class="recipe-item">
@@ -158,6 +162,7 @@
     </footer>
   </script>
 
+  <!-- buttons -->
   <script type="text/x-handlebars-template" id="buttons-template">
     <div class="buttons">
       {{#if tracking}}
@@ -187,6 +192,7 @@
     </div>
   </script>
 
+  <!-- tracked -->
   <script type="text/x-handlebars-template" id="tracked-template">
     <table class="tracked-item">
       <tr>
@@ -210,6 +216,7 @@
     </table>
   </script>
 
+  <!-- editor -->
   <script type="text/x-handlebars-template" id="editor-template">
     <div id="editor-top">
       <h3>Food Summary</h3>
@@ -257,8 +264,8 @@
     </form>
   </script>
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <!-- build:js js/lib/lib.min.js -->
   <script src="js/lib/moment.min.js"></script>
