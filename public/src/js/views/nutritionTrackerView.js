@@ -26,15 +26,40 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
     initialize: function() {
         this.$trackerResults = $('#tracker-results');
         this.$dtp = $('#dtPicker');
-        this.listenTo(this.collection, 'update', this.renderCheck);
+        this.listenTo(this.collection, 'update', this.render);
         this.collection.fetch();
         this.duration = moment.duration({'days' : 1});
         this.initDatePicker();
 
     }, // initialize
 
-    /** Render the tracker collection by date */
+    /** Check which render to run and update url route */
     render: function() {
+        if(nt.Option.displayAll) {
+            this.renderAll();
+            nt.Router.Instance.navigate('tracker/all');
+        } else {
+            this.renderDate();
+            nt.Router.Instance.navigate('tracker/date/' + nt.Option.trackerDate);
+        }
+
+    }, // render
+
+    /** Render all */
+    renderAll: function() {
+        this.$trackerResults.html('');
+
+        if(!this.collection.length)
+            this.$trackerResults.html( this.emptyMessage );
+        else
+            this.$trackerResults.append( this.trackedTemplate( this.collection ));
+
+        return this;
+
+    }, // renderAll
+
+    /** Render the tracker collection by date */
+    renderDate: function() {
         // Clear previous list
         this.$trackerResults.html('');
 
@@ -53,29 +78,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
         return this;
 
-    }, // render
-
-    /** Render all */
-    renderAll: function() {
-        this.$trackerResults.html('');
-
-        if(!this.collection.length)
-            this.$trackerResults.html( this.emptyMessage );
-        else
-            this.$trackerResults.append( this.trackedTemplate( this.collection ));
-
-        return this;
-
-    }, // renderAll
-
-    /** Check which render to run */
-    renderCheck: function() {
-        if(nt.Option.displayAll)
-            this.renderAll();
-        else
-            this.render();
-
-    }, // renderCheck
+    }, // renderDate
 
     /** Activate the date picker plugin */
     initDatePicker: function() {
@@ -131,15 +134,18 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
         var id = $(e.target).attr('id');
 
+        // Show/hide the date picker and navigation
         if(id === 'optDate') {
             $('#tracker-top h5').show();
             nt.Option.displayAll = false;
-            this.render();
         } else {
             $('#tracker-top h5').hide();
             nt.Option.displayAll = true;
-            this.renderAll();
+
         }
+
+        // Re-render this view
+        this.render();
 
     }, // setOption
 

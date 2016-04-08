@@ -1,5 +1,8 @@
 // Setup Nutrition Tracker app when DOM is ready
 $(document).ready(function() {
+    // Instantiate the Router
+    nt.Router.Instance = new nt.Router();
+
     // Instantiate Models and Collections
     nt.Models.nutrition    = new nt.Models.Nutrition();
     nt.Collections.suggest = new nt.Collections.AutocompleteSearch();
@@ -20,8 +23,7 @@ $(document).ready(function() {
     nt.Views.nutrition = new nt.Views.Nutrition({ model: nt.Models.nutrition });
     nt.Views.tracker   = new nt.Views.Tracker({ collection: nt.Collections.tracker });
 
-    // Instantiate the Router
-    nt.Router.Instance = new nt.Router();
+    // Start route history and navigate to the start screen
     Backbone.history.start();
     nt.Router.Instance.goto('start');
 });
