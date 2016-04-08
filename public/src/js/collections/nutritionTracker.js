@@ -14,6 +14,8 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
     /** Set default tracker date for today */
     initialize: function() {
         nt.Option.trackerDate = moment(new Date()).format('YYYY-MM-DD');
+        nt.Option.displayAll = false;
+
     }, // initialize
 
     /** This generates the next order number for new items. */
@@ -36,7 +38,7 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
         var groupArray = this.where({ trackDate: nt.Option.trackerDate });
 
         // Convert the array back into a Collection
-        var groupCollection = new nt.Collections.NutritionTracker(groupArray);
+        var groupCollection = new Backbone.Collection(groupArray);
 
         return groupCollection;
 
