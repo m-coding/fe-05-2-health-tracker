@@ -26,7 +26,7 @@
     </section>
 
     <!-- App main -->
-    <section id="app" class="row row-centered no-gutter">
+    <main id="app" class="row row-centered no-gutter">
       <!-- Column 1 -->
       <div class="col-md-4 col-centered eqHeights">
         <!-- Nav  tabs -->
@@ -41,13 +41,17 @@
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
               <h3>Food Search</h3>
+              <!-- Search help text -->
               <div class="alert alert-info" id="search-help-text">
-                <button type="button" class="close" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span></button>
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
+                </button>
                 <h4><i class="glyphicon glyphicon-question-sign"></i> Autocomplete</h4>
                 <p>Select a suggestion to search.</p>
                 <br>
                 <p>Click outside the search box or press Esc to close the autocomplete drop menu.</p>
               </div>
+              <!-- Search box -->
               <form id="search-suggest" autocomplete="off"></form>
             </div>
             <div id="search-results"></div>
@@ -61,7 +65,19 @@
           <!-- Tracker pane -->
           <div role="tabpanel" class="tab-pane" id="tracker">
             <div id="tracker-top">
-              <h3>Nutrition Tracker</h3>
+              <h3>Nutrition Tracker
+                <!-- Tracker options -->
+                <div class="btn-group">
+                  <button id="dtDisplay" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Options">
+                    <i class="glyphicon glyphicon-cog"></i>
+                  </button>
+                  <ul class="dropdown-menu options">
+                    <li><a id="optDate" href="#date">Display by date</a></li>
+                    <li><a id="optAll" href="#all">Display all</a></li>
+                  </ul>
+                </div>
+              </h3>
+              <!-- Tracker date picker -->
               <h5>
                 <i id="dtBack" class="glyphicon glyphicon-triangle-left"></i>
                 <input id="dtPicker" class="btn btn-default btn-xs" type="text">
@@ -88,7 +104,7 @@
           <figure id="nlabel"></figure>
         </div><!-- /#nutrition-results -->
       </div><!-- /.col-md-4 -->
-    </section>
+    </main>
 </div><!-- /.container -->
 
   <!-- Templates -->

@@ -317,6 +317,25 @@ body {
     text-align: center;
 }
 
+#tracker-top .btn-group {
+    position: absolute;
+    right: 2px;
+}
+
+#tracker-top .btn-group button {
+    background-color: transparent;
+    border: none;
+}
+
+#tracker-top .options {
+    left: auto;
+    right: 0;
+}
+
+#tracker-top .options .bold {
+    font-weight: bold;
+}
+
 #dtBack,
 #dtForward {
     cursor: pointer;
