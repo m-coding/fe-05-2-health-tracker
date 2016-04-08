@@ -33,14 +33,16 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     }, // initialize
 
-    /** Check which render to run and update url route */
+    /** Check which render to run and update url route if in tracker view */
     render: function() {
+        var isTracker = $('#tracker').hasClass('active');
+
         if(nt.Option.displayAll) {
             this.renderAll();
-            nt.Router.Instance.navigate('tracker/all');
+            if(isTracker) nt.Router.Instance.navigate('tracker/all');
         } else {
             this.renderDate();
-            nt.Router.Instance.navigate('tracker/date/' + nt.Option.trackerDate);
+            if(isTracker) nt.Router.Instance.navigate('tracker/date/' + nt.Option.trackerDate);
         }
 
     }, // render
