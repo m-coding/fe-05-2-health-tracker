@@ -204,11 +204,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Update the Nutrition view tracking status when a food is saved</p>
+              <p>Update the Nutrition view model and tracking status when a food is saved</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.listenTo(<span class="hljs-keyword">this</span>.model, <span class="hljs-string">'foodsaved'</span>, <span class="hljs-keyword">this</span>.showTracking);
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.listenTo(<span class="hljs-keyword">this</span>.model, <span class="hljs-string">'foodsaved'</span>, <span class="hljs-keyword">this</span>.updateView);
 
     }, <span class="hljs-comment">// initialize</span>
 
@@ -815,7 +815,7 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$nutrition.append( editorView.render().el );
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$nutrition.append( editorView.render().renderDatePicker().el );
 
     }, <span class="hljs-comment">// addFood</span>
 
@@ -829,12 +829,15 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
 
     }, <span class="hljs-comment">// removeFood</span>
 
-    <span class="hljs-comment">/** When the 'foodsaved' event occurs, update the tracker status to reflect change */</span>
-    showTracking: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/** When the 'foodsaved' event occurs, update the view's model and tracker status */</span>
+    updateView: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> itemId = <span class="hljs-keyword">this</span>.model.get(<span class="hljs-string">'id'</span>);
+        <span class="hljs-keyword">var</span> foodAttributes = nt.Collections.tracker.get(itemId).toJSON();
+        <span class="hljs-keyword">this</span>.model.set(foodAttributes);
         <span class="hljs-keyword">this</span>.trackedItem = <span class="hljs-literal">true</span>;
         <span class="hljs-keyword">this</span>.displayMenu();
 
-    }, <span class="hljs-comment">// showTracking</span>
+    }, <span class="hljs-comment">// updateView</span>
 
     <span class="hljs-comment">/** If the item is being tracked, clicking the tracker status will open the tracker view */</span>
     openTrackerView: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{

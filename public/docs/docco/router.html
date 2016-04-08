@@ -158,9 +158,10 @@
      * @property {object} routes
      * @memberof nt.Router */</span>
     routes:{
-        <span class="hljs-string">''</span>: <span class="hljs-string">'start'</span>,
+        <span class="hljs-string">'start'</span>: <span class="hljs-string">'start'</span>,
+        <span class="hljs-string">'search'</span>: <span class="hljs-string">'startSearch'</span>,
         <span class="hljs-string">'search/:query'</span>: <span class="hljs-string">'search'</span>,
-        <span class="hljs-string">'tracker/:id'</span>: <span class="hljs-string">'tracker'</span>
+        <span class="hljs-string">'tracker/:date'</span>: <span class="hljs-string">'tracker'</span>
     },
 
     <span class="hljs-comment">/** Update url and call route function
@@ -169,21 +170,42 @@
     goto: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: goto -&gt; '</span> + url);
         nt.Router.Instance.navigate(url, { trigger: <span class="hljs-literal">true</span> });
-    },
 
-    <span class="hljs-comment">/** Search screen
+    }, <span class="hljs-comment">// goto</span>
+
+    <span class="hljs-comment">/** Update url and display start view
+     * @function start
+     * @memberof nt.Router */</span>
+    start: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        nt.Views.start.showStart();
+    }, <span class="hljs-comment">// start</span>
+
+    <span class="hljs-comment">/** Update url and display search view
+     * @function startSearch
+     * @memberof nt.Router */</span>
+    startSearch: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        nt.Views.start.hideStart();
+        nt.Views.search.$searchFood.val(<span class="hljs-string">''</span>);
+        nt.Views.search.$searchResults.html(<span class="hljs-string">''</span>);
+    }, <span class="hljs-comment">// startSearch</span>
+
+    <span class="hljs-comment">/** Update url with search query and run search
      * @function search
      * @memberof nt.Router */</span>
     search: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">query</span>) </span>{
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: Food search containing the word: '</span> + query);
-    },
+        nt.Views.start.hideStart();
+        nt.Views.search.$searchFood.val(query);
+        nt.Views.search.searchFood();
+
+    }, <span class="hljs-comment">// search</span>
 
     <span class="hljs-comment">/** Tracker screen
      * @function tracker
      * @memberof nt.Router */</span>
-    tracker: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">id</span>) </span>{
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: Tracker item selected with id: '</span> + id);
-    }
+    tracker: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">date</span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: Tracker display for date: '</span> + date);
+    } <span class="hljs-comment">// tracker</span>
 
 });</pre></div></div>
             

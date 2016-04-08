@@ -144,7 +144,14 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
     model: nt.Models.Nutrition,
 
     <span class="hljs-comment">/** Save all of the food items in localStorage. */</span>
-    localStorage: <span class="hljs-keyword">new</span> Backbone.LocalStorage(<span class="hljs-string">'nutrition-tracker'</span>),
+    localStorage: <span class="hljs-keyword">new</span> Backbone.LocalStorage(<span class="hljs-string">'nutrition-test4'</span>),
+
+    <span class="hljs-comment">/** Set default tracker date for today */</span>
+    initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        nt.Option.trackerDate = moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()).format(<span class="hljs-string">'YYYY-MM-DD'</span>);
+        nt.Option.displayAll = <span class="hljs-literal">false</span>;
+
+    }, <span class="hljs-comment">// initialize</span>
 
     <span class="hljs-comment">/** This generates the next order number for new items. */</span>
     nextOrder: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -158,8 +165,44 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
     <span class="hljs-comment">/** Each food item is sorted by its original insertion order. */</span>
     comparator: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> food </span>) </span>{
             <span class="hljs-keyword">return</span> food.get(<span class="hljs-string">'sortOrder'</span>);
+    }, <span class="hljs-comment">// comparator</span>
 
-    } <span class="hljs-comment">// comparator</span>
+    <span class="hljs-comment">/** Returns a group of models with the same date */</span>
+    getModelsByDate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Filter the models by date</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> groupArray = <span class="hljs-keyword">this</span>.where({ trackDate: nt.Option.trackerDate });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Convert the array back into a Collection</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> groupCollection = <span class="hljs-keyword">new</span> Backbone.Collection(groupArray);
+
+        <span class="hljs-keyword">return</span> groupCollection;
+
+    } <span class="hljs-comment">// getModelsByDate</span>
 
 });</pre></div></div>
             

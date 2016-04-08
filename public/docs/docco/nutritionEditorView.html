@@ -151,16 +151,12 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
         <span class="hljs-string">'click #foodClose'</span>: <span class="hljs-string">'close'</span>
     },
 
-    <span class="hljs-comment">/** Setup input refs and create a new food model with today's date */</span>
+    <span class="hljs-comment">/** Create a new food model this view will display */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-        <span class="hljs-keyword">this</span>.today = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(d.getTime() - d.getTimezoneOffset() * <span class="hljs-number">60000</span>).toJSON().slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>);
-        <span class="hljs-keyword">this</span>.$inputDate = $(<span class="hljs-string">'#foodTrackDate'</span>);
         <span class="hljs-keyword">this</span>.createFood();
-
     }, <span class="hljs-comment">// initialize</span>
 
-    <span class="hljs-comment">/** Render results */</span>
+    <span class="hljs-comment">/** Render food */</span>
     render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
@@ -176,23 +172,7 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$el.html(<span class="hljs-keyword">this</span>.editorTemplate( <span class="hljs-keyword">this</span>.food.toJSON() ));
-
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-
-    }, <span class="hljs-comment">// render</span>
-
-    <span class="hljs-comment">/** Generate new attributes for a food item */</span>
-    newAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">return</span> {
-            sortOrder: nt.Collections.tracker.nextOrder(),
-            trackDate: <span class="hljs-keyword">this</span>.$inputDate.val()
-        };
-
-    }, <span class="hljs-comment">// newAttributes</span>
-
-    <span class="hljs-comment">/** Create a new nutrition model and set the date */</span>
-    createFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$el.html(<span class="hljs-keyword">this</span>.editorTemplate( <span class="hljs-keyword">this</span>.food.toJSON() ));</pre></div></div>
             
         </li>
         
@@ -203,11 +183,16 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Create a new nutrition Model</p>
+              <p>Enable chaining</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food = <span class="hljs-keyword">new</span> nt.Models.Nutrition();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+
+    }, <span class="hljs-comment">// render</span>
+
+    <span class="hljs-comment">/** Activate the date picker plugin */</span>
+    renderDatePicker: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -218,11 +203,44 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Add nutrition data</p>
+              <p>Use this.$el since template html is inserted in the DOM later</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( <span class="hljs-keyword">this</span>.model.toJSON() );</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#dateTimePicker'</span>).datetimepicker({
+            format: <span class="hljs-string">'YYYY-MM-DD'</span>,
+            allowInputToggle: <span class="hljs-literal">true</span>,
+            widgetPositioning: { horizontal: <span class="hljs-string">'right'</span> }
+        });
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+
+    }, <span class="hljs-comment">// renderDatePicker</span>
+
+    <span class="hljs-comment">/** Display validation error */</span>
+    renderError: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">message</span>) </span>{
+        <span class="hljs-keyword">var</span> error = <span class="hljs-string">'&lt;p class="bs-callout bs-callout-danger alert-danger"&gt;&lt;i class="glyphicon glyphicon-exclamation-sign"&gt;&lt;/i&gt; '</span> + message + <span class="hljs-string">'&lt;/p&gt;'</span>;
+        <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#editor-top'</span>).append(error);
+
+    }, <span class="hljs-comment">// renderError</span>
+
+    <span class="hljs-comment">/** Remove error message */</span>
+    removeError: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'.bs-callout'</span>).remove();
+    }, <span class="hljs-comment">// removeError</span>
+
+    <span class="hljs-comment">/** Generate new attributes for a food item */</span>
+    newAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> {
+            sortOrder: nt.Collections.tracker.nextOrder(),
+            trackDate:  <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodTrackDate'</span>).val().trim(),
+            itemName: <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodName'</span>).val().trim()
+        };
+
+    }, <span class="hljs-comment">// newAttributes</span>
+
+    <span class="hljs-comment">/** Create a new model for the Tracker and copy the nutritionView's data to it */</span>
+    createFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -233,19 +251,11 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Add today’s date</p>
+              <p>Create a new nutrition Model</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set({ trackDate: <span class="hljs-keyword">this</span>.today });
-
-    }, <span class="hljs-comment">// createFood</span>
-
-    <span class="hljs-comment">/** Save the model to the collection and close the view */</span>
-    saveFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
-        e.preventDefault();
-
-        <span class="hljs-keyword">var</span> newAttr = <span class="hljs-keyword">this</span>.newAttributes();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food = <span class="hljs-keyword">new</span> nt.Models.Nutrition();</pre></div></div>
             
         </li>
         
@@ -256,11 +266,21 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Set additional attributes</p>
+              <p>Add nutrition data</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( newAttr );</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( <span class="hljs-keyword">this</span>.model.toJSON() );
+
+    }, <span class="hljs-comment">// createFood</span>
+
+    <span class="hljs-comment">/** Save the model to the collection and close the view */</span>
+    saveFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        e.preventDefault();
+
+        <span class="hljs-keyword">this</span>.removeError();
+
+        <span class="hljs-keyword">var</span> newAttr = <span class="hljs-keyword">this</span>.newAttributes();</pre></div></div>
             
         </li>
         
@@ -271,11 +291,17 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Add food to tracker Collection</p>
+              <p>Set additional attributes</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        nt.Collections.tracker.add(<span class="hljs-keyword">this</span>.food);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( newAttr, {validate: <span class="hljs-literal">true</span>} );
+
+        <span class="hljs-keyword">var</span> notValid = <span class="hljs-keyword">this</span>.food.validationError;
+
+        <span class="hljs-keyword">if</span>(notValid) {
+            <span class="hljs-keyword">this</span>.renderError(notValid);
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -286,11 +312,11 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Save it to localStorage</p>
+              <p>Add and save food to tracker Collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.save();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            nt.Collections.tracker.create(<span class="hljs-keyword">this</span>.food, {merge: <span class="hljs-literal">true</span>});</pre></div></div>
             
         </li>
         
@@ -305,7 +331,7 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.model.trigger(<span class="hljs-string">'foodsaved'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.model.trigger(<span class="hljs-string">'foodsaved'</span>);</pre></div></div>
             
         </li>
         
@@ -320,12 +346,14 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.close();
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.close();
+        }
 
     }, <span class="hljs-comment">// saveFood</span>
 
     <span class="hljs-comment">/** Destroy this view */</span>
     close: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        $(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).destroy();
         <span class="hljs-keyword">this</span>.remove();
     } <span class="hljs-comment">// close</span>
 

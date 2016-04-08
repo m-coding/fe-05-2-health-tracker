@@ -221,7 +221,69 @@ nt.Models.Nutrition = Backbone.Model.extend(<span class="hljs-comment">/** @lend
         } <span class="hljs-keyword">else</span>
             <span class="hljs-keyword">return</span> data;
 
-    } <span class="hljs-comment">// parse</span>
+    }, <span class="hljs-comment">// parse</span>
+
+    <span class="hljs-comment">/** Model validation for editable attributes */</span>
+    validate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attrs, options</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Check if property exists since it is not a default attribute</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(attrs.hasOwnProperty(<span class="hljs-string">'trackDate'</span>)) {
+            <span class="hljs-keyword">if</span> (attrs.trackDate === <span class="hljs-string">''</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'Date cannot be blank.'</span>;
+            }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Use momentjs to validate date format
+<a href="http://momentjs.com/docs/#/parsing/string-format/">http://momentjs.com/docs/#/parsing/string-format/</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> valid = moment(attrs.trackDate, <span class="hljs-string">'YYYY-MM-DD'</span>, <span class="hljs-literal">true</span>).isValid();
+            <span class="hljs-keyword">if</span>(!valid) {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'Date must be in YYYY-MM-DD format.'</span>;
+            }
+
+        } <span class="hljs-comment">// trackDate</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Make sure the name isn’t blank</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (attrs.itemName === <span class="hljs-string">''</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'Food name cannot be blank.'</span>;
+
+        } <span class="hljs-comment">// itemName</span>
+
+    } <span class="hljs-comment">// validate</span>
 
 });</pre></div></div>
             

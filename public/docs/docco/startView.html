@@ -145,18 +145,33 @@ nt.Views.Start = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.V
 
     <span class="hljs-comment">/** events hash */</span>
     events: {
-        <span class="hljs-string">'click .btn-success'</span>: <span class="hljs-string">'removeStart'</span>
+        <span class="hljs-string">'click .btn-success'</span>: <span class="hljs-string">'startSearch'</span>
     },
 
-    <span class="hljs-comment">/** Removes the start screen
-     * @function  removeStart
+    <span class="hljs-comment">/** Shows the start screen
+     * @function  showStart
      * @memberof  nt.Views.Start */</span>
-    removeStart: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">this</span>.remove();
-        nt.Router.Instance.navigate(<span class="hljs-string">'search'</span>);
+    showStart: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.$el.show();
+        $(<span class="hljs-string">'#app'</span>).hide();
+
+    }, <span class="hljs-comment">// showStart</span>
+
+    <span class="hljs-comment">/** Hides the start screen
+     * @function  hideStart
+     * @memberof  nt.Views.Start */</span>
+    hideStart: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.$el.hide();
         $(<span class="hljs-string">'#app'</span>).show();
 
-    } <span class="hljs-comment">// removeStart</span>
+    }, <span class="hljs-comment">// hideStart</span>
+
+    <span class="hljs-comment">/** Updates the url and hides the start screen
+     * @function  startSearch
+     * @memberof  nt.Views.Start */</span>
+    startSearch: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        nt.Router.Instance.goto(<span class="hljs-string">'search'</span>);
+    } <span class="hljs-comment">// startSearch</span>
 
 });</pre></div></div>
             
