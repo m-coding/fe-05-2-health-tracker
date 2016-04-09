@@ -7,6 +7,8 @@ A single page app that tracks your calorie intake and nutrition information for 
 * Uses food searched as an ingredient to provide recipe suggestions
 * Visually see fat, carbohyrdates, and protein amounts with pie chart
 * Full nutrition information is displayed using the FDA-style "Nutrition Facts" label
+* Option to display all tracked foods or by date
+* Navigate days with interactive date picker
 
 ## How to run
 #### Local
@@ -45,6 +47,8 @@ A single page app that tracks your calorie intake and nutrition information for 
 * [Handlebars.js](http://handlebarsjs.com) – template processor used
 * [eqHeights.js](http://stackoverflow.com/questions/13029090/jquery-equal-height-responsive-div-rows?answertab=votes#tab-top) – a jQuery plugin used to make Bootstrap columns equal heights
 * [nutritionLabel.js](https://github.com/nutritionix/nutrition-label) – Nutritionix's jQuery plugin to create a nutrition label
+* [Bootstrap 3 Datepicker](https://github.com/Eonasdan/bootstrap-datetimepicker) – date picker widget used
+* [Moment.js](http://momentjs.com) – dependency for date picker
 
 #### CSS
 * [Bootstrap](http://getbootstrap.com/) – the HTML/CSS framework used for responsive design
