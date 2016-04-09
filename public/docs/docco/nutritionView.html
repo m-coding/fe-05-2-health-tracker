@@ -723,6 +723,22 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
+              <p>Reset the element and previous event handlers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$nLabel.html(<span class="hljs-string">''</span>);
+        <span class="hljs-keyword">this</span>.$nLabel.undelegate();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
               <p>Activate Nutrition Label jQuery Plugin by Nutritionix</p>
 
             </div>
@@ -738,11 +754,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-33">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>Clear button menu container</p>
 
@@ -753,11 +769,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-34">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Set tracking flag</p>
 
@@ -768,11 +784,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-35">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>Add the button menu html</p>
 
@@ -790,11 +806,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-36">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>Create an editor view with the nutrition data model</p>
 
@@ -805,11 +821,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-37">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>Render the editor view and append its element to the nutrition view</p>
 
@@ -834,6 +850,7 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         <span class="hljs-keyword">var</span> itemId = <span class="hljs-keyword">this</span>.model.get(<span class="hljs-string">'id'</span>);
         <span class="hljs-keyword">var</span> foodAttributes = nt.Collections.tracker.get(itemId).toJSON();
         <span class="hljs-keyword">this</span>.model.set(foodAttributes);
+        <span class="hljs-keyword">this</span>.displayNutrition();
         <span class="hljs-keyword">this</span>.trackedItem = <span class="hljs-literal">true</span>;
         <span class="hljs-keyword">this</span>.displayMenu();
 

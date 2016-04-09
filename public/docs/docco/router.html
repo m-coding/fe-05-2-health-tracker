@@ -161,50 +161,154 @@
         <span class="hljs-string">'start'</span>: <span class="hljs-string">'start'</span>,
         <span class="hljs-string">'search'</span>: <span class="hljs-string">'startSearch'</span>,
         <span class="hljs-string">'search/:query'</span>: <span class="hljs-string">'search'</span>,
-        <span class="hljs-string">'tracker/:date'</span>: <span class="hljs-string">'tracker'</span>
+        <span class="hljs-string">'tracker/:display(/:date)'</span>: <span class="hljs-string">'tracker'</span>
     },
 
     <span class="hljs-comment">/** Update url and call route function
      * @function goto
      * @memberof nt.Router */</span>
     goto: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>) </span>{
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: goto -&gt; '</span> + url);
         nt.Router.Instance.navigate(url, { trigger: <span class="hljs-literal">true</span> });
-
     }, <span class="hljs-comment">// goto</span>
 
-    <span class="hljs-comment">/** Update url and display start view
+    <span class="hljs-comment">/** Display start view
      * @function start
      * @memberof nt.Router */</span>
     start: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         nt.Views.start.showStart();
     }, <span class="hljs-comment">// start</span>
 
-    <span class="hljs-comment">/** Update url and display search view
+    <span class="hljs-comment">/** Display empty search view
      * @function startSearch
      * @memberof nt.Router */</span>
     startSearch: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> isSearchOpen = $(<span class="hljs-string">'#search'</span>).hasClass(<span class="hljs-string">'active'</span>);
+        <span class="hljs-keyword">if</span>(!isSearchOpen) $(<span class="hljs-string">'#tab1'</span>).trigger(<span class="hljs-string">'click'</span>);
         nt.Views.start.hideStart();
         nt.Views.search.$searchFood.val(<span class="hljs-string">''</span>);
         nt.Views.search.$searchResults.html(<span class="hljs-string">''</span>);
+
     }, <span class="hljs-comment">// startSearch</span>
 
-    <span class="hljs-comment">/** Update url with search query and run search
+    <span class="hljs-comment">/** Update search box with query, run search, then hide autocomplete
      * @function search
      * @memberof nt.Router */</span>
     search: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">query</span>) </span>{
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: Food search containing the word: '</span> + query);
+        <span class="hljs-keyword">var</span> isSearchOpen = $(<span class="hljs-string">'#search'</span>).hasClass(<span class="hljs-string">'active'</span>);
+        <span class="hljs-keyword">if</span>(!isSearchOpen) $(<span class="hljs-string">'#tab1'</span>).trigger(<span class="hljs-string">'click'</span>);
         nt.Views.start.hideStart();
         nt.Views.search.$searchFood.val(query);
         nt.Views.search.searchFood();
+        nt.Plugin.Instance.hide();
 
     }, <span class="hljs-comment">// search</span>
 
-    <span class="hljs-comment">/** Tracker screen
+    <span class="hljs-comment">/** Set tracker view options based on url parameters
      * @function tracker
      * @memberof nt.Router */</span>
-    tracker: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">date</span>) </span>{
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ROUTER: Tracker display for date: '</span> + date);
+    tracker: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">optDisplay, optDate</span>) </span>{
+        nt.Views.start.hideStart();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Check if the Tracker tab is active</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> isTrackerOpen = $(<span class="hljs-string">'#tracker'</span>).hasClass(<span class="hljs-string">'active'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Activate the tracker tab</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(!isTrackerOpen) $(<span class="hljs-string">'#tab2'</span>).trigger(<span class="hljs-string">'click'</span>);
+
+        <span class="hljs-keyword">if</span>(optDisplay === <span class="hljs-string">'all'</span>) {
+            $(<span class="hljs-string">'#tracker-top h5'</span>).hide();
+            nt.Option.displayAll = <span class="hljs-literal">true</span>;
+            nt.Views.tracker.$dtp.data(<span class="hljs-string">'DateTimePicker'</span>).date( moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()) );
+        }
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (optDisplay === <span class="hljs-string">'date'</span> &amp;&amp; optDate.length &gt; <span class="hljs-number">0</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Format the date for the date picker</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">var</span> formattedDate = moment(optDate).format(<span class="hljs-string">'MMMM D, YYYY'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Set options based on display setting</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-string">'#tracker-top h5'</span>).show();
+            nt.Option.displayAll = <span class="hljs-literal">false</span>;
+            nt.Option.trackerDate = optDate;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Update the date picker’s date which will trigger a re-render</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            nt.Views.tracker.$dtp.data(<span class="hljs-string">'DateTimePicker'</span>).date(formattedDate);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Bold the current option</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        nt.Views.tracker.dateDisplay();
+
     } <span class="hljs-comment">// tracker</span>
 
 });</pre></div></div>

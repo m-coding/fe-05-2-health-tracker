@@ -310,7 +310,7 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
             
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$searchResults.html(nt.preloader);
 
-        <span class="hljs-keyword">if</span> (query.length &gt; <span class="hljs-number">0</span> &amp;&amp; query !== <span class="hljs-keyword">this</span>.prevQuery) {</pre></div></div>
+        <span class="hljs-keyword">if</span> (query.length &gt; <span class="hljs-number">0</span>) {</pre></div></div>
             
         </li>
         
@@ -361,9 +361,7 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
                 error: <span class="hljs-keyword">this</span>.searchError
             });
         } <span class="hljs-keyword">else</span>
-            <span class="hljs-keyword">this</span>.$searchResults.html(<span class="hljs-string">''</span>);
-
-        <span class="hljs-keyword">this</span>.prevQuery = query;</pre></div></div>
+            <span class="hljs-keyword">this</span>.$searchResults.html(<span class="hljs-string">''</span>);</pre></div></div>
             
         </li>
         
