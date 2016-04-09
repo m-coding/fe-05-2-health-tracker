@@ -99,7 +99,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
         // Display preloader
         this.$searchResults.html(nt.preloader);
 
-        if (query.length > 0 && query !== this.prevQuery) {
+        if (query.length > 0) {
             // Clear out all the models in the collection
             this.collection.reset();
 
@@ -114,8 +114,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
             });
         } else
             this.$searchResults.html('');
-
-        this.prevQuery = query;
 
         // Update url
         nt.Router.Instance.navigate('search/' + query);
