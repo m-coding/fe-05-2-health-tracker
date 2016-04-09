@@ -16,20 +16,22 @@
 <body>
   <!-- NUTRITION TRACKER -->
   <div class="container">
+
     <!-- App start -->
-    <section id="start-screen" class="row">
-        <div class="col-md-4 center-block">
-        <h1>Nutrition</h1>
-        <img src="images/list.png" alt="list">
-        <h1>Tracker</h1>
-        <button type="button" class="btn btn-success">Start App</button>
-        </div>
-    </section>
+    <aside id="start-screen" class="row">
+      <div class="col-md-4 center-block">
+      <h1>Nutrition</h1>
+      <img src="images/list.png" alt="list">
+      <h1>Tracker</h1>
+      <button type="button" class="btn btn-success">Start App</button>
+      </div>
+    </aside>
 
     <!-- App main -->
     <main id="app" class="row row-centered no-gutter">
+
       <!-- Column 1 -->
-      <div class="col-md-4 col-centered eqHeights">
+      <section class="col-md-4 col-centered eqHeights">
         <!-- Nav  tabs -->
         <ul id="app-tabs" class="nav nav-tabs">
           <li role="presentation" class="active"><a id="tab1" href="#search">Search</a></li>
@@ -91,11 +93,10 @@
             </div>
           </div><!-- /#tracker -->
         </div><!-- /.tab-content -->
-      </div><!-- /.col-md-4 -->
-
+      </section><!-- /.col-md-4 -->
 
       <!-- Column 2 -->
-      <div id="nutrition" class="col-md-4 col-centered vtop hideColumn eqHeights">
+      <section id="nutrition" class="col-md-4 col-centered vtop hideColumn eqHeights">
         <!-- Nutrition info -->
         <div id="nutrition-button-menu"></div>
         <div id="nutrition-results">
@@ -104,7 +105,8 @@
           <!-- Nutrition label -->
           <figure id="nlabel"></figure>
         </div><!-- /#nutrition-results -->
-      </div><!-- /.col-md-4 -->
+      </section><!-- /.col-md-4 -->
+
     </main>
   </div><!-- /.container -->
 
