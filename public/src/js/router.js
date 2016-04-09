@@ -35,19 +35,24 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
      * @function startSearch
      * @memberof nt.Router */
     startSearch: function() {
+        var isSearchOpen = $('#search').hasClass('active');
+        if(!isSearchOpen) $('#tab1').trigger('click');
         nt.Views.start.hideStart();
         nt.Views.search.$searchFood.val('');
         nt.Views.search.$searchResults.html('');
 
     }, // startSearch
 
-    /** Update search box with query and run search
+    /** Update search box with query, run search, then hide autocomplete
      * @function search
      * @memberof nt.Router */
     search: function(query) {
+        var isSearchOpen = $('#search').hasClass('active');
+        if(!isSearchOpen) $('#tab1').trigger('click');
         nt.Views.start.hideStart();
         nt.Views.search.$searchFood.val(query);
         nt.Views.search.searchFood();
+        nt.Plugin.Instance.hide();
 
     }, // search
 
@@ -55,22 +60,24 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
      * @function tracker
      * @memberof nt.Router */
     tracker: function(optDisplay, optDate) {
+        nt.Views.start.hideStart();
+
         // Check if the Tracker tab is active
         var isTrackerOpen = $('#tracker').hasClass('active');
 
         // Activate the tracker tab
         if(!isTrackerOpen) $('#tab2').trigger('click');
 
-        // Set options based on display setting and render the view
         if(optDisplay === 'all') {
             $('#tracker-top h5').hide();
             nt.Option.displayAll = true;
-            nt.Views.tracker.renderAll();
+            nt.Views.tracker.$dtp.data('DateTimePicker').date( moment(new Date()) );
         }
         else if (optDisplay === 'date' && optDate.length > 0) {
             // Format the date for the date picker
             var formattedDate = moment(optDate).format('MMMM D, YYYY');
 
+            // Set options based on display setting
             $('#tracker-top h5').show();
             nt.Option.displayAll = false;
             nt.Option.trackerDate = optDate;
