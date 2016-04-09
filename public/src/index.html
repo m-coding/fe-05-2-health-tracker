@@ -43,16 +43,30 @@
           <!-- Search pane -->
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
-              <h3>Food Search</h3>
+              <h3>Food Search
+              <span class="btn-group">
+                <button type="button" id="search-help" title="Help">
+                  <i class="glyphicon glyphicon-question-sign"></i>
+                </button>
+              </span>
+              </h3>
               <!-- Search help text -->
               <div class="alert alert-info" id="search-help-text">
                 <button type="button" class="close" aria-label="Close">
                   <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
                 </button>
-                <h4><i class="glyphicon glyphicon-question-sign"></i> Autocomplete</h4>
-                <p>Select a suggestion to search.</p>
-                <br>
-                <p>Click outside the search box or press Esc to close the autocomplete drop menu.</p>
+                <h4><i class="glyphicon glyphicon-question-sign"></i> Help</h4>
+                <b>Search with autocomplete</b>
+                <ol>
+                  <li>While typing a drop menu with food suggestions will display.</li>
+                  <li>Select an option to search.</li>
+                </ol>
+                <b>Close the autocomplete</b>
+                <ol>
+                  <li>Press Esc or</li>
+                  <li>Click outside the search box or</li>
+                  <li>Click the <i class="glyphicon glyphicon-remove-circle"></i> clear button</li>
+                </ol>
               </div>
               <!-- Search box -->
               <form id="search-suggest" autocomplete="off"></form>
@@ -116,8 +130,8 @@
   <div class="input-group">
     <input id="search-food" type="search" class="form-control" placeholder="What did you eat?">
     <span class="input-group-btn">
-      <button class="btn btn-primary" type="button" id="search-help">
-        <i class="glyphicon glyphicon-question-sign"></i>
+      <button class="btn btn-default" type="button" id="search-clear" title="Clear">
+        <i class="glyphicon glyphicon-remove-circle"></i>
       </button>
     </span>
   </div>

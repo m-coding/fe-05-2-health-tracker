@@ -20,13 +20,13 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(/** @lends nt.Col
 
     /** Displays ajax error in the autocomplete drop menu */
     apiError: function(collection, response) {
-        var errMsg = response.status + ' ' + response.statusText + ' : ' + 'Autocomplete server request error';
+        var errMsg = response.status + ' ' + response.statusText + ' : ' +
+                     'Autocomplete server request error. <br> ' +
+                     'Please try again.';
         if(window.console) console.log(errMsg);
         $('#search-suggest .dropdown-menu')
             .show()
-            .prepend('<li class="typeahead-error"><a>' + errMsg + '</a></li>');
-
-        collection.reset();
+            .html('<li class="typeahead-error"><a>' + errMsg + '</a></li>');
 
     }, // apiError
 

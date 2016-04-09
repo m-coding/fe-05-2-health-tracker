@@ -22,7 +22,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         'click .tracked-edit': 'openFood',
     },
 
-    /** Setup DOM ref, listener, and fetch collection from localStorage */
+    /** Setup DOM ref, listener, fetch collection from localStorage, and setup datepicker */
     initialize: function() {
         this.$trackerResults = $('#tracker-results');
         this.$dtp = $('#dtPicker');

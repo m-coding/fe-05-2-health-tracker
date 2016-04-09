@@ -14,6 +14,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     events: {
         'click #search-help': 'toggleHelp',
         'click #search-help-text .close': 'toggleHelp',
+        'click #search-clear': 'clearSearch',
         'submit #search-suggest': 'noSubmit'
     },
 
@@ -123,6 +124,14 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
     /** Prevent form submission */
     noSubmit: function(e) {
         e.preventDefault();
-    } // noSubmit
+    }, // noSubmit
+
+    /** Clear search and autocomplete */
+    clearSearch: function() {
+        this.$searchFood.val('');
+        this.$searchResults.html('');
+        nt.Plugin.Instance.hide();
+
+    } // clearSearch
 
 });

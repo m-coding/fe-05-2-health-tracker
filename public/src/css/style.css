@@ -140,10 +140,6 @@ body {
     background-color:#b8dec0;
 }
 
-#search-top .glyphicon-question-sign {
-    font-size: 16px;
-}
-
 #search-help-text {
     display: none;
     position: absolute;
@@ -154,6 +150,16 @@ body {
 #search-suggest {
     display: block;
     position: relative;
+    margin: 0 0 8px 0;
+}
+
+#search-clear {
+    height: 38px;
+}
+
+#search-clear .glyphicon-remove-circle {
+    font-size: 22px;
+    line-height: 18px;
 }
 
 /* RECIPE
@@ -199,6 +205,8 @@ body {
 }
 
 #recipe-open {
+    padding: 0;
+    margin: 0 0 12px 0;
     text-align: center;
 }
 
@@ -317,12 +325,14 @@ body {
     text-align: center;
 }
 
-#tracker-top .btn-group {
+#tracker-top .btn-group,
+#search-top .btn-group {
     position: absolute;
     right: 2px;
 }
 
-#tracker-top .btn-group button {
+#tracker-top .btn-group button,
+#search-top .btn-group button {
     background-color: transparent;
     border: none;
 }
