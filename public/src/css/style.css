@@ -317,6 +317,10 @@ body {
     padding: 6px;
 }
 
+.totals-row {
+    font-weight: bold;
+}
+
 #tracker-top h5 {
     text-align: center;
 }
