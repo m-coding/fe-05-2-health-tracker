@@ -148,35 +148,20 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(<span class="hljs
 
     <span class="hljs-comment">/** Parameters to pass for fetch requests */</span>
     api: {
-        q: <span class="hljs-string">''</span>,</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>‘appId’: ‘53242d79’,
-‘appKey’: ‘82289438a16ec7b92cdcf5ad054159c4’</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-string">'appId'</span> : <span class="hljs-string">'6cfe5724'</span>,
-            <span class="hljs-string">'appKey'</span>: <span class="hljs-string">'c739db07d452b910ad53765fdeb6cc8d'</span>
+        q: <span class="hljs-string">''</span>,
+        appId: <span class="hljs-string">'53242d79'</span>,
+        appKey: <span class="hljs-string">'82289438a16ec7b92cdcf5ad054159c4'</span>
     },
 
     <span class="hljs-comment">/** Displays ajax error in the autocomplete drop menu */</span>
     apiError: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">collection, response</span>) </span>{
-        <span class="hljs-keyword">var</span> errMsg = response.status + <span class="hljs-string">' '</span> + response.statusText + <span class="hljs-string">' : '</span> + <span class="hljs-string">'Autocomplete server request error'</span>;
+        <span class="hljs-keyword">var</span> errMsg = response.status + <span class="hljs-string">' '</span> + response.statusText + <span class="hljs-string">' : '</span> +
+                     <span class="hljs-string">'Autocomplete server request error. &lt;br&gt; '</span> +
+                     <span class="hljs-string">'Please try again.'</span>;
         <span class="hljs-keyword">if</span>(<span class="hljs-built_in">window</span>.console) <span class="hljs-built_in">console</span>.log(errMsg);
         $(<span class="hljs-string">'#search-suggest .dropdown-menu'</span>)
             .show()
-            .prepend(<span class="hljs-string">'&lt;li class="typeahead-error"&gt;&lt;a&gt;'</span> + errMsg + <span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>);
-
-        collection.reset();
+            .html(<span class="hljs-string">'&lt;li class="typeahead-error"&gt;&lt;a&gt;'</span> + errMsg + <span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>);
 
     }, <span class="hljs-comment">// apiError</span>
 

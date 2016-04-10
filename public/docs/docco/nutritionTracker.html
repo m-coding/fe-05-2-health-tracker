@@ -202,7 +202,54 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
 
         <span class="hljs-keyword">return</span> groupCollection;
 
-    } <span class="hljs-comment">// getModelsByDate</span>
+    }, <span class="hljs-comment">// getModelsByDate</span>
+
+    <span class="hljs-comment">/** Returns the sum value of the attribute passed */</span>
+    calculateSum: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attribute</span>) </span>{
+        <span class="hljs-keyword">var</span> group = <span class="hljs-keyword">this</span>;
+        <span class="hljs-keyword">var</span> sum = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">this</span>.length) <span class="hljs-keyword">return</span>;
+
+        <span class="hljs-keyword">if</span>(!nt.Option.displayAll)
+            group = <span class="hljs-keyword">this</span>.getModelsByDate();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>credit: <a href="http://underscorejs.org/#reduce">http://underscorejs.org/#reduce</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        sum = group.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">memo, value</span>) </span>{
+          <span class="hljs-keyword">return</span> memo + value.get(attribute);
+         }, <span class="hljs-number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>If it’s a whole number, don’t show decimal</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Number</span>.isInteger(sum))
+            <span class="hljs-keyword">return</span> sum;
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> sum.toFixed(<span class="hljs-number">2</span>);
+
+    } <span class="hljs-comment">// calculateSum</span>
 
 });</pre></div></div>
             

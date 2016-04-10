@@ -149,6 +149,7 @@ nt.Views.Search = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
     events: {
         <span class="hljs-string">'click #search-help'</span>: <span class="hljs-string">'toggleHelp'</span>,
         <span class="hljs-string">'click #search-help-text .close'</span>: <span class="hljs-string">'toggleHelp'</span>,
+        <span class="hljs-string">'click #search-clear'</span>: <span class="hljs-string">'clearSearch'</span>,
         <span class="hljs-string">'submit #search-suggest'</span>: <span class="hljs-string">'noSubmit'</span>
     },
 
@@ -275,7 +276,10 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
                       <span class="hljs-string">'nf_total_carbohydrate,'</span> +
                       <span class="hljs-string">'nf_protein,'</span> +
                       <span class="hljs-string">'nf_serving_size_qty,'</span> +
-                      <span class="hljs-string">'nf_serving_size_unit'</span>,</pre></div></div>
+                      <span class="hljs-string">'nf_serving_size_unit'</span>,
+            <span class="hljs-string">'appId'</span>: <span class="hljs-string">'53242d79'</span>,
+            <span class="hljs-string">'appKey'</span>: <span class="hljs-string">'82289438a16ec7b92cdcf5ad054159c4'</span>
+        };</pre></div></div>
             
         </li>
         
@@ -285,24 +289,6 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
-              </div>
-              <p>‘appId’: ‘53242d79’,
-‘appKey’: ‘82289438a16ec7b92cdcf5ad054159c4’</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-string">'appId'</span> : <span class="hljs-string">'6cfe5724'</span>,
-            <span class="hljs-string">'appKey'</span>: <span class="hljs-string">'c739db07d452b910ad53765fdeb6cc8d'</span>
-        };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-7">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>Display preloader</p>
 
@@ -315,11 +301,11 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
         </li>
         
         
-        <li id="section-8">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>Clear out all the models in the collection</p>
 
@@ -330,11 +316,11 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
         </li>
         
         
-        <li id="section-9">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>Set the terms to be searched</p>
 
@@ -345,11 +331,11 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
         </li>
         
         
-        <li id="section-10">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>Make GET request to Nutritionix</p>
 
@@ -366,11 +352,11 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
         </li>
         
         
-        <li id="section-11">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>Update url</p>
 
@@ -383,7 +369,15 @@ credit: <a href="http://stackoverflow.com/questions/21653956">http://stackoverfl
     <span class="hljs-comment">/** Prevent form submission */</span>
     noSubmit: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
         e.preventDefault();
-    } <span class="hljs-comment">// noSubmit</span>
+    }, <span class="hljs-comment">// noSubmit</span>
+
+    <span class="hljs-comment">/** Clear search and autocomplete */</span>
+    clearSearch: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.$searchFood.val(<span class="hljs-string">''</span>);
+        <span class="hljs-keyword">this</span>.$searchResults.html(<span class="hljs-string">''</span>);
+        nt.Plugin.Instance.hide();
+
+    } <span class="hljs-comment">// clearSearch</span>
 
 });</pre></div></div>
             

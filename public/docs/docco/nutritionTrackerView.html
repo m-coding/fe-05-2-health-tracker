@@ -157,16 +157,45 @@ nt.Views.Tracker = Backbone.View.extend(<span class="hljs-comment">/** @lends nt
         <span class="hljs-string">'click .tracked-edit'</span>: <span class="hljs-string">'openFood'</span>,
     },
 
-    <span class="hljs-comment">/** Setup DOM ref, listener, and fetch collection from localStorage */</span>
+    <span class="hljs-comment">/** Setup Helpers, DOM ref, listener, datepicker, and fetch collection from localStorage */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        _.bindAll(<span class="hljs-keyword">this</span>, <span class="hljs-string">'sumCals'</span>, <span class="hljs-string">'sumFat'</span>, <span class="hljs-string">'sumCarbs'</span>, <span class="hljs-string">'sumProt'</span>);
+
+        Handlebars.registerHelper({
+          sumCals: <span class="hljs-keyword">this</span>.sumCals,
+          sumFat:  <span class="hljs-keyword">this</span>.sumFat,
+          sumCarbs: <span class="hljs-keyword">this</span>.sumCarbs,
+          sumProt: <span class="hljs-keyword">this</span>.sumProt
+        });
+
         <span class="hljs-keyword">this</span>.$trackerResults = $(<span class="hljs-string">'#tracker-results'</span>);
         <span class="hljs-keyword">this</span>.$dtp = $(<span class="hljs-string">'#dtPicker'</span>);
         <span class="hljs-keyword">this</span>.listenTo(<span class="hljs-keyword">this</span>.collection, <span class="hljs-string">'update'</span>, <span class="hljs-keyword">this</span>.render);
-        <span class="hljs-keyword">this</span>.collection.fetch();
         <span class="hljs-keyword">this</span>.duration = moment.duration({<span class="hljs-string">'days'</span> : <span class="hljs-number">1</span>});
         <span class="hljs-keyword">this</span>.initDatePicker();
+        <span class="hljs-keyword">this</span>.collection.fetch();
 
     }, <span class="hljs-comment">// initialize</span>
+
+    <span class="hljs-comment">/** Sum of calories */</span>
+    sumCals: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collection.calculateSum(<span class="hljs-string">'valueCalories'</span>);
+    }, <span class="hljs-comment">// sumCals</span>
+
+    <span class="hljs-comment">/** Sum of fats */</span>
+    sumFat: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collection.calculateSum(<span class="hljs-string">'valueTotalFat'</span>);
+    }, <span class="hljs-comment">// sumFat</span>
+
+    <span class="hljs-comment">/** Sum of carbs */</span>
+    sumCarbs: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collection.calculateSum(<span class="hljs-string">'valueTotalCarb'</span>);
+    }, <span class="hljs-comment">// sumCarbs</span>
+
+    <span class="hljs-comment">/** Sum of proteins */</span>
+    sumProt: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collection.calculateSum(<span class="hljs-string">'valueProteins'</span>);
+    }, <span class="hljs-comment">// sumProt</span>
 
     <span class="hljs-comment">/** Check which render to run and update url route if in tracker view */</span>
     render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
