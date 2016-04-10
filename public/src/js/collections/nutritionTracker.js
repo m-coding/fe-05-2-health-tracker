@@ -42,6 +42,29 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
 
         return groupCollection;
 
-    } // getModelsByDate
+    }, // getModelsByDate
+
+    /** Returns the sum value of the attribute passed */
+    calculateSum: function(attribute) {
+        var group = this;
+        var sum = 0;
+
+        if(!this.length) return;
+
+        if(!nt.Option.displayAll)
+            group = this.getModelsByDate();
+
+        // credit: http://underscorejs.org/#reduce
+        sum = group.reduce(function(memo, value) {
+          return memo + value.get(attribute);
+         }, 0);
+
+        // If it's a whole number, don't show decimal
+        if(Number.isInteger(sum))
+            return sum;
+        else
+            return sum.toFixed(2);
+
+    } // calculateSum
 
 });
