@@ -211,24 +211,37 @@
   <!-- tracked -->
   <script type="text/x-handlebars-template" id="tracked-template">
     <table class="tracked-item">
-      <tr>
-        <th>Food</th>
-        <th title="Calories">Cals</th>
-        <th>Fat</th>
-        <th title="Carbohydrates">Carbs</th>
-        <th title="Protein">Prot</th>
-        <th><i class="glyphicon glyphicon-remove"></i></th>
-      </tr>
-      {{#each models}}
-      <tr class="tracked-row">
-        <td class="tracked-attr tracked-name"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
-        <td class="tracked-attr">{{attributes.valueCalories}}</td>
-        <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
-        <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
-        <td class="tracked-attr">{{attributes.valueProteins}}</td>
-        <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
-      </tr>
-      {{/each}}
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th title="Calories">Cals</th>
+          <th>Fat</th>
+          <th title="Carbohydrates">Carbs</th>
+          <th title="Protein">Prot</th>
+          <th><i class="glyphicon glyphicon-remove"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each models}}
+        <tr class="tracked-row">
+          <td class="tracked-attr"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
+          <td class="tracked-attr">{{attributes.valueCalories}}</td>
+          <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
+          <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
+          <td class="tracked-attr">{{attributes.valueProteins}}</td>
+          <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
+        </tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <tr class="totals-row">
+          <td class="tracked-attr">Totals:</td>
+          <td class="tracked-attr">{{sumCals}}</td>
+          <td class="tracked-attr">{{sumFat}}</td>
+          <td class="tracked-attr">{{sumCarbs}}</td>
+          <td class="tracked-attr"colspan="2">{{sumProt}}</td>
+        </tr>
+      </tfoot>
     </table>
   </script>
 

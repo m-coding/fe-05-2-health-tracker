@@ -22,16 +22,45 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         'click .tracked-edit': 'openFood',
     },
 
-    /** Setup DOM ref, listener, fetch collection from localStorage, and setup datepicker */
+    /** Setup Helpers, DOM ref, listener, datepicker, and fetch collection from localStorage */
     initialize: function() {
+        _.bindAll(this, 'sumCals', 'sumFat', 'sumCarbs', 'sumProt');
+
+        Handlebars.registerHelper({
+          sumCals: this.sumCals,
+          sumFat:  this.sumFat,
+          sumCarbs: this.sumCarbs,
+          sumProt: this.sumProt
+        });
+
         this.$trackerResults = $('#tracker-results');
         this.$dtp = $('#dtPicker');
         this.listenTo(this.collection, 'update', this.render);
-        this.collection.fetch();
         this.duration = moment.duration({'days' : 1});
         this.initDatePicker();
+        this.collection.fetch();
 
     }, // initialize
+
+    /** Sum of calories */
+    sumCals: function() {
+        return this.collection.calculateSum('valueCalories');
+    }, // sumCals
+
+    /** Sum of fats */
+    sumFat: function() {
+        return this.collection.calculateSum('valueTotalFat');
+    }, // sumFat
+
+    /** Sum of carbs */
+    sumCarbs: function() {
+        return this.collection.calculateSum('valueTotalCarb');
+    }, // sumCarbs
+
+    /** Sum of proteins */
+    sumProt: function() {
+        return this.collection.calculateSum('valueProteins');
+    }, // sumProt
 
     /** Check which render to run and update url route if in tracker view */
     render: function() {
