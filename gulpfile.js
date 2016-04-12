@@ -61,7 +61,8 @@ gulp.task('copy-images', ['copy-fonts'], function() {
 
 /** Solo plugin minify task **/
 gulp.task('minify-plugins', function() {
-    return gulp.src(['public/src/js/lib/backbone.typeahead.js',
+    return gulp.src(['public/src/js/lib/es6-polyfill.js',
+                     'public/src/js/lib/backbone.typeahead.js',
                      'public/src/js/lib/eqHeights.js'])
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify({preserveComments: 'license'}))
