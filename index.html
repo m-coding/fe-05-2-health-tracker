@@ -9,21 +9,24 @@
   <link rel="stylesheet" href="css/styles.min.css">
 </head>
 <body>
-  <div class="container">
+  <!-- NUTRITION TRACKER -->
+  <div class="container no-padding">
+
     <!-- App start -->
-    <section id="start-screen" class="row">
-        <div class="col-md-4 center-block">
-        <h1>Nutrition</h1>
-        <img src="images/list.png" alt="list">
-        <h1>Tracker</h1>
-        <button type="button" class="btn btn-success">Start App</button>
-        </div>
-    </section>
+    <aside id="start-screen" class="row">
+      <div class="col-xs-12 center-block">
+      <h1>Nutrition</h1>
+      <img src="images/list.png" alt="list">
+      <h1>Tracker</h1>
+      <button type="button" class="btn btn-success">Start App</button>
+      </div>
+    </aside>
 
     <!-- App main -->
-    <section id="app" class="row row-centered no-gutter">
+    <main id="app" class="row row-centered no-gutter">
+
       <!-- Column 1 -->
-      <div class="col-md-4 col-centered eqHeights">
+      <section class="col-xs-6 col-centered eqHeights">
         <!-- Nav  tabs -->
         <ul id="app-tabs" class="nav nav-tabs">
           <li role="presentation" class="active"><a id="tab1" href="#search">Search</a></li>
@@ -35,14 +38,32 @@
           <!-- Search pane -->
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
-              <h3>Food Search</h3>
+              <h3>Food Search
+              <span class="btn-group">
+                <button type="button" id="search-help" title="Help">
+                  <i class="glyphicon glyphicon-question-sign"></i>
+                </button>
+              </span>
+              </h3>
+              <!-- Search help text -->
               <div class="alert alert-info" id="search-help-text">
-                <button type="button" class="close" aria-label="Close"><span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span></button>
-                <h4><i class="glyphicon glyphicon-question-sign"></i> Autocomplete</h4>
-                <p>Select a suggestion to search.</p>
-                <br>
-                <p>Click outside the search box or press Esc to close the autocomplete drop menu.</p>
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
+                </button>
+                <h4><i class="glyphicon glyphicon-question-sign"></i> Help</h4>
+                <b>Search with autocomplete</b>
+                <ol>
+                  <li>While typing a drop menu with food suggestions will display.</li>
+                  <li>Select an option to search.</li>
+                </ol>
+                <b>Close the autocomplete</b>
+                <ol>
+                  <li>Press Esc or</li>
+                  <li>Click outside the search box or</li>
+                  <li>Click the <i class="glyphicon glyphicon-remove-circle"></i> clear button</li>
+                </ol>
               </div>
+              <!-- Search box -->
               <form id="search-suggest" autocomplete="off"></form>
             </div>
             <div id="search-results"></div>
@@ -56,8 +77,24 @@
           <!-- Tracker pane -->
           <div role="tabpanel" class="tab-pane" id="tracker">
             <div id="tracker-top">
-              <h3>Nutrition Tracker</h3>
-              <h5>Todays Date</h5>
+              <h3>Nutrition Tracker
+                <!-- Tracker options -->
+                <div class="btn-group">
+                  <button id="dtDisplay" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Options">
+                    <i class="glyphicon glyphicon-cog"></i>
+                  </button>
+                  <ul class="dropdown-menu options">
+                    <li><a id="optDate" href="#date">Display by date</a></li>
+                    <li><a id="optAll" href="#all">Display all</a></li>
+                  </ul>
+                </div>
+              </h3>
+              <!-- Tracker date picker -->
+              <h5>
+                <i id="dtBack" class="glyphicon glyphicon-triangle-left"></i>
+                <input id="dtPicker" class="btn btn-default btn-xs" type="text">
+                <i id="dtForward" class="glyphicon glyphicon-triangle-right"></i>
+              </h5>
             </div>
             <div id="tracker-results">
               <p>No foods are being tracked.</p>
@@ -65,36 +102,41 @@
             </div>
           </div><!-- /#tracker -->
         </div><!-- /.tab-content -->
-      </div><!-- /.col-md-4 -->
-
+      </section><!-- /.col-xs-6 -->
 
       <!-- Column 2 -->
-      <div id="nutrition" class="col-md-4 col-centered vtop hideColumn eqHeights">
+      <section id="nutrition" class="col-xs-6 col-centered vtop hideColumn eqHeights overlayColumn">
         <!-- Nutrition info -->
         <div id="nutrition-button-menu"></div>
-        <div id="nutrition-results">
-          <!-- Chart -->
-          <figure id="gchart"></figure>
-          <!-- Nutrition label -->
-          <figure id="nlabel"></figure>
+        <div id="nutrition-results" class="flex-container">
+          <div class="flex-item">
+            <!-- Chart -->
+            <figure id="gchart"></figure>
+            <br>
+            <!-- Nutrition label -->
+            <figure id="nlabel"></figure>
+          </div><!-- /.flex-item -->
         </div><!-- /#nutrition-results -->
-      </div><!-- /.col-md-4 -->
-    </section>
-</div><!-- /.container -->
+      </section><!-- /.col-xs-6 -->
 
-  <!-- Templates -->
+    </main>
+  </div><!-- /.container -->
+
+  <!-- TEMPLATES -->
+  <!-- search -->
   <script type="text/x-handlebars-template" id="search-template">
   <div class="input-group">
     <input id="search-food" type="search" class="form-control" placeholder="What did you eat?">
     <span class="input-group-btn">
-      <button class="btn btn-primary" type="button" id="search-help">
-        <i class="glyphicon glyphicon-question-sign"></i>
+      <button class="btn btn-default" type="button" id="search-clear" title="Clear">
+        <i class="glyphicon glyphicon-remove-circle"></i>
       </button>
     </span>
   </div>
   <ul class="dropdown-menu"></ul>
   </script>
 
+  <!-- item -->
   <script type="text/x-handlebars-template" id="item-template">
     <h4 id="recipe-open">
       <span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Recipe Suggestions</span>
@@ -111,6 +153,7 @@
     </footer>
   </script>
 
+  <!-- recipe -->
   <script type="text/x-handlebars-template" id="recipe-template">
     {{#each recipes}}
     <div class="recipe-item">
@@ -133,6 +176,7 @@
     </footer>
   </script>
 
+  <!-- buttons -->
   <script type="text/x-handlebars-template" id="buttons-template">
     <div class="buttons">
       {{#if tracking}}
@@ -162,29 +206,44 @@
     </div>
   </script>
 
+  <!-- tracked -->
   <script type="text/x-handlebars-template" id="tracked-template">
     <table class="tracked-item">
-      <tr>
-        <th>Food</th>
-        <th title="Calories">Cals</th>
-        <th>Fat</th>
-        <th title="Carbohydrates">Carbs</th>
-        <th title="Protein">Prot</th>
-        <th><i class="glyphicon glyphicon-remove"></i></th>
-      </tr>
-      {{#each models}}
-      <tr class="tracked-row">
-        <td class="tracked-attr tracked-name"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
-        <td class="tracked-attr">{{attributes.valueCalories}}</td>
-        <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
-        <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
-        <td class="tracked-attr">{{attributes.valueProteins}}</td>
-        <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
-      </tr>
-      {{/each}}
+      <thead>
+        <tr>
+          <th class="tracked-first">Food</th>
+          <th title="Calories">Cals</th>
+          <th>Fat</th>
+          <th title="Carbohydrates">Carbs</th>
+          <th title="Protein">Prot</th>
+          <th class="tracked-last"><i class="glyphicon glyphicon-remove"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each models}}
+        <tr class="tracked-row">
+          <td class="tracked-attr"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
+          <td class="tracked-attr">{{show attributes.valueCalories}}</td>
+          <td class="tracked-attr">{{show attributes.valueTotalFat}}</td>
+          <td class="tracked-attr">{{show attributes.valueTotalCarb}}</td>
+          <td class="tracked-attr">{{show attributes.valueProteins}}</td>
+          <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
+        </tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <tr class="totals-row">
+          <td class="totals-attr">TOTALS</td>
+          <td class="totals-attr">{{sumCals}}</td>
+          <td class="totals-attr">{{sumFat}}</td>
+          <td class="totals-attr">{{sumCarbs}}</td>
+          <td class="totals-attr" colspan="2">{{sumProt}}</td>
+        </tr>
+      </tfoot>
     </table>
   </script>
 
+  <!-- editor -->
   <script type="text/x-handlebars-template" id="editor-template">
     <div id="editor-top">
       <h3>Food Summary</h3>
@@ -192,9 +251,10 @@
     </div>
     <br>
     <form>
-      <div class="input-group">
+      <div class="input-group date" id="dateTimePicker">
         <span class="input-group-addon">Track Date</span>
         <input type="text" class="form-control" id="foodTrackDate" value="{{trackDate}}">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
       </div>
       <br>
       <div class="input-group">
@@ -204,35 +264,45 @@
       <br>
       <div class="input-group">
         <span class="input-group-addon calories-addon">Calories</span>
-        <input disabled type="text" class="form-control" id="foodCalories" value="{{valueCalories}}">
+        <input disabled type="text" class="form-control" id="foodCalories" value="{{valueCalories}} kcal">
       </div>
       <br>
       <div class="input-group">
         <span class="input-group-addon fat-addon">Fat</span>
-        <input disabled type="text" class="form-control" id="foodFat" value="{{valueTotalFat}}g">
+        <input disabled type="text" class="form-control" id="foodFat" value="{{valueTotalFat}} g">
       </div>
       <br>
       <div class="input-group">
         <span class="input-group-addon carbs-addon">Carbohydrates</span>
-        <input disabled type="text" class="form-control" id="foodCarbs" value="{{valueTotalCarb}}g">
+        <input disabled type="text" class="form-control" id="foodCarbs" value="{{valueTotalCarb}} g">
       </div>
       <br>
       <div class="input-group">
         <span class="input-group-addon protein-addon">Protein</span>
-        <input disabled type="text" class="form-control" id="foodProtein" value="{{valueProteins}}g">
+        <input disabled type="text" class="form-control" id="foodProtein" value="{{valueProteins}} g">
       </div>
       <br>
       <div class="input-group">
         <span class="input-group-addon serving-addon">Serving</span>
-        <input disabled type="text" class="form-control" id="foodServingSize" value="{{valueServingSize}} {{valueServingSizeUnit}}">
+        <input disabled type="text" class="form-control" id="foodServingSize" value="{{> servings}}">
+        <input type="hidden" id="foodServingCount" value="{{servingCount}}">
+        <span class="input-group-btn">
+          <button id="servingIncrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+          <button id="servingDecrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+        </span>
       </div>
       <br>
       <button id="foodSave" type="submit" class="btn btn-default btn-block">Save Food</button>
     </form>
   </script>
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+  <!-- servings -->
+  <script type="text/x-handlebars-template" id="servings-template">
+    {{valueServingSize}} {{valueServingSizeUnit}}{{#if moreThanOne}} × {{servingCount}}{{/if}}
+  </script>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="js/lib/lib.min.js"></script>
   <script src="js/nutritionTracker.min.js"></script>
