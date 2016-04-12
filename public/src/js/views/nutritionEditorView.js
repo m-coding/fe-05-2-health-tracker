@@ -11,15 +11,35 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     editorTemplate: Handlebars.compile( $('#editor-template').html() ),
 
+    servingsTemplate: $('#servings-template').html().trim(),
+
+    count: 1,
+
     events: {
         'click #foodSave': 'saveFood',
-        'click #foodClose': 'close'
+        'click #foodClose': 'close',
+        'click #servingIncrease': 'servingIncrease',
+        'click #servingDecrease': 'servingDecrease'
     },
 
-    /** Create a new food model this view will display */
+    /** Setup a partial template and create a new food model this view will display */
     initialize: function() {
-        this.createFood();
+        Handlebars.registerPartial('servings', this.servingsTemplate);
+        this.createFood().listenTo(this.food, 'change', this.updateView);
+
     }, // initialize
+
+    /** Re-render the editor view */
+    updateView: function() {
+        var prev = $('#dateTimePicker').data('DateTimePicker').date();
+        $('#dateTimePicker').data('DateTimePicker').destroy();
+        this.render().renderDatePicker();
+
+        // If there was a date set, then set it to the previous value
+        if(prev)
+            this.$el.find('#dateTimePicker').data('DateTimePicker').date(prev);
+
+    }, // updateView
 
     /** Render food */
     render: function() {
@@ -56,23 +76,42 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         this.$el.find('.bs-callout').remove();
     }, // removeError
 
-    /** Generate new attributes for a food item */
-    newAttributes: function() {
+    /** Get original food attribute values from the nutrition view model */
+    getFoodAttributes: function() {
+        return this.model.toJSON();
+    }, // getFoodAttributes
+
+    /** Get the latest values for user editable attributes */
+    userAttributes: function() {
         return {
             sortOrder: nt.Collections.tracker.nextOrder(),
             trackDate:  this.$el.find('#foodTrackDate').val().trim(),
-            itemName: this.$el.find('#foodName').val().trim()
+            itemName: this.$el.find('#foodName').val().trim(),
+            servingCount: this.count,
+            moreThanOne: this.count > 1
         };
 
     }, // newAttributes
 
     /** Create a new model for the Tracker and copy the nutritionView's data to it */
     createFood: function() {
+        var attrs = this.getFoodAttributes();
+
         // Create a new nutrition Model
         this.food = new nt.Models.Nutrition();
 
         // Add nutrition data
-        this.food.set( this.model.toJSON() );
+        this.food.set( attrs );
+
+        var servings = this.food.get('servingCount');
+
+        // Check the serving count and update the values
+        if(servings > 1) {
+            this.count = servings;
+            this.food.valueUpdate(attrs, servings);
+        }
+
+        return this;
 
     }, // createFood
 
@@ -82,10 +121,14 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
         this.removeError();
 
-        var newAttr = this.newAttributes();
+        // Reset attribute values if serving count was changed
+        if(this.count > 1)
+            this.food.valueUpdate(this.getFoodAttributes(), 1);
 
-        // Set additional attributes
-        this.food.set( newAttr, {validate: true} );
+        var userAttr = this.userAttributes();
+
+        // Set user editable attributes
+        this.food.set( userAttr, {validate: true} );
 
         var notValid = this.food.validationError;
 
@@ -108,6 +151,22 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
     close: function() {
         $('#dateTimePicker').data('DateTimePicker').destroy();
         this.remove();
-    } // close
+    }, // close
+
+    /** Increase serving amount and update values */
+    servingIncrease: function() {
+        if(this.count >= 1) this.count++;
+
+        this.food.valueUpdate(this.getFoodAttributes(), this.count);
+
+    }, // servingIncrease
+
+    /** Decrease serving amount and update values */
+    servingDecrease: function() {
+        if(this.count >= 2) this.count--;
+
+        this.food.valueUpdate(this.getFoodAttributes(), this.count);
+
+    } // servingDecrease
 
 });

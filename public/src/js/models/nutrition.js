@@ -11,6 +11,8 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
             width: 280,
             id: '',
             itemName: '',
+            servingCount: 1,
+            moreThanOne: false,
 
             showPolyFat: false,
             showMonoFat: false,
@@ -49,6 +51,8 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
             label.width                = 280;
             label.id                   = data.item_id;
             label.itemName             = data.item_name;
+            label.servingCount         = 1;
+            label.moreThanOne          = false;
             label.showPolyFat          = false;
             label.showMonoFat          = false;
             label.showIngredients      = false;
@@ -99,6 +103,51 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
 
         } // itemName
 
-    } // validate
+    }, // validate
+
+    /** Updates value attributes */
+    valueUpdate: function(attributes, num) {
+        var keys = [
+            'valueCalories',
+            'valueFatCalories',
+            'valueTotalFat',
+            'valueSatFat',
+            'valueTransFat',
+            'valueCholesterol',
+            'valueSodium',
+            'valueTotalCarb',
+            'valueFibers',
+            'valueSugars',
+            'valueProteins',
+            'valueVitaminA',
+            'valueVitaminC',
+            'valueCalcium',
+            'valueIron'
+        ];
+        var newListObj = _.pick(attributes, keys);
+        var val = 0;
+        var key = '';
+
+        for (key in newListObj) {
+            val = newListObj[key];
+
+            // Check if the value is not falsy (0 or null)
+            if(val) newListObj[key] = val * num;
+        }
+
+        // Update the servings-template flag
+        if(num > 1)
+            newListObj['moreThanOne'] = true;
+        else
+            newListObj['moreThanOne'] = false;
+
+        newListObj['servingCount'] = num;
+
+        // Update the values for the selected model attributes
+        this.set(newListObj);
+
+    } // valueUpdate
 
 });
+
+

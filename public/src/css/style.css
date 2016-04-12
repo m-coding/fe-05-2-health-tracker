@@ -464,6 +464,11 @@ body {
     background-color: #e4d8f0;
 }
 
+#servingIncrease,
+#servingDecrease {
+    border: 1px solid #aaa;
+}
+
 /* BOOTSTRAP
 ----------------------------------*/
 .no-padding {
@@ -525,6 +530,8 @@ body {
     color: #d00;
 }
 
-.glyphicon-calendar {
+.glyphicon-calendar,
+.glyphicon-triangle-top,
+.glyphicon-triangle-bottom {
     color: #337ab7;
 }

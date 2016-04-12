@@ -30,7 +30,8 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
           sumCals: this.sumCals,
           sumFat:  this.sumFat,
           sumCarbs: this.sumCarbs,
-          sumProt: this.sumProt
+          sumProt: this.sumProt,
+          show: this.show
         });
 
         this.$trackerResults = $('#tracker-results');
@@ -61,6 +62,17 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
     sumProt: function() {
         return this.collection.calculateSum('valueProteins');
     }, // sumProt
+
+    /** Show nutrition value by number of servings */
+    show: function(attributeValue) {
+        var servings = this.attributes.servingCount;
+
+        if(servings > 1)
+            return attributeValue * servings;
+        else
+            return attributeValue;
+
+    }, // show
 
     /** Check which render to run and update url route if in tracker view */
     render: function() {
@@ -172,7 +184,6 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         } else {
             $('#tracker-top h5').hide();
             nt.Option.displayAll = true;
-
         }
 
         // Re-render this view

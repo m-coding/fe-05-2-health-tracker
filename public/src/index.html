@@ -228,10 +228,10 @@
         {{#each models}}
         <tr class="tracked-row">
           <td class="tracked-attr"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
-          <td class="tracked-attr">{{attributes.valueCalories}}</td>
-          <td class="tracked-attr">{{attributes.valueTotalFat}}</td>
-          <td class="tracked-attr">{{attributes.valueTotalCarb}}</td>
-          <td class="tracked-attr">{{attributes.valueProteins}}</td>
+          <td class="tracked-attr">{{show attributes.valueCalories}}</td>
+          <td class="tracked-attr">{{show attributes.valueTotalFat}}</td>
+          <td class="tracked-attr">{{show attributes.valueTotalCarb}}</td>
+          <td class="tracked-attr">{{show attributes.valueProteins}}</td>
           <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
         </tr>
         {{/each}}
@@ -289,11 +289,21 @@
       <br>
       <div class="input-group">
         <span class="input-group-addon serving-addon">Serving</span>
-        <input disabled type="text" class="form-control" id="foodServingSize" value="{{valueServingSize}} {{valueServingSizeUnit}}">
+        <input disabled type="text" class="form-control" id="foodServingSize" value="{{> servings}}">
+        <input type="hidden" id="foodServingCount" value="{{servingCount}}">
+        <span class="input-group-btn">
+          <button id="servingIncrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
+          <button id="servingDecrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
+        </span>
       </div>
       <br>
       <button id="foodSave" type="submit" class="btn btn-default btn-block">Save Food</button>
     </form>
+  </script>
+
+  <!-- servings -->
+  <script type="text/x-handlebars-template" id="servings-template">
+    {{valueServingSize}} {{valueServingSizeUnit}}{{#if moreThanOne}} × {{servingCount}}{{/if}}
   </script>
 
   <!-- SCRIPTS -->
