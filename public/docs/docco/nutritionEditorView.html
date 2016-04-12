@@ -146,18 +146,29 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
     editorTemplate: Handlebars.compile( $(<span class="hljs-string">'#editor-template'</span>).html() ),
 
+    servingsTemplate: $(<span class="hljs-string">'#servings-template'</span>).html().trim(),
+
+    count: <span class="hljs-number">1</span>,
+
     events: {
         <span class="hljs-string">'click #foodSave'</span>: <span class="hljs-string">'saveFood'</span>,
-        <span class="hljs-string">'click #foodClose'</span>: <span class="hljs-string">'close'</span>
+        <span class="hljs-string">'click #foodClose'</span>: <span class="hljs-string">'close'</span>,
+        <span class="hljs-string">'click #servingIncrease'</span>: <span class="hljs-string">'servingIncrease'</span>,
+        <span class="hljs-string">'click #servingDecrease'</span>: <span class="hljs-string">'servingDecrease'</span>
     },
 
-    <span class="hljs-comment">/** Create a new food model this view will display */</span>
+    <span class="hljs-comment">/** Setup a partial template and create a new food model this view will display */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">this</span>.createFood();
+        Handlebars.registerPartial(<span class="hljs-string">'servings'</span>, <span class="hljs-keyword">this</span>.servingsTemplate);
+        <span class="hljs-keyword">this</span>.createFood().listenTo(<span class="hljs-keyword">this</span>.food, <span class="hljs-string">'change'</span>, <span class="hljs-keyword">this</span>.updateView);
+
     }, <span class="hljs-comment">// initialize</span>
 
-    <span class="hljs-comment">/** Render food */</span>
-    render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
+    <span class="hljs-comment">/** Re-render the editor view */</span>
+    updateView: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> prev = $(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).date();
+        $(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).destroy();
+        <span class="hljs-keyword">this</span>.render().renderDatePicker();</pre></div></div>
             
         </li>
         
@@ -168,11 +179,17 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Populate nutrition inputs</p>
+              <p>If there was a date set, then set it to the previous value</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$el.html(<span class="hljs-keyword">this</span>.editorTemplate( <span class="hljs-keyword">this</span>.food.toJSON() ));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(prev)
+            <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).date(prev);
+
+    }, <span class="hljs-comment">// updateView</span>
+
+    <span class="hljs-comment">/** Render food */</span>
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -182,6 +199,21 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Populate nutrition inputs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$el.html(<span class="hljs-keyword">this</span>.editorTemplate( <span class="hljs-keyword">this</span>.food.toJSON() ));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>Enable chaining</p>
 
@@ -197,11 +229,11 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
         </li>
         
         
-        <li id="section-4">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <p>Use this.$el since template html is inserted in the DOM later</p>
 
@@ -229,33 +261,26 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
         <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'.bs-callout'</span>).remove();
     }, <span class="hljs-comment">// removeError</span>
 
-    <span class="hljs-comment">/** Generate new attributes for a food item */</span>
-    newAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/** Get original food attribute values from the nutrition view model */</span>
+    getFoodAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.model.toJSON();
+    }, <span class="hljs-comment">// getFoodAttributes</span>
+
+    <span class="hljs-comment">/** Get the latest values for user editable attributes */</span>
+    userAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">return</span> {
             sortOrder: nt.Collections.tracker.nextOrder(),
             trackDate:  <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodTrackDate'</span>).val().trim(),
-            itemName: <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodName'</span>).val().trim()
+            itemName: <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodName'</span>).val().trim(),
+            servingCount: <span class="hljs-keyword">this</span>.count,
+            moreThanOne: <span class="hljs-keyword">this</span>.count &gt; <span class="hljs-number">1</span>
         };
 
     }, <span class="hljs-comment">// newAttributes</span>
 
     <span class="hljs-comment">/** Create a new model for the Tracker and copy the nutritionView's data to it */</span>
-    createFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
-              </div>
-              <p>Create a new nutrition Model</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food = <span class="hljs-keyword">new</span> nt.Models.Nutrition();</pre></div></div>
+    createFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> attrs = <span class="hljs-keyword">this</span>.getFoodAttributes();</pre></div></div>
             
         </li>
         
@@ -266,21 +291,11 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Add nutrition data</p>
+              <p>Create a new nutrition Model</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( <span class="hljs-keyword">this</span>.model.toJSON() );
-
-    }, <span class="hljs-comment">// createFood</span>
-
-    <span class="hljs-comment">/** Save the model to the collection and close the view */</span>
-    saveFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
-        e.preventDefault();
-
-        <span class="hljs-keyword">this</span>.removeError();
-
-        <span class="hljs-keyword">var</span> newAttr = <span class="hljs-keyword">this</span>.newAttributes();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food = <span class="hljs-keyword">new</span> nt.Models.Nutrition();</pre></div></div>
             
         </li>
         
@@ -291,17 +306,13 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Set additional attributes</p>
+              <p>Add nutrition data</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( newAttr, {validate: <span class="hljs-literal">true</span>} );
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( attrs );
 
-        <span class="hljs-keyword">var</span> notValid = <span class="hljs-keyword">this</span>.food.validationError;
-
-        <span class="hljs-keyword">if</span>(notValid) {
-            <span class="hljs-keyword">this</span>.renderError(notValid);
-        } <span class="hljs-keyword">else</span> {</pre></div></div>
+        <span class="hljs-keyword">var</span> servings = <span class="hljs-keyword">this</span>.food.get(<span class="hljs-string">'servingCount'</span>);</pre></div></div>
             
         </li>
         
@@ -312,11 +323,24 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Add and save food to tracker Collection</p>
+              <p>Check the serving count and update the values</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            nt.Collections.tracker.create(<span class="hljs-keyword">this</span>.food, {merge: <span class="hljs-literal">true</span>});</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(servings &gt; <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">this</span>.count = servings;
+            <span class="hljs-keyword">this</span>.food.valueUpdate(attrs, servings);
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+
+    }, <span class="hljs-comment">// createFood</span>
+
+    <span class="hljs-comment">/** Save the model to the collection and close the view */</span>
+    saveFood: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        e.preventDefault();
+
+        <span class="hljs-keyword">this</span>.removeError();</pre></div></div>
             
         </li>
         
@@ -327,11 +351,14 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Tell the Nutrition View the food was saved</p>
+              <p>Reset attribute values if serving count was changed</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.model.trigger(<span class="hljs-string">'foodsaved'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.count &gt; <span class="hljs-number">1</span>)
+            <span class="hljs-keyword">this</span>.food.valueUpdate(<span class="hljs-keyword">this</span>.getFoodAttributes(), <span class="hljs-number">1</span>);
+
+        <span class="hljs-keyword">var</span> userAttr = <span class="hljs-keyword">this</span>.userAttributes();</pre></div></div>
             
         </li>
         
@@ -341,6 +368,57 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Set user editable attributes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.food.set( userAttr, {validate: <span class="hljs-literal">true</span>} );
+
+        <span class="hljs-keyword">var</span> notValid = <span class="hljs-keyword">this</span>.food.validationError;
+
+        <span class="hljs-keyword">if</span>(notValid) {
+            <span class="hljs-keyword">this</span>.renderError(notValid);
+        } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Add and save food to tracker Collection</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            nt.Collections.tracker.create(<span class="hljs-keyword">this</span>.food, {merge: <span class="hljs-literal">true</span>});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Tell the Nutrition View the food was saved</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">this</span>.model.trigger(<span class="hljs-string">'foodsaved'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>Close this view</p>
 
@@ -355,7 +433,23 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
     close: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         $(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).destroy();
         <span class="hljs-keyword">this</span>.remove();
-    } <span class="hljs-comment">// close</span>
+    }, <span class="hljs-comment">// close</span>
+
+    <span class="hljs-comment">/** Increase serving amount and update values */</span>
+    servingIncrease: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.count &gt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">this</span>.count++;
+
+        <span class="hljs-keyword">this</span>.food.valueUpdate(<span class="hljs-keyword">this</span>.getFoodAttributes(), <span class="hljs-keyword">this</span>.count);
+
+    }, <span class="hljs-comment">// servingIncrease</span>
+
+    <span class="hljs-comment">/** Decrease serving amount and update values */</span>
+    servingDecrease: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.count &gt;= <span class="hljs-number">2</span>) <span class="hljs-keyword">this</span>.count--;
+
+        <span class="hljs-keyword">this</span>.food.valueUpdate(<span class="hljs-keyword">this</span>.getFoodAttributes(), <span class="hljs-keyword">this</span>.count);
+
+    } <span class="hljs-comment">// servingDecrease</span>
 
 });</pre></div></div>
             

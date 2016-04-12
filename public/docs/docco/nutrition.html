@@ -146,6 +146,8 @@ nt.Models.Nutrition = Backbone.Model.extend(<span class="hljs-comment">/** @lend
             width: <span class="hljs-number">280</span>,
             id: <span class="hljs-string">''</span>,
             itemName: <span class="hljs-string">''</span>,
+            servingCount: <span class="hljs-number">1</span>,
+            moreThanOne: <span class="hljs-literal">false</span>,
 
             showPolyFat: <span class="hljs-literal">false</span>,
             showMonoFat: <span class="hljs-literal">false</span>,
@@ -196,6 +198,8 @@ nt.Models.Nutrition = Backbone.Model.extend(<span class="hljs-comment">/** @lend
             label.width                = <span class="hljs-number">280</span>;
             label.id                   = data.item_id;
             label.itemName             = data.item_name;
+            label.servingCount         = <span class="hljs-number">1</span>;
+            label.moreThanOne          = <span class="hljs-literal">false</span>;
             label.showPolyFat          = <span class="hljs-literal">false</span>;
             label.showMonoFat          = <span class="hljs-literal">false</span>;
             label.showIngredients      = <span class="hljs-literal">false</span>;
@@ -283,7 +287,108 @@ nt.Models.Nutrition = Backbone.Model.extend(<span class="hljs-comment">/** @lend
 
         } <span class="hljs-comment">// itemName</span>
 
-    } <span class="hljs-comment">// validate</span>
+    }, <span class="hljs-comment">// validate</span>
+
+    <span class="hljs-comment">/** Updates value attributes */</span>
+    valueUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attributes, num</span>) </span>{
+        <span class="hljs-keyword">var</span> keys = [
+            <span class="hljs-string">'valueCalories'</span>,
+            <span class="hljs-string">'valueFatCalories'</span>,
+            <span class="hljs-string">'valueTotalFat'</span>,
+            <span class="hljs-string">'valueSatFat'</span>,
+            <span class="hljs-string">'valueTransFat'</span>,
+            <span class="hljs-string">'valueCholesterol'</span>,
+            <span class="hljs-string">'valueSodium'</span>,
+            <span class="hljs-string">'valueTotalCarb'</span>,
+            <span class="hljs-string">'valueFibers'</span>,
+            <span class="hljs-string">'valueSugars'</span>,
+            <span class="hljs-string">'valueProteins'</span>,
+            <span class="hljs-string">'valueVitaminA'</span>,
+            <span class="hljs-string">'valueVitaminC'</span>,
+            <span class="hljs-string">'valueCalcium'</span>,
+            <span class="hljs-string">'valueIron'</span>
+        ];
+        <span class="hljs-keyword">var</span> newListObj = _.pick(attributes, keys);
+        <span class="hljs-keyword">var</span> val = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">var</span> key = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">var</span> newVal = <span class="hljs-number">0</span>;
+
+        <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> newListObj) {
+            val = newListObj[key];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Check if the value is not falsy (0 or null)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>            <span class="hljs-keyword">if</span>(val) {
+                newVal = val * num;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>If not a whole number, show only 2 decimal places</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>                <span class="hljs-keyword">if</span>( <span class="hljs-built_in">Number</span>.isInteger(newVal) )
+                    newListObj[key] = newVal;
+                <span class="hljs-keyword">else</span>
+                    newListObj[key] = <span class="hljs-built_in">Number</span>(newVal).toFixed(<span class="hljs-number">2</span>);
+            }
+
+        } <span class="hljs-comment">// for</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Update the servings-template flag</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(num &gt; <span class="hljs-number">1</span>)
+            newListObj[<span class="hljs-string">'moreThanOne'</span>] = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">else</span>
+            newListObj[<span class="hljs-string">'moreThanOne'</span>] = <span class="hljs-literal">false</span>;
+
+        newListObj[<span class="hljs-string">'servingCount'</span>] = num;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Update the values for the selected model attributes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.set(newListObj);
+
+    } <span class="hljs-comment">// valueUpdate</span>
 
 });</pre></div></div>
             

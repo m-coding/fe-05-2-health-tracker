@@ -144,7 +144,7 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
     model: nt.Models.Nutrition,
 
     <span class="hljs-comment">/** Save all of the food items in localStorage. */</span>
-    localStorage: <span class="hljs-keyword">new</span> Backbone.LocalStorage(<span class="hljs-string">'nutrition-test4'</span>),
+    localStorage: <span class="hljs-keyword">new</span> Backbone.LocalStorage(<span class="hljs-string">'nutrition-tracker'</span>),
 
     <span class="hljs-comment">/** Set default tracker date for today */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
@@ -228,7 +228,7 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
             </div>
             
             <div class="content"><div class='highlight'><pre>        sum = group.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">memo, value</span>) </span>{
-          <span class="hljs-keyword">return</span> memo + value.get(attribute);
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(memo) + <span class="hljs-built_in">Number</span>(value.get(attribute) * value.get(<span class="hljs-string">'servingCount'</span>));
          }, <span class="hljs-number">0</span>);</pre></div></div>
             
         </li>
@@ -247,7 +247,7 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Number</span>.isInteger(sum))
             <span class="hljs-keyword">return</span> sum;
         <span class="hljs-keyword">else</span>
-            <span class="hljs-keyword">return</span> sum.toFixed(<span class="hljs-number">2</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(sum).toFixed(<span class="hljs-number">2</span>);
 
     } <span class="hljs-comment">// calculateSum</span>
 
