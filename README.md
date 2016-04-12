@@ -7,6 +7,7 @@ A single page app that tracks your calorie intake and nutrition information for 
 * Uses food searched as an ingredient to provide recipe suggestions
 * Visually see fat, carbohyrdates, and protein amounts with pie chart
 * Full nutrition information is displayed using the FDA-style "Nutrition Facts" label
+* Tracked foods are saved to your browser's localStorage
 * Option to display all tracked foods or by date
 * Navigate days with interactive date picker
 
