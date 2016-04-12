@@ -56,14 +56,14 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
 
         // credit: http://underscorejs.org/#reduce
         sum = group.reduce(function(memo, value) {
-          return memo + value.get(attribute);
+            return Number(memo) + Number(value.get(attribute) * value.get('servingCount'));
          }, 0);
 
         // If it's a whole number, don't show decimal
         if(Number.isInteger(sum))
             return sum;
         else
-            return sum.toFixed(2);
+            return Number(sum).toFixed(2);
 
     } // calculateSum
 
