@@ -127,13 +127,23 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
         var newListObj = _.pick(attributes, keys);
         var val = 0;
         var key = '';
+        var newVal = 0;
 
         for (key in newListObj) {
             val = newListObj[key];
 
             // Check if the value is not falsy (0 or null)
-            if(val) newListObj[key] = val * num;
-        }
+            if(val) {
+                newVal = val * num;
+
+                // If not a whole number, show only 2 decimal places
+                if( Number.isInteger(newVal) )
+                    newListObj[key] = newVal;
+                else
+                    newListObj[key] = Number(newVal).toFixed(2);
+            }
+
+        } // for
 
         // Update the servings-template flag
         if(num > 1)
@@ -149,5 +159,3 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
     } // valueUpdate
 
 });
-
-

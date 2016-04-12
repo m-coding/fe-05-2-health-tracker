@@ -66,9 +66,18 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
     /** Show nutrition value by number of servings */
     show: function(attributeValue) {
         var servings = this.attributes.servingCount;
+        var showValue = 0;
 
-        if(servings > 1)
-            return attributeValue * servings;
+        if(servings > 1) {
+            showValue = attributeValue * servings;
+
+            // If it's not a whole number, show only 2 decimal places
+            if(!Number.isInteger(showValue))
+                return Number(showValue).toFixed(2);
+            else
+                return showValue;
+
+        } // if servings > 1
         else
             return attributeValue;
 
