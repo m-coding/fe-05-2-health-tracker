@@ -2,13 +2,20 @@
 
 var gulp = require('gulp'),
     del = require('del'),
+    path = require('path'),
+    merge = require('merge-stream'),
     eslint = require('gulp-eslint'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
     rename = require('gulp-rename'),
-    ignore = require('gulp-ignore');
+    ignore = require('gulp-ignore'),
+    handlebars = require('gulp-handlebars'),
+    wrap = require('gulp-wrap'),
+    declare = require('gulp-declare'),
+    concat = require('gulp-concat');
+
 
 /** Default task **/
 gulp.task('default', ['lint', 'replace-html', 'copy-fonts', 'copy-images']);
@@ -67,4 +74,36 @@ gulp.task('minify-plugins', function() {
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify({preserveComments: 'license'}))
         .pipe(gulp.dest('public/src/js/lib'));
+});
+
+/** Solo handlebars template compiler task **/
+gulp.task('compile-templates', function() {
+    // https://github.com/lazd/gulp-handlebars#compiling-partials
+    var partials = gulp.src(['public/src/templates/*-partial.html'])
+        .pipe(handlebars({
+            handlebars: require('handlebars')
+        }))
+        .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));', {}, {
+            imports: {
+                processPartialName: function(fileName) {
+                return JSON.stringify(path.basename(fileName, '.js'));
+                }
+            }
+        }));
+
+    var templates = gulp.src(['public/src/templates/*.html','!public/src/templates/*-partial.html'])
+        .pipe(handlebars({
+            // Pass your local handlebars version (4.0.5)
+            handlebars: require('handlebars')
+        }))
+        .pipe(wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(declare({
+            namespace: 'Handlebars.Templates',
+            noRedeclare: true // Avoid duplicate declarations
+        }));
+
+    // Output both the partials and the templates as build/js/templates.js
+    return merge(partials, templates)
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest('public/src/js'));
 });
