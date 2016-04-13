@@ -34,6 +34,7 @@ gulp.task('cleanDryRun', function() {
 /** JS LINTER **/
 gulp.task('lint', function() {
     return gulp.src(['public/src/js/namespace.js',
+                     'public/src/js/templates.js',
                      'public/src/js/app.js',
                      'public/src/js/router.js',
                      'public/src/js/models/*.js',
