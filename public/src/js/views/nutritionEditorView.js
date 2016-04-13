@@ -80,7 +80,6 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
     /** Get the latest values for user editable attributes */
     userAttributes: function() {
         return {
-            sortOrder: nt.Collections.tracker.nextOrder(),
             trackDate:  this.$el.find('#foodTrackDate').val().trim(),
             itemName: this.$el.find('#foodName').val().trim(),
             servingCount: this.count,

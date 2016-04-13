@@ -18,18 +18,9 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(/** @lends nt.Colle
 
     }, // initialize
 
-    /** This generates the next order number for new items. */
-    nextOrder: function() {
-        if ( !this.length ) {
-            return 1;
-        }
-            return this.last().get('sortOrder') + 1;
-
-    }, // nextOrder
-
-    /** Each food item is sorted by its original insertion order. */
+    /** Each food item is sorted by date */
     comparator: function( food ) {
-            return food.get('sortOrder');
+            return food.get('trackDate');
     }, // comparator
 
     /** Returns a group of models with the same date */
