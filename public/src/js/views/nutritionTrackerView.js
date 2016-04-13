@@ -27,6 +27,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         _.bindAll(this, 'sumCals', 'sumFat', 'sumCarbs', 'sumProt');
 
         Handlebars.registerHelper({
+          title: this.title,
           sumCals: this.sumCals,
           sumFat:  this.sumFat,
           sumCarbs: this.sumCarbs,
@@ -42,6 +43,11 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
         this.collection.fetch();
 
     }, // initialize
+
+    /** Display date tooltip if displayAll option is true */
+    title: function(date) {
+        if(nt.Option.displayAll) return new Handlebars.SafeString('title="' + date + '"');
+    }, // all
 
     /** Sum of calories */
     sumCals: function() {

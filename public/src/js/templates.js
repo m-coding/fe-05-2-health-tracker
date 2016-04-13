@@ -1,3 +1,16 @@
+Handlebars.registerPartial("servings-partial", Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return " × "
+    + container.escapeExpression(((helper = (helper = helpers.servingCount || (depth0 != null ? depth0.servingCount : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"servingCount","hash":{},"data":data}) : helper)));
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return alias4(((helper = (helper = helpers.valueServingSize || (depth0 != null ? depth0.valueServingSize : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"valueServingSize","hash":{},"data":data}) : helper)))
+    + " "
+    + alias4(((helper = (helper = helpers.valueServingSizeUnit || (depth0 != null ? depth0.valueServingSizeUnit : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"valueServingSizeUnit","hash":{},"data":data}) : helper)))
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.moreThanOne : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true}));
 this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["Templates"] = this["Handlebars"]["Templates"] || {};
 this["Handlebars"]["Templates"]["buttons"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
@@ -11,19 +24,6 @@ this["Handlebars"]["Templates"]["buttons"] = Handlebars.template({"1":function(c
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.tracking : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "    </div>";
 },"useData":true});
-Handlebars.registerPartial("servings", Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var helper;
-
-  return " × "
-    + container.escapeExpression(((helper = (helper = helpers.servingCount || (depth0 != null ? depth0.servingCount : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"servingCount","hash":{},"data":data}) : helper)));
-},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
-
-  return alias4(((helper = (helper = helpers.valueServingSize || (depth0 != null ? depth0.valueServingSize : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"valueServingSize","hash":{},"data":data}) : helper)))
-    + " "
-    + alias4(((helper = (helper = helpers.valueServingSizeUnit || (depth0 != null ? depth0.valueServingSizeUnit : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"valueServingSizeUnit","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.moreThanOne : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
-},"useData":true}));
 this["Handlebars"]["Templates"]["editor"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -40,7 +40,7 @@ this["Handlebars"]["Templates"]["editor"] = Handlebars.template({"compiler":[7,"
     + " g\">\r\n      </div>\r\n      <br>\r\n      <div class=\"input-group\">\r\n        <span class=\"input-group-addon protein-addon\">Protein</span>\r\n        <input disabled type=\"text\" class=\"form-control\" id=\"foodProtein\" value=\""
     + alias4(((helper = (helper = helpers.valueProteins || (depth0 != null ? depth0.valueProteins : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"valueProteins","hash":{},"data":data}) : helper)))
     + " g\">\r\n      </div>\r\n      <br>\r\n      <div class=\"input-group\">\r\n        <span class=\"input-group-addon serving-addon\">Serving</span>\r\n        <input disabled type=\"text\" class=\"form-control\" id=\"foodServingSize\" value=\""
-    + ((stack1 = container.invokePartial(partials.servings,depth0,{"name":"servings","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + ((stack1 = container.invokePartial(partials["servings-partial"],depth0,{"name":"servings-partial","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "\">\r\n        <input type=\"hidden\" id=\"foodServingCount\" value=\""
     + alias4(((helper = (helper = helpers.servingCount || (depth0 != null ? depth0.servingCount : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"servingCount","hash":{},"data":data}) : helper)))
     + "\">\r\n        <span class=\"input-group-btn\">\r\n          <button id=\"servingIncrease\" class=\"btn\" type=\"button\"><i class=\"glyphicon glyphicon-triangle-top\"></i></button>\r\n          <button id=\"servingDecrease\" class=\"btn\" type=\"button\"><i class=\"glyphicon glyphicon-triangle-bottom\"></i></button>\r\n        </span>\r\n      </div>\r\n      <br>\r\n      <button id=\"foodSave\" type=\"submit\" class=\"btn btn-default btn-block\">Save Food</button>\r\n    </form>";
@@ -106,24 +106,26 @@ this["Handlebars"]["Templates"]["search"] = Handlebars.template({"compiler":[7,"
     return "  <div class=\"input-group\">\r\n    <input id=\"search-food\" type=\"search\" class=\"form-control\" placeholder=\"What did you eat?\">\r\n    <span class=\"input-group-btn\">\r\n      <button class=\"btn btn-default\" type=\"button\" id=\"search-clear\" title=\"Clear\">\r\n        <i class=\"glyphicon glyphicon-remove-circle\"></i>\r\n      </button>\r\n    </span>\r\n  </div>\r\n  <ul class=\"dropdown-menu\"></ul>";
 },"useData":true});
 this["Handlebars"]["Templates"]["tracked"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : {}, alias4=helpers.helperMissing;
+    var stack1, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=container.escapeExpression, alias4=container.lambda;
 
-  return "        <tr class=\"tracked-row\">\r\n          <td class=\"tracked-attr\"><a class=\"tracked-edit\" href=\"#edit\" data-item=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.id : stack1), depth0))
+  return "        <tr class=\"tracked-row\""
+    + alias3((helpers.title || (depth0 && depth0.title) || alias2).call(alias1,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.trackDate : stack1),{"name":"title","hash":{},"data":data}))
+    + ">\r\n          <td class=\"tracked-attr\"><a class=\"tracked-edit\" href=\"#edit\" data-item=\""
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.id : stack1), depth0))
     + "\" title=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.itemName : stack1), depth0))
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.itemName : stack1), depth0))
     + "\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.itemName : stack1), depth0))
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.itemName : stack1), depth0))
     + "</a></td>\r\n          <td class=\"tracked-attr\">"
-    + alias2((helpers.show || (depth0 && depth0.show) || alias4).call(alias3,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueCalories : stack1),{"name":"show","hash":{},"data":data}))
+    + alias3((helpers.show || (depth0 && depth0.show) || alias2).call(alias1,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueCalories : stack1),{"name":"show","hash":{},"data":data}))
     + "</td>\r\n          <td class=\"tracked-attr\">"
-    + alias2((helpers.show || (depth0 && depth0.show) || alias4).call(alias3,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueTotalFat : stack1),{"name":"show","hash":{},"data":data}))
+    + alias3((helpers.show || (depth0 && depth0.show) || alias2).call(alias1,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueTotalFat : stack1),{"name":"show","hash":{},"data":data}))
     + "</td>\r\n          <td class=\"tracked-attr\">"
-    + alias2((helpers.show || (depth0 && depth0.show) || alias4).call(alias3,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueTotalCarb : stack1),{"name":"show","hash":{},"data":data}))
+    + alias3((helpers.show || (depth0 && depth0.show) || alias2).call(alias1,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueTotalCarb : stack1),{"name":"show","hash":{},"data":data}))
     + "</td>\r\n          <td class=\"tracked-attr\">"
-    + alias2((helpers.show || (depth0 && depth0.show) || alias4).call(alias3,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueProteins : stack1),{"name":"show","hash":{},"data":data}))
+    + alias3((helpers.show || (depth0 && depth0.show) || alias2).call(alias1,((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.valueProteins : stack1),{"name":"show","hash":{},"data":data}))
     + "</td>\r\n          <td class=\"tracked-attr\"><i class=\"tracked-delete glyphicon glyphicon-remove\" data-id=\""
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.id : stack1), depth0))
+    + alias3(alias4(((stack1 = (depth0 != null ? depth0.attributes : depth0)) != null ? stack1.id : stack1), depth0))
     + "\" title=\"Delete\"></i></td>\r\n        </tr>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;

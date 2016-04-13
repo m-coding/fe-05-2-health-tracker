@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         {{#each models}}
-        <tr class="tracked-row">
+        <tr class="tracked-row"{{title attributes.trackDate}}>
           <td class="tracked-attr"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
           <td class="tracked-attr">{{show attributes.valueCalories}}</td>
           <td class="tracked-attr">{{show attributes.valueTotalFat}}</td>
