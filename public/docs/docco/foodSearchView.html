@@ -75,6 +75,11 @@
                 </a>
               
                 
+                <a class="source" href="templates.html">
+                  templates.js
+                </a>
+              
+                
                 <a class="source" href="foodSearchView.html">
                   foodSearchView.js
                 </a>
@@ -144,7 +149,7 @@ nt.Views.Search = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
     prevQuery: <span class="hljs-string">''</span>,
 
-    itemTemplate: Handlebars.compile( $(<span class="hljs-string">'#item-template'</span>).html() ),
+    itemTemplate: Handlebars.Templates.item,
 
     events: {
         <span class="hljs-string">'click #search-help'</span>: <span class="hljs-string">'toggleHelp'</span>,

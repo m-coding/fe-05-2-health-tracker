@@ -75,6 +75,11 @@
                 </a>
               
                 
+                <a class="source" href="templates.html">
+                  templates.js
+                </a>
+              
+                
                 <a class="source" href="foodSearchView.html">
                   foodSearchView.js
                 </a>
@@ -142,7 +147,7 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
 
     el: <span class="hljs-string">'#app'</span>,
 
-    buttonsTemplate: Handlebars.compile( $(<span class="hljs-string">'#buttons-template'</span>).html() ),
+    buttonsTemplate: Handlebars.Templates.buttons,
 
     events: {
         <span class="hljs-string">'click .item-nutrition'</span>: <span class="hljs-string">'openNutrition'</span>,

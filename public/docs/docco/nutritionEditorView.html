@@ -75,6 +75,11 @@
                 </a>
               
                 
+                <a class="source" href="templates.html">
+                  templates.js
+                </a>
+              
+                
                 <a class="source" href="foodSearchView.html">
                   foodSearchView.js
                 </a>
@@ -144,9 +149,7 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
     className: <span class="hljs-string">'edit-item'</span>,
 
-    editorTemplate: Handlebars.compile( $(<span class="hljs-string">'#editor-template'</span>).html() ),
-
-    servingsTemplate: $(<span class="hljs-string">'#servings-template'</span>).html().trim(),
+    editorTemplate: Handlebars.Templates.editor,
 
     count: <span class="hljs-number">1</span>,
 
@@ -157,11 +160,9 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
         <span class="hljs-string">'click #servingDecrease'</span>: <span class="hljs-string">'servingDecrease'</span>
     },
 
-    <span class="hljs-comment">/** Setup a partial template and create a new food model this view will display */</span>
+    <span class="hljs-comment">/** Create a new food model this view will display */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        Handlebars.registerPartial(<span class="hljs-string">'servings'</span>, <span class="hljs-keyword">this</span>.servingsTemplate);
         <span class="hljs-keyword">this</span>.createFood().listenTo(<span class="hljs-keyword">this</span>.food, <span class="hljs-string">'change'</span>, <span class="hljs-keyword">this</span>.updateView);
-
     }, <span class="hljs-comment">// initialize</span>
 
     <span class="hljs-comment">/** Re-render the editor view */</span>

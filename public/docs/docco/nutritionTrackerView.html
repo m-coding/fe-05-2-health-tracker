@@ -75,6 +75,11 @@
                 </a>
               
                 
+                <a class="source" href="templates.html">
+                  templates.js
+                </a>
+              
+                
                 <a class="source" href="foodSearchView.html">
                   foodSearchView.js
                 </a>
@@ -142,7 +147,7 @@ nt.Views.Tracker = Backbone.View.extend(<span class="hljs-comment">/** @lends nt
 
     el: <span class="hljs-string">'#tracker'</span>,
 
-    trackedTemplate: Handlebars.compile( $(<span class="hljs-string">'#tracked-template'</span>).html() ),
+    trackedTemplate: Handlebars.Templates.tracked,
 
     emptyMessage: <span class="hljs-string">'&lt;p&gt;No foods are being tracked.&lt;/p&gt;&lt;p&gt;Do a search and add something!&lt;/p&gt;'</span>,
 

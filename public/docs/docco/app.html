@@ -75,6 +75,11 @@
                 </a>
               
                 
+                <a class="source" href="templates.html">
+                  templates.js
+                </a>
+              
+                
                 <a class="source" href="foodSearchView.html">
                   foodSearchView.js
                 </a>
@@ -183,7 +188,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    nt.Plugin.Typeahead = Backbone.Typeahead.extend({ template: $(<span class="hljs-string">'#search-template'</span>).html() });
+            <div class="content"><div class='highlight'><pre>    nt.Plugin.Typeahead = Backbone.Typeahead.extend({ template: Handlebars.Templates.search });
     nt.Plugin.Instance = <span class="hljs-keyword">new</span> nt.Plugin.Typeahead({ collection: nt.Collections.suggest, key: <span class="hljs-string">'text'</span> });
     nt.Plugin.Instance.setElement(<span class="hljs-string">'#search-suggest'</span>).render();</pre></div></div>
             
