@@ -11,7 +11,7 @@ $(document).ready(function() {
     nt.Collections.tracker = new nt.Collections.NutritionTracker();
 
     // Instantiate the autocomplete plugin
-    nt.Plugin.Typeahead = Backbone.Typeahead.extend({ template: $('#search-template').html() });
+    nt.Plugin.Typeahead = Backbone.Typeahead.extend({ template: Handlebars.Templates.search });
     nt.Plugin.Instance = new nt.Plugin.Typeahead({ collection: nt.Collections.suggest, key: 'text' });
     nt.Plugin.Instance.setElement('#search-suggest').render();
 

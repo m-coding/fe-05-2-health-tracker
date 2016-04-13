@@ -7,7 +7,7 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
 
     el: '#app',
 
-    buttonsTemplate: Handlebars.compile( $('#buttons-template').html() ),
+    buttonsTemplate: Handlebars.Templates.buttons,
 
     events: {
         'click .item-nutrition': 'openNutrition',

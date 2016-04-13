@@ -127,184 +127,7 @@
     </main>
   </div><!-- /.container -->
 
-  <!-- TEMPLATES -->
-  <!-- search -->
-  <script type="text/x-handlebars-template" id="search-template">
-  <div class="input-group">
-    <input id="search-food" type="search" class="form-control" placeholder="What did you eat?">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button" id="search-clear" title="Clear">
-        <i class="glyphicon glyphicon-remove-circle"></i>
-      </button>
-    </span>
-  </div>
-  <ul class="dropdown-menu"></ul>
-  </script>
-
-  <!-- item -->
-  <script type="text/x-handlebars-template" id="item-template">
-    <h4 id="recipe-open">
-      <span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Recipe Suggestions</span>
-    </h4>
-    {{#each items}}
-    <div class="item">
-      <h4><a class="item-nutrition" href="{{id}}" data-item="{{id}}">{{name}}</a></h4>
-      <h6>Cals: {{calories}} | Fat: {{fat}}g | Carbs: {{carbs}}g | Prot: {{protein}}g</h6>
-      <h6>Serving: {{servingSize}} {{servingUnit}}</h6>
-    </div>
-    {{/each}}
-    <footer class="logo">
-      <a href="http://www.nutritionix.com/api" target="_blank"><img src="images/nutritionix.png" alt="Powered By Nutritionix"></a>
-    </footer>
-  </script>
-
-  <!-- recipe -->
-  <script type="text/x-handlebars-template" id="recipe-template">
-    {{#each recipes}}
-    <div class="recipe-item">
-      <h4>{{recipeTitle}}</h4>
-      <div class="r-container">
-        <div class="r-image">
-          <img class="thumb" src="{{recipeImage}}" alt="{{recipeTitle}}">
-        </div>
-        <div class="r-text">
-          <img class="icon" src="{{siteIcon}}" alt="{{siteTitle}}">
-          <a href="{{siteLink}}" target="_blank">{{siteTitle}}</a>
-          <h6>{{numCalories}} Calories Per Serving</h6>
-          <h6>{{numIngredients}} Ingredients</h6>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-    <footer class="logo">
-      <a href="https://developer.edamam.com" target="_blank"><img src="images/edamam.png" alt="Powered By Edamam"></a>
-    </footer>
-  </script>
-
-  <!-- buttons -->
-  <script type="text/x-handlebars-template" id="buttons-template">
-    <div class="buttons">
-      {{#if tracking}}
-        <p><button id="nutrition-track" type="button" class="btn btn-warning btn-xs btn-block">
-        <i class="glyphicon glyphicon-ok-circle"></i> Tracking
-        </button></p>
-        <button id="nutrition-close" type="button" class="btn btn-primary btn-sm">
-        <i class="glyphicon glyphicon-arrow-left"></i> Back
-        </button>
-        <button id="nutrition-add" type="button" class="btn btn-info btn-sm">
-        <i class="glyphicon glyphicon-pencil"></i> Edit
-        </button>
-        <button id="nutrition-remove" type="button" class="btn btn-danger btn-sm">
-        <i class="glyphicon glyphicon-remove"></i> Remove
-        </button>
-      {{else}}
-        <p><button type="button" class="btn btn-default btn-xs btn-block" disabled>
-        <i class="glyphicon glyphicon-ban-circle"></i> Not Tracking
-        </button></p>
-        <button id="nutrition-close" type="button" class="btn btn-primary btn-sm">
-        <i class="glyphicon glyphicon-arrow-left"></i> Back
-        </button>
-        <button id="nutrition-add" type="button" class="btn btn-success btn-sm">
-        <i class="glyphicon glyphicon-plus"></i> Add
-        </button>
-      {{/if}}
-    </div>
-  </script>
-
-  <!-- tracked -->
-  <script type="text/x-handlebars-template" id="tracked-template">
-    <table class="tracked-item">
-      <thead>
-        <tr>
-          <th class="tracked-first">Food</th>
-          <th title="Calories">Cals</th>
-          <th>Fat</th>
-          <th title="Carbohydrates">Carbs</th>
-          <th title="Protein">Prot</th>
-          <th class="tracked-last"><i class="glyphicon glyphicon-remove"></i></th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each models}}
-        <tr class="tracked-row">
-          <td class="tracked-attr"><a class="tracked-edit" href="#edit" data-item="{{attributes.id}}" title="{{attributes.itemName}}">{{attributes.itemName}}</a></td>
-          <td class="tracked-attr">{{show attributes.valueCalories}}</td>
-          <td class="tracked-attr">{{show attributes.valueTotalFat}}</td>
-          <td class="tracked-attr">{{show attributes.valueTotalCarb}}</td>
-          <td class="tracked-attr">{{show attributes.valueProteins}}</td>
-          <td class="tracked-attr"><i class="tracked-delete glyphicon glyphicon-remove" data-id="{{attributes.id}}" title="Delete"></i></td>
-        </tr>
-        {{/each}}
-      </tbody>
-      <tfoot>
-        <tr class="totals-row">
-          <td class="totals-attr">TOTALS</td>
-          <td class="totals-attr">{{sumCals}}</td>
-          <td class="totals-attr">{{sumFat}}</td>
-          <td class="totals-attr">{{sumCarbs}}</td>
-          <td class="totals-attr" colspan="2">{{sumProt}}</td>
-        </tr>
-      </tfoot>
-    </table>
-  </script>
-
-  <!-- editor -->
-  <script type="text/x-handlebars-template" id="editor-template">
-    <div id="editor-top">
-      <h3>Food Summary</h3>
-      <span id="foodClose" class="glyphicon glyphicon-remove-circle"></span>
-    </div>
-    <br>
-    <form>
-      <div class="input-group date" id="dateTimePicker">
-        <span class="input-group-addon">Track Date</span>
-        <input type="text" class="form-control" id="foodTrackDate" value="{{trackDate}}">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon">Name</span>
-        <input type="text" class="form-control" id="foodName" value="{{itemName}}">
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon calories-addon">Calories</span>
-        <input disabled type="text" class="form-control" id="foodCalories" value="{{valueCalories}} kcal">
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon fat-addon">Fat</span>
-        <input disabled type="text" class="form-control" id="foodFat" value="{{valueTotalFat}} g">
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon carbs-addon">Carbohydrates</span>
-        <input disabled type="text" class="form-control" id="foodCarbs" value="{{valueTotalCarb}} g">
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon protein-addon">Protein</span>
-        <input disabled type="text" class="form-control" id="foodProtein" value="{{valueProteins}} g">
-      </div>
-      <br>
-      <div class="input-group">
-        <span class="input-group-addon serving-addon">Serving</span>
-        <input disabled type="text" class="form-control" id="foodServingSize" value="{{> servings}}">
-        <input type="hidden" id="foodServingCount" value="{{servingCount}}">
-        <span class="input-group-btn">
-          <button id="servingIncrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-top"></i></button>
-          <button id="servingDecrease" class="btn" type="button"><i class="glyphicon glyphicon-triangle-bottom"></i></button>
-        </span>
-      </div>
-      <br>
-      <button id="foodSave" type="submit" class="btn btn-default btn-block">Save Food</button>
-    </form>
-  </script>
-
-  <!-- servings -->
-  <script type="text/x-handlebars-template" id="servings-template">
-    {{valueServingSize}} {{valueServingSizeUnit}}{{#if moreThanOne}} × {{servingCount}}{{/if}}
-  </script>
+  <!-- TEMPLATES see /templates directory -->
 
   <!-- SCRIPTS -->
   <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
@@ -319,11 +142,12 @@
   <script src="js/lib/backbone.localStorage-min.js"></script>
   <script src="js/lib/backbone.typeahead.min.js"></script>
   <script src="js/lib/eqHeights.min.js"></script>
-  <script src="js/lib/handlebars.min-latest.js"></script>
+  <script src="js/lib/handlebars.runtime.min.js"></script>
   <script src="js/lib/nutritionLabel-min.js"></script>
   <!-- endbuild -->
   <!-- build:js js/nutritionTracker.min.js -->
   <script src="js/namespace.js"></script>
+  <script src="js/templates.js"></script>
   <script src="js/models/food.js"></script>
   <script src="js/models/recipe.js"></script>
   <script src="js/models/nutrition.js"></script>

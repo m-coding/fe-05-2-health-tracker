@@ -7,7 +7,7 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
     el: '#tracker',
 
-    trackedTemplate: Handlebars.compile( $('#tracked-template').html() ),
+    trackedTemplate: Handlebars.Templates.tracked,
 
     emptyMessage: '<p>No foods are being tracked.</p><p>Do a search and add something!</p>',
 

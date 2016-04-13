@@ -7,7 +7,7 @@ nt.Views.Recipe = Backbone.View.extend(/** @lends nt.Views.Recipe# */{
 
     el: '#search',
 
-    recipeTemplate: Handlebars.compile( $('#recipe-template').html() ),
+    recipeTemplate: Handlebars.Templates.recipe,
 
     events: {
         'click #recipe-open': 'openRecipes',

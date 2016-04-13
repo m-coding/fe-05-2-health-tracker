@@ -9,9 +9,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     className: 'edit-item',
 
-    editorTemplate: Handlebars.compile( $('#editor-template').html() ),
-
-    servingsTemplate: $('#servings-template').html().trim(),
+    editorTemplate: Handlebars.Templates.editor,
 
     count: 1,
 
@@ -22,11 +20,9 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         'click #servingDecrease': 'servingDecrease'
     },
 
-    /** Setup a partial template and create a new food model this view will display */
+    /** Create a new food model this view will display */
     initialize: function() {
-        Handlebars.registerPartial('servings', this.servingsTemplate);
         this.createFood().listenTo(this.food, 'change', this.updateView);
-
     }, // initialize
 
     /** Re-render the editor view */

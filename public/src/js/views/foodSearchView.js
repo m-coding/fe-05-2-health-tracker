@@ -9,7 +9,7 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     prevQuery: '',
 
-    itemTemplate: Handlebars.compile( $('#item-template').html() ),
+    itemTemplate: Handlebars.Templates.item,
 
     events: {
         'click #search-help': 'toggleHelp',
