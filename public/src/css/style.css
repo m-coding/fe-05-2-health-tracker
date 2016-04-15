@@ -110,6 +110,12 @@ body {
     border: 1px solid #aaa;
 }
 
+@media (max-width: 640px) {
+    #start-screen div {
+        max-width: 280px;
+    }
+}
+
 #start-screen h1 {
     color: #aaa;
 }
