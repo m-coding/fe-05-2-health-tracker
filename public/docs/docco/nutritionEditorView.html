@@ -160,7 +160,7 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
         <span class="hljs-string">'click #servingDecrease'</span>: <span class="hljs-string">'servingDecrease'</span>
     },
 
-    <span class="hljs-comment">/** Create a new food model this view will display */</span>
+    <span class="hljs-comment">/** Create a new food model this view will display and listen for changes */</span>
     initialize: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">this</span>.createFood().listenTo(<span class="hljs-keyword">this</span>.food, <span class="hljs-string">'change'</span>, <span class="hljs-keyword">this</span>.updateView);
     }, <span class="hljs-comment">// initialize</span>
@@ -270,7 +270,6 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
     <span class="hljs-comment">/** Get the latest values for user editable attributes */</span>
     userAttributes: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         <span class="hljs-keyword">return</span> {
-            sortOrder: nt.Collections.tracker.nextOrder(),
             trackDate:  <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodTrackDate'</span>).val().trim(),
             itemName: <span class="hljs-keyword">this</span>.$el.find(<span class="hljs-string">'#foodName'</span>).val().trim(),
             servingCount: <span class="hljs-keyword">this</span>.count,
@@ -430,7 +429,7 @@ nt.Views.Editor = Backbone.View.extend(<span class="hljs-comment">/** @lends nt.
 
     }, <span class="hljs-comment">// saveFood</span>
 
-    <span class="hljs-comment">/** Destroy this view */</span>
+    <span class="hljs-comment">/** Destroy date picker and this view */</span>
     close: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
         $(<span class="hljs-string">'#dateTimePicker'</span>).data(<span class="hljs-string">'DateTimePicker'</span>).destroy();
         <span class="hljs-keyword">this</span>.remove();

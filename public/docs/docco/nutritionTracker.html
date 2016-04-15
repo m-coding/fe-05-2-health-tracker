@@ -158,18 +158,9 @@ nt.Collections.NutritionTracker = Backbone.Collection.extend(<span class="hljs-c
 
     }, <span class="hljs-comment">// initialize</span>
 
-    <span class="hljs-comment">/** This generates the next order number for new items. */</span>
-    nextOrder: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">if</span> ( !<span class="hljs-keyword">this</span>.length ) {
-            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-        }
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.last().get(<span class="hljs-string">'sortOrder'</span>) + <span class="hljs-number">1</span>;
-
-    }, <span class="hljs-comment">// nextOrder</span>
-
-    <span class="hljs-comment">/** Each food item is sorted by its original insertion order. */</span>
+    <span class="hljs-comment">/** Each food item is sorted by date */</span>
     comparator: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"> food </span>) </span>{
-            <span class="hljs-keyword">return</span> food.get(<span class="hljs-string">'sortOrder'</span>);
+            <span class="hljs-keyword">return</span> food.get(<span class="hljs-string">'trackDate'</span>);
     }, <span class="hljs-comment">// comparator</span>
 
     <span class="hljs-comment">/** Returns a group of models with the same date */</span>

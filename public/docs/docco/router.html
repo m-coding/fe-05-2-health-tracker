@@ -245,7 +245,7 @@
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span>(!isTrackerOpen) $(<span class="hljs-string">'#tab2'</span>).trigger(<span class="hljs-string">'click'</span>);
 
         <span class="hljs-keyword">if</span>(optDisplay === <span class="hljs-string">'all'</span>) {
-            $(<span class="hljs-string">'#tracker-top h5'</span>).hide();
+            $(<span class="hljs-string">'#dtContainer'</span>).hide();
             nt.Option.displayAll = <span class="hljs-literal">true</span>;
             nt.Views.tracker.$dtp.data(<span class="hljs-string">'DateTimePicker'</span>).date( moment(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()) );
         }
@@ -279,7 +279,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-string">'#tracker-top h5'</span>).show();
+            <div class="content"><div class='highlight'><pre>            $(<span class="hljs-string">'#dtContainer'</span>).show();
             nt.Option.displayAll = <span class="hljs-literal">false</span>;
             nt.Option.trackerDate = optDate;</pre></div></div>
             
