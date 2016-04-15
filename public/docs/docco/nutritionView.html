@@ -528,7 +528,10 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
     <span class="hljs-comment">/** Get food item details from Nutritionix */</span>
     getNutrition: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">itemID</span>) </span>{
         <span class="hljs-keyword">var</span> parameters = {
-            <span class="hljs-string">'id'</span>: itemID,</pre></div></div>
+            <span class="hljs-string">'id'</span>: itemID,
+            <span class="hljs-string">'appId'</span>: <span class="hljs-string">'53242d79'</span>,
+            <span class="hljs-string">'appKey'</span>: <span class="hljs-string">'82289438a16ec7b92cdcf5ad054159c4'</span>
+        };</pre></div></div>
             
         </li>
         
@@ -539,14 +542,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
-              <p>‘appId’: ‘53242d79’,
-‘appKey’: ‘82289438a16ec7b92cdcf5ad054159c4’</p>
+              <p>Display loading animation</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>            <span class="hljs-string">'appId'</span> : <span class="hljs-string">'6cfe5724'</span>,
-            <span class="hljs-string">'appKey'</span>: <span class="hljs-string">'c739db07d452b910ad53765fdeb6cc8d'</span>
-        };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$nutritionMenu.html(nt.preloader);</pre></div></div>
             
         </li>
         
@@ -557,21 +557,6 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
-              <p>Display loading animation</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">this</span>.$nutritionMenu.html(nt.preloader);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-24">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
-              </div>
               <p>Clear the model</p>
 
             </div>
@@ -581,11 +566,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-25">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>Make GET request to Nutritionix</p>
 
@@ -624,11 +609,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-26">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Don’t draw a chart if all the values are zero</p>
 
@@ -639,11 +624,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-27">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Add ‘g’ for grams unit to the values</p>
 
@@ -655,11 +640,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-28">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Clear chart.</p>
 
@@ -670,11 +655,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-29">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>Instantiate chart.</p>
 
@@ -687,11 +672,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-30">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>Apply formatter to second column</p>
 
@@ -702,11 +687,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-31">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p>Draw chart.</p>
 
@@ -723,11 +708,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-32">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Reference Example #2
 <a href="http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html">http://dev2.nutritionix.com/html/label-jquery-plugin/demo/demo.html</a></p>
@@ -737,11 +722,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-33">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Reset the element and previous event handlers</p>
 
@@ -753,11 +738,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-34">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>Activate Nutrition Label jQuery Plugin by Nutritionix</p>
 
@@ -774,11 +759,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-35">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>Clear button menu container</p>
 
@@ -789,11 +774,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-36">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Set tracking flag</p>
 
@@ -804,11 +789,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-37">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>Add the button menu html</p>
 
@@ -826,11 +811,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-38">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>Create an editor view with the nutrition data model</p>
 
@@ -841,11 +826,11 @@ nt.Views.Nutrition = Backbone.View.extend(<span class="hljs-comment">/** @lends 
         </li>
         
         
-        <li id="section-39">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>Render the editor view and append its element to the nutrition view</p>
 
