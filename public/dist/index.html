@@ -13,14 +13,14 @@
   <div class="container no-padding">
 
     <!-- App start -->
-    <aside id="start-screen" class="row">
+    <div id="start-screen" class="row">
       <div class="col-xs-12 center-block">
       <h1>Nutrition</h1>
       <img src="images/list.png" alt="list">
       <h1>Tracker</h1>
       <button type="button" class="btn btn-success">Start App</button>
       </div>
-    </aside>
+    </div>
 
     <!-- App main -->
     <main id="app" class="row row-centered no-gutter">
@@ -38,13 +38,14 @@
           <!-- Search pane -->
           <div role="tabpanel" class="tab-pane active" id="search">
             <div id="search-top">
-              <h3>Food Search
-              <span class="btn-group">
-                <button type="button" id="search-help" title="Help">
-                  <i class="glyphicon glyphicon-question-sign"></i>
-                </button>
-              </span>
-              </h3>
+              <header>
+                <h3>Food Search</h3>
+                <span class="btn-group">
+                  <button type="button" id="search-help" title="Help">
+                    <i class="glyphicon glyphicon-question-sign"></i>
+                  </button>
+                </span>
+              </header>
               <!-- Search help text -->
               <div class="alert alert-info" id="search-help-text">
                 <button type="button" class="close" aria-label="Close">
@@ -65,7 +66,7 @@
               </div>
               <!-- Search box -->
               <form id="search-suggest" autocomplete="off"></form>
-            </div>
+            </div><!-- /#search-top -->
             <div id="search-results"></div>
             <div id="recipe-top">
               <h3>Recipe Suggestions</h3>
@@ -77,7 +78,8 @@
           <!-- Tracker pane -->
           <div role="tabpanel" class="tab-pane" id="tracker">
             <div id="tracker-top">
-              <h3>Nutrition Tracker
+              <header>
+                <h3>Nutrition Tracker</h3>
                 <!-- Tracker options -->
                 <div class="btn-group">
                   <button id="dtDisplay" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Options">
@@ -88,14 +90,14 @@
                     <li><a id="optAll" href="#all">Display all</a></li>
                   </ul>
                 </div>
-              </h3>
+              </header>
               <!-- Tracker date picker -->
-              <h5>
+              <div id="dtContainer">
                 <i id="dtBack" class="glyphicon glyphicon-triangle-left"></i>
                 <input id="dtPicker" class="btn btn-default btn-xs" type="text">
                 <i id="dtForward" class="glyphicon glyphicon-triangle-right"></i>
-              </h5>
-            </div>
+              </div>
+            </div><!-- /#tracker-top -->
             <div id="tracker-results">
               <p>No foods are being tracked.</p>
               <p>Do a search and add something!</p>
@@ -105,7 +107,7 @@
       </section><!-- /.col-xs-6 -->
 
       <!-- Column 2 -->
-      <section id="nutrition" class="col-xs-6 col-centered vtop hideColumn eqHeights overlayColumn">
+      <aside id="nutrition" class="col-xs-6 col-centered vtop hideColumn eqHeights overlayColumn">
         <!-- Nutrition info -->
         <div id="nutrition-button-menu"></div>
         <div id="nutrition-results" class="flex-container">
@@ -117,7 +119,7 @@
             <figure id="nlabel"></figure>
           </div><!-- /.flex-item -->
         </div><!-- /#nutrition-results -->
-      </section><!-- /.col-xs-6 -->
+      </aside><!-- /.col-xs-6 -->
 
     </main>
   </div><!-- /.container -->
