@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     del = require('del'),
     path = require('path'),
     merge = require('merge-stream'),
+    lazypipe = require('lazypipe'),
     eslint = require('gulp-eslint'),
     cssnano = require('gulp-cssnano'),
     uglify = require('gulp-uglify'),
@@ -14,7 +15,8 @@ var gulp = require('gulp'),
     handlebars = require('gulp-handlebars'),
     wrap = require('gulp-wrap'),
     declare = require('gulp-declare'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    sourcemaps = require('gulp-sourcemaps');
 
 
 /** Default task **/
@@ -45,13 +47,14 @@ gulp.task('lint', function() {
         .pipe(eslint.failAfterError());
 });
 
-/** CONCAT, MINIFY, and REPLACE HTML **/
+/** CONCAT, MINIFY, CREATE SOURCEMAP and REPLACE HTML **/
 gulp.task('replace-html', ['lint'], function() {
     return gulp.src('public/src/index.html')
-        .pipe(useref())
+        .pipe(useref({}, lazypipe().pipe(sourcemaps.init)))
         .pipe(gulpif('*.css', cssnano()))
         .pipe(ignore.exclude('public/src/js/lib/*.js'))
         .pipe(gulpif('*.js', uglify({preserveComments: 'license'})))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('public/dist'));
 });
 
@@ -103,7 +106,7 @@ gulp.task('compile-templates', function() {
             noRedeclare: true // Avoid duplicate declarations
         }));
 
-    // Output both the partials and the templates as build/js/templates.js
+    // Output both the partials and the templates as public/src/js/templates.js
     return merge(partials, templates)
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('public/src/js'));
