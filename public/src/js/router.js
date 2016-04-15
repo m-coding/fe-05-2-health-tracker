@@ -69,7 +69,7 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
         if(!isTrackerOpen) $('#tab2').trigger('click');
 
         if(optDisplay === 'all') {
-            $('#tracker-top h5').hide();
+            $('#dtContainer').hide();
             nt.Option.displayAll = true;
             nt.Views.tracker.$dtp.data('DateTimePicker').date( moment(new Date()) );
         }
@@ -78,7 +78,7 @@ nt.Router = Backbone.Router.extend(/** @lends nt.Router# */{
             var formattedDate = moment(optDate).format('MMMM D, YYYY');
 
             // Set options based on display setting
-            $('#tracker-top h5').show();
+            $('#dtContainer').show();
             nt.Option.displayAll = false;
             nt.Option.trackerDate = optDate;
 

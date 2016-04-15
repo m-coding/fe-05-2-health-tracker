@@ -194,10 +194,10 @@ nt.Views.Tracker = Backbone.View.extend(/** @lends nt.Views.Tracker# */{
 
         // Show/hide the date picker and navigation
         if(id === 'optDate') {
-            $('#tracker-top h5').show();
+            $('#dtContainer').show();
             nt.Option.displayAll = false;
         } else {
-            $('#tracker-top h5').hide();
+            $('#dtContainer').hide();
             nt.Option.displayAll = true;
         }
 
