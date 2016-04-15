@@ -7,8 +7,6 @@ nt.Views.Search = Backbone.View.extend(/** @lends nt.Views.Search# */{
 
     el: '#search-top',
 
-    prevQuery: '',
-
     itemTemplate: Handlebars.Templates.item,
 
     events: {
