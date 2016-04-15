@@ -18,7 +18,7 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(/** @lends nt.Col
         appKey: '82289438a16ec7b92cdcf5ad054159c4'
     },
 
-    /** Displays ajax error in the autocomplete drop menu */
+    /** Displays ajax error in the autocomplete drop menu and console */
     apiError: function(collection, response) {
         var errMsg = response.status + ' ' + response.statusText + ' : ' +
                      'Autocomplete server request error. <br> ' +

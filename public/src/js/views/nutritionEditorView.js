@@ -20,7 +20,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
         'click #servingDecrease': 'servingDecrease'
     },
 
-    /** Create a new food model this view will display */
+    /** Create a new food model this view will display and listen for changes */
     initialize: function() {
         this.createFood().listenTo(this.food, 'change', this.updateView);
     }, // initialize
@@ -142,7 +142,7 @@ nt.Views.Editor = Backbone.View.extend(/** @lends nt.Views.Editor# */{
 
     }, // saveFood
 
-    /** Destroy this view */
+    /** Destroy date picker and this view */
     close: function() {
         $('#dateTimePicker').data('DateTimePicker').destroy();
         this.remove();

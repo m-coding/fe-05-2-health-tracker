@@ -105,7 +105,7 @@ nt.Models.Nutrition = Backbone.Model.extend(/** @lends nt.Models.Nutrition# */{
 
     }, // validate
 
-    /** Updates value attributes */
+    /** Multiplies value attributes by number of servings */
     valueUpdate: function(attributes, num) {
         var keys = [
             'valueCalories',
