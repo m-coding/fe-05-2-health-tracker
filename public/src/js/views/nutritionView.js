@@ -83,6 +83,8 @@ nt.Views.Nutrition = Backbone.View.extend(/** @lends nt.Views.Nutrition# */{
         // Get item data from localStorage or from the API
         this.checkItem(id);
 
+        nt.Views.search.clearSearch();
+
     }, // openNutrition
 
     /** Check if the item selected is already in the tracker */
