@@ -9,7 +9,7 @@ nt.Collections.AutocompleteSearch = Backbone.Collection.extend(/** @lends nt.Col
     model: nt.Models.Autocomplete,
 
     /** Nutritionix v2 API "as you type" suggestions */
-    url: 'https://apibeta.nutritionix.com/v2/autocomplete',
+    url: 'https://api.nutritionix.com/v2/autocomplete',
 
     /** Parameters to pass for fetch requests */
     api: {
