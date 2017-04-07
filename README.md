@@ -1,3 +1,5 @@
+# NOTICE: PLEASE USE YOUR OWN API KEYS AND NOT MINE. THANKS. #
+
 # Nutrition Tracker
 A single page app that tracks your calorie intake and nutrition information for foods you eat.
 
